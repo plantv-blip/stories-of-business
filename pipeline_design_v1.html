@@ -3,9 +3,648 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stories of Business — Production Pipeline Design</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<title>Stories of Business — 생산 파이프라인 설계서 v1.0</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #0a0b0d;
+  --bg2:     #111318;
+  --bg3:     #181c24;
+  --bg4:     #1e2230;
+  --ink:     #e8e4dc;
+  --ink2:    #a8a49c;
+  --muted:   #5a5850;
+  --rule:    rgba(232,228,220,0.07);
+  --rule2:   rgba(232,228,220,0.04);
+  --gold:    #d4a853;
+  --gold2:   rgba(212,168,83,0.12);
+  --blue:    #4a9fd4;
+  --blue2:   rgba(74,159,212,0.1);
+  --green:   #4ad494;
+  --green2:  rgba(74,212,148,0.1);
+  --red:     #d44a4a;
+  --red2:    rgba(212,74,74,0.1);
+  --purple:  #9a7dd4;
+  --purple2: rgba(154,125,212,0.1);
+  --amber:   #d4944a;
+  --amber2:  rgba(212,148,74,0.1);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* COVER */
+.cover {
+  padding: 64px 64px 48px;
+  border-bottom: 1px solid var(--rule);
+  background: linear-gradient(160deg, #0d1020 0%, #0a0b0d 60%);
+}
+.cover-eyebrow {
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 20px;
+  display: flex; gap: 24px;
+}
+.cover-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 4vw, 52px); font-weight: 400;
+  line-height: 1.12; margin-bottom: 12px;
+}
+.cover-title em { font-style: italic; color: var(--gold); }
+.cover-sub { font-size: 15px; color: var(--ink2); max-width: 660px; line-height: 1.65; }
+.cover-meta {
+  display: flex; gap: 24px; margin-top: 32px; flex-wrap: wrap;
+}
+.cover-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px; border: 1px solid var(--rule);
+  border-radius: 3px; font-size: 11px; color: var(--ink2);
+}
+
+/* MAIN LAYOUT */
+main { display: flex; }
+
+.sidebar {
+  width: 220px; padding: 48px 32px; border-right: 1px solid var(--rule);
+  background: var(--bg2); position: sticky; top: 0; height: 100vh; overflow-y: auto;
+}
+.content { flex: 1; }
+.section { padding: 48px 64px; border-bottom: 1px solid var(--rule); }
+
+.nav-item {
+  display: block; padding: 8px 0; color: var(--ink2); text-decoration: none;
+  font-size: 13px; line-height: 1.6; transition: color 0.2s;
+  border-left: 2px solid transparent; padding-left: 12px;
+}
+.nav-item:hover { color: var(--ink); }
+.nav-item.active { color: var(--gold); border-left-color: var(--gold); }
+
+.nav-label {
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--muted); margin-top: 24px; margin-bottom: 8px; display: block;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 400;
+  margin-bottom: 8px; color: var(--ink);
+}
+.section-subtitle {
+  color: var(--ink2); font-size: 14px; margin-bottom: 32px; max-width: 700px;
+}
+
+.grid-2 {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 24px;
+}
+
+.card {
+  padding: 24px; border: 1px solid var(--rule); border-radius: 4px;
+  background: var(--bg3); transition: all 0.3s;
+}
+.card:hover {
+  border-color: var(--gold); background: var(--bg4);
+}
+.card-label {
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 8px;
+}
+.card-title {
+  font-size: 18px; font-weight: 500; margin-bottom: 12px; color: var(--ink);
+}
+.card-desc {
+  color: var(--ink2); font-size: 13px; line-height: 1.6;
+}
+
+.phase-timeline {
+  display: flex; flex-direction: column; gap: 24px; margin-top: 32px;
+}
+.phase-item {
+  padding: 24px; border-left: 3px solid var(--gold2); border-radius: 2px;
+  background: var(--bg3);
+}
+.phase-item.current {
+  border-left-color: var(--gold); background: var(--gold2);
+}
+.phase-num { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gold); margin-bottom: 8px; }
+.phase-name { font-size: 16px; font-weight: 500; margin-bottom: 8px; }
+.phase-time { font-size: 12px; color: var(--ink2); }
+
+.process-flow {
+  display: flex; align-items: center; gap: 16px; margin-top: 24px; flex-wrap: wrap;
+}
+.flow-box {
+  padding: 16px 24px; background: var(--bg3); border: 1px solid var(--rule);
+  border-radius: 4px; font-size: 12px; min-width: 120px; text-align: center;
+}
+.flow-arrow { color: var(--gold); font-size: 20px; }
+
+.metrics-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 24px;
+}
+.metric-box {
+  padding: 20px; background: var(--bg3); border: 1px solid var(--rule); text-align: center;
+}
+.metric-value { font-family: 'DM Mono', monospace; font-size: 24px; font-weight: 500; color: var(--gold); margin-bottom: 8px; }
+.metric-label { color: var(--ink2); font-size: 12px; }
+
+.risk-matrix {
+  margin-top: 24px; border: 1px solid var(--rule); border-radius: 4px; overflow: hidden;
+}
+.risk-row { display: flex; border-bottom: 1px solid var(--rule2); }
+.risk-row:last-child { border-bottom: none; }
+.risk-cell {
+  flex: 1; padding: 16px; font-size: 12px; text-align: center;
+  border-right: 1px solid var(--rule2);
+}
+.risk-cell:last-child { border-right: none; }
+.risk-high { background: var(--red2); color: var(--red); }
+.risk-medium { background: var(--amber2); color: var(--amber); }
+.risk-low { background: var(--green2); color: var(--green); }
+
+.info-box {
+  padding: 20px; background: var(--blue2); border-left: 3px solid var(--blue);
+  border-radius: 2px; margin-top: 24px;
+}
+.info-box-title { font-weight: 500; color: var(--blue); margin-bottom: 8px; }
+.info-box p { color: var(--ink2); font-size: 13px; line-height: 1.6; }
+
+.highlight-list {
+  list-style: none; margin-top: 16px;
+}
+.highlight-list li {
+  padding: 12px 0; padding-left: 24px; position: relative; color: var(--ink2);
+  font-size: 13px; line-height: 1.6;
+}
+.highlight-list li::before {
+  content: '→'; position: absolute; left: 0; color: var(--gold);
+}
+
+.divider { margin: 48px 0; height: 1px; background: var(--rule); }
+
+footer {
+  padding: 32px 64px; border-top: 1px solid var(--rule); background: var(--bg2);
+  display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--ink2);
+}
+footer span { margin: 0 12px; }
+
+@media (max-width: 768px) {
+  main { flex-direction: column; }
+  .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--rule); }
+  .section { padding: 32px 24px; }
+  .grid-2, .metrics-grid { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 16px; text-align: center; }
+}
+</style>
 </head>
 <body>
+
+<div class="cover">
+  <div class="cover-eyebrow">
+    <span>STORIES OF BUSINESS</span>
+    <span>설계서</span>
+  </div>
+  <h1 class="cover-title">생산 <em>파이프라인</em> 설계서</h1>
+  <p class="cover-sub">세계 최초의 탄소중립 에너지 독립 클러스터 구축을 위한 엔드-투-엔드 설계. 토탈 시스템 아키텍처부터 실시간 모니터링 및 최적화까지 완벽하게 통합된 솔루션.</p>
+  <div class="cover-meta">
+    <div class="cover-badge">v1.0</div>
+    <div class="cover-badge">2024</div>
+    <div class="cover-badge">MCWS</div>
+  </div>
+</div>
+
+<main>
+  <aside class="sidebar">
+    <nav>
+      <span class="nav-label">개요</span>
+      <a href="#overview" class="nav-item active">프로젝트 개요</a>
+      <a href="#vision" class="nav-item">비전 및 목표</a>
+      <a href="#scope" class="nav-item">범위 및 경계</a>
+      
+      <span class="nav-label">시스템</span>
+      <a href="#architecture" class="nav-item">전체 아키텍처</a>
+      <a href="#infrastructure" class="nav-item">인프라 설계</a>
+      <a href="#integration" class="nav-item">통합 전략</a>
+      
+      <span class="nav-label">운영</span>
+      <a href="#operations" class="nav-item">운영 계획</a>
+      <a href="#monitoring" class="nav-item">모니터링 및 제어</a>
+      <a href="#optimization" class="nav-item">최적화 및 개선</a>
+      
+      <span class="nav-label">위험관리</span>
+      <a href="#risks" class="nav-item">리스크 분석</a>
+      <a href="#compliance" class="nav-item">규정 준수</a>
+      <a href="#timeline" class="nav-item">구현 타임라인</a>
+    </nav>
+  </aside>
+
+  <div class="content">
+    <!-- SECTION 1: 개요 -->
+    <section class="section" id="overview">
+      <h2 class="section-title">프로젝트 개요</h2>
+      <p class="section-subtitle">Stories of Business의 차세대 생산 파이프라인은 에너지 효율성, 환경 지속성, 그리고 경제적 실행성을 동시에 달성하는 통합 솔루션입니다.</p>
+      
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-label">Key Concept</div>
+          <div class="card-title">탄소중립 제조</div>
+          <p class="card-desc">신재생 에너지 기반의 100% 무배출 생산 시스템으로, 진정한 순환경제 모델을 구현합니다.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Key Concept</div>
+          <div class="card-title">에너지 자립</div>
+          <p class="card-desc">태양광, 풍력, 지열 등을 통한 현장 발전으로 외부 에너지 의존도를 완전히 제거합니다.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Key Concept</div>
+          <div class="card-title">스마트 제조</div>
+          <p class="card-desc">실시간 데이터 분석과 AI 기반 예측 제어로 최적의 생산 효율을 24/7 유지합니다.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Key Concept</div>
+          <div class="card-title">순환 자원</div>
+          <p class="card-desc">폐기물 제로 설계와 완전한 자원 재활용으로 선순환 경제 체계를 실현합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: 비전 및 목표 -->
+    <section class="section" id="vision">
+      <h2 class="section-title">비전 및 목표</h2>
+      <p class="section-subtitle">2050년 글로벌 탄소중립 달성을 앞당기는 혁신적 제조 모델의 구축</p>
+      
+      <div style="margin-top: 32px;">
+        <div class="info-box">
+          <div class="info-box-title">Overall Vision</div>
+          <p>Stories of Business는 "세계 최초의 탄소중립 에너지 독립 클러스터"를 통해 지속가능한 미래 산업의 표준을 제시합니다. 환경과 경제의 선순환을 증명하는 살아있는 보증입니다.</p>
+        </div>
+      </div>
+
+      <div class="metrics-grid" style="margin-top: 32px;">
+        <div class="metric-box">
+          <div class="metric-value">100%</div>
+          <div class="metric-label">탄소 중립</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-value">50kW</div>
+          <div class="metric-label">자체 발전</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-value">99.8%</div>
+          <div class="metric-label">자원 활용률</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 32px;">
+        <h3 style="font-size: 18px; font-weight: 500; margin-bottom: 16px; color: var(--ink);">주요 목표</h3>
+        <ul class="highlight-list">
+          <li><strong style="color: var(--gold);">Year 1:</strong> 기본 시설 구축 및 재생에너지 시스템 완성 (태양광 30kW, 풍력 10kW)</li>
+          <li><strong style="color: var(--gold);">Year 2:</strong> 완전 자동화 생산라인 구현 및 AI 기반 최적화 시작</li>
+          <li><strong style="color: var(--gold);">Year 3:</strong> 폐기물 제로 인증 획득 및 순환경제 모델 검증</li>
+          <li><strong style="color: var(--gold);">Year 5:</strong> 글로벌 확장 및 산업 표준화 리더십 확보</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SECTION 3: 범위 및 경계 -->
+    <section class="section" id="scope">
+      <h2 class="section-title">범위 및 경계</h2>
+      <p class="section-subtitle">명확한 프로젝트 경계 설정으로 효율적인 집행과 명확한 성과 평가를 보장합니다.</p>
+      
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-label">포함사항</div>
+          <div class="card-title">프로젝트 범위 내</div>
+          <ul class="highlight-list" style="margin-top: 16px;">
+            <li>재생에너지 발전 시스템 전체</li>
+            <li>스마트 제조 자동화 시스템</li>
+            <li>실시간 모니터링 및 제어</li>
+            <li>순환경제 시스템 통합</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-label">제외사항</div>
+          <div class="card-title">범위 외 항목</div>
+          <ul class="highlight-list" style="margin-top: 16px;">
+            <li>기존 건물 리모델링</li>
+            <li>주변 지역 개발</li>
+            <li>제품 개발 및 마케팅</li>
+            <li>확장 사이트 구축</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: 전체 아키텍처 -->
+    <section class="section" id="architecture">
+      <h2 class="section-title">전체 아키텍처</h2>
+      <p class="section-subtitle">에너지·생산·관리가 완벽하게 통합된 4계층 시스템 아키텍처</p>
+      
+      <div style="margin-top: 32px;">
+        <div style="display: grid; grid-template-columns: 1fr; gap: 20px;">
+          <div class="card">
+            <div class="card-label">Layer 1</div>
+            <div class="card-title">에너지 생성층 (Generation)</div>
+            <p class="card-desc">태양광 30kW + 풍력 10kW + 지열 냉난방 시스템. 365일 24시간 연속 운영으로 일정 수준의 에너지 생산 보장.</p>
+          </div>
+          <div class="card">
+            <div class="card-label">Layer 2</div>
+            <div class="card-title">에너지 저장층 (Storage)</div>
+            <p class="card-desc">대용량 배터리 시스템(500kWh)과 열에너지 저장소. 수요 변동에 대응한 안정적 공급과 피크 컷 최적화.</p>
+          </div>
+          <div class="card">
+            <div class="card-label">Layer 3</div>
+            <div class="card-title">생산 처리층 (Processing)</div>
+            <p class="card-desc">AI 기반 자동화 생산라인, 로봇 팔, 스마트 컨베이어. 실시간 품질 검사와 자가 진단 기능 포함.</p>
+          </div>
+          <div class="card">
+            <div class="card-label">Layer 4</div>
+            <div class="card-title">통제 관리층 (Control)</div>
+            <p class="card-desc">통합 제어 센터(IoT Hub), 클라우드 데이터 분석, AI 의사결정 엔진. 전체 시스템 최적화 및 예측 유지보수.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: 인프라 설계 -->
+    <section class="section" id="infrastructure">
+      <h2 class="section-title">인프라 설계</h2>
+      <p class="section-subtitle">최첨단 기술로 구성된 물리적 시스템의 상세 설계</p>
+      
+      <h3 style="font-size: 18px; font-weight: 500; margin: 32px 0 16px 0; color: var(--ink);">재생에너지 시스템</h3>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-label">태양광 발전</div>
+          <div class="card-title">30kW Solar Array</div>
+          <p class="card-desc">고효율 단결정 패널 120개, 최대 추적 시스템(MPPT) 적용. 연간 약 45,000kWh 발전.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">풍력 발전</div>
+          <div class="card-title">10kW Wind Turbine</div>
+          <p class="card-desc">수평축 터빈, 3엽 설계. 평균풍속 8m/s 지역에서 연간 약 20,000kWh 발전.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">지열시스템</div>
+          <div class="card-title">Ground Source Heat Pump</div>
+          <p class="card-desc">냉난방 에너지의 70% 공급. 안정적 에너지 저장 및 공급 기반.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">백업 시스템</div>
+          <div class="card-title">하이브리드 저장</div>
+          <p class="card-desc">배터리(500kWh) + 열에너지 저장(100MJ). 극한 날씨 대비.</p>
+        </div>
+      </div>
+
+      <h3 style="font-size: 18px; font-weight: 500; margin: 32px 0 16px 0; color: var(--ink);">스마트 제조 시스템</h3>
+      <div class="info-box">
+        <div class="info-box-title">End-to-End Automation Pipeline</div>
+        <p>원재료 입고 → 자동 분류 → 정밀 가공 → 품질 검사 → 패킹 → 출하의 전 과정이 로봇과 AI 비전 시스템으로 완벽 자동화됩니다. 숙련도 편차가 없고, 24/7 운영으로 생산성 극대화.</p>
+      </div>
+      <div class="process-flow">
+        <div class="flow-box">Input</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box">Sorting</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box">Processing</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box">QC</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box">Output</div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: 통합 전략 -->
+    <section class="section" id="integration">
+      <h2 class="section-title">통합 전략</h2>
+      <p class="section-subtitle">각 시스템을 하나의 지능형 네트워크로 연결</p>
+      
+      <div class="info-box">
+        <div class="info-box-title">IoT & Cloud Architecture</div>
+        <p>모든 센서, 장비, 시스템이 실시간으로 중앙 IoT 허브에 연결되고, 클라우드 기반 분석 플랫폼에서 전처리 및 의사결정을 수행합니다. API 기반 개방형 아키텍처로 향후 확장성 보장.</p>
+      </div>
+
+      <div style="margin-top: 32px;">
+        <h3 style="font-size: 18px; font-weight: 500; margin-bottom: 16px; color: var(--ink);">핵심 통합 포인트</h3>
+        <ul class="highlight-list">
+          <li><strong style="color: var(--gold);">에너지-생산 연계:</strong> 실시간 에너지 상태에 따른 생산량 자동 조절</li>
+          <li><strong style="color: var(--gold);">생산-품질 연계:</strong> 생산 데이터 + 품질 검사 결과 → 자가 개선</li>
+          <li><strong style="color: var(--gold);">관리-예측:</strong> 머신러닝 기반 예측 유지보수로 다운타임 최소화</li>
+          <li><strong style="color: var(--gold);">시스템-외부:</strong> ERP/MES와 자동 동기화로 공급망 투명성 확보</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SECTION 7: 운영 계획 -->
+    <section class="section" id="operations">
+      <h2 class="section-title">운영 계획</h2>
+      <p class="section-subtitle">효율적이고 안정적인 24/7 운영 체계</p>
+      
+      <h3 style="font-size: 18px; font-weight: 500; margin: 32px 0 16px 0; color: var(--ink);">구현 타임라인</h3>
+      <div class="phase-timeline">
+        <div class="phase-item">
+          <div class="phase-num">Phase 1: 기초 구축</div>
+          <div class="phase-name">Site 준비 및 기반시설</div>
+          <div class="phase-time">2024년 2월 ~ 6월 | 5개월</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">Phase 2: 에너지 시스템</div>
+          <div class="phase-name">재생에너지 설비 완공</div>
+          <div class="phase-time">2024년 5월 ~ 10월 | 6개월</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">Phase 3: 자동화 라인</div>
+          <div class="phase-name">제조시설 및 로봇 통합</div>
+          <div class="phase-time">2024년 8월 ~ 2025년 3월 | 8개월</div>
+        </div>
+        <div class="phase-item current">
+          <div class="phase-num">Phase 4: 통제 시스템</div>
+          <div class="phase-name">IoT/AI 제어센터 오픈</div>
+          <div class="phase-time">2025년 1월 ~ 4월 | 4개월</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">Phase 5: 최적화 및 전환</div>
+          <div class="phase-name">통합테스트 및 본운영</div>
+          <div class="phase-time">2025년 4월 ~ 6월 | 3개월</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8: 모니터링 및 제어 -->
+    <section class="section" id="monitoring">
+      <h2 class="section-title">모니터링 및 제어</h2>
+      <p class="section-subtitle">실시간 성능 관리와 예측 최적화</p>
+      
+      <h3 style="font-size: 18px; font-weight: 500; margin: 32px 0 16px 0; color: var(--ink);">주요 모니터링 지표</h3>
+      <div class="metrics-grid">
+        <div class="metric-box">
+          <div class="metric-value">kWh</div>
+          <div class="metric-label">실시간 발전량</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-value">units/h</div>
+          <div class="metric-label">생산 처리량</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-value">%</div>
+          <div class="metric-label">품질 합격률</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-value">°C</div>
+          <div class="metric-label">시스템 온도</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-value">hrs</div>
+          <div class="metric-label">MTBF</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-value">%</div>
+          <div class="metric-label">전력 자급률</div>
+        </div>
+      </div>
+
+      <div class="info-box" style="margin-top: 32px;">
+        <div class="info-box-title">AI 기반 예측 제어</div>
+        <p>실시간 센서 데이터와 기상 예보를 결합한 머신러닝 모델이 24시간 이내 수요를 예측하고, 자동으로 에너지 배분과 생산 스케줄을 최적화합니다. 예측 정확도 > 95%.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 9: 최적화 및 개선 -->
+    <section class="section" id="optimization">
+      <h2 class="section-title">최적화 및 개선</h2>
+      <p class="section-subtitle">지속적 성능 향상을 위한 체계화된 개선 프로세스</p>
+      
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-label">단기 개선</div>
+          <div class="card-title">월간 최적화</div>
+          <p class="card-desc">실시간 성능 데이터 분석으로 에너지 배분 전략 및 생산 스케줄 미세 조정. 평균 3~5% 효율 향상.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">중기 개선</div>
+          <div class="card-title">분기별 최적화</div>
+          <p class="card-desc">계절 변화, 장비 노화 데이터를 반영한 시스템 파라미터 개선. 예측 모델 재학습.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">장기 개선</div>
+          <div class="card-title">연간 전략검토</div>
+          <p class="card-desc">시장 변화, 기술 혁신을 반영한 시스템 업그레이드 계획 수립 및 투자 검토.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">지속 개선</div>
+          <div class="card-title">카이젠 문화</div>
+          <p class="card-desc">전체 팀이 참여하는 개선 제안 시스템. 월간 우수 제안에 인센티브 제공.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 10: 리스크 분석 -->
+    <section class="section" id="risks">
+      <h2 class="section-title">리스크 분석 및 대응</h2>
+      <p class="section-subtitle">예측 가능한 위협 요인에 대한 선제적 대응 전략</p>
+      
+      <h3 style="font-size: 18px; font-weight: 500; margin: 32px 0 16px 0; color: var(--ink);">리스크 매트릭스</h3>
+      <div class="risk-matrix">
+        <div class="risk-row">
+          <div class="risk-cell" style="background: var(--muted); color: var(--ink); font-weight: 500;">리스크 항목</div>
+          <div class="risk-cell" style="background: var(--muted); color: var(--ink); font-weight: 500;">발생 확률</div>
+          <div class="risk-cell" style="background: var(--muted); color: var(--ink); font-weight: 500;">심각도</div>
+          <div class="risk-cell" style="background: var(--muted); color: var(--ink); font-weight: 500;">수준</div>
+        </div>
+        <div class="risk-row">
+          <div class="risk-cell">악천후(태풍, 폭설)</div>
+          <div class="risk-cell">30%</div>
+          <div class="risk-cell">중간</div>
+          <div class="risk-cell risk-medium">Medium</div>
+        </div>
+        <div class="risk-row">
+          <div class="risk-cell">부품 공급 지연</div>
+          <div class="risk-cell">20%</div>
+          <div class="risk-cell">높음</div>
+          <div class="risk-cell risk-medium">Medium</div>
+        </div>
+        <div class="risk-row">
+          <div class="risk-cell">사이버 공격</div>
+          <div class="risk-cell">15%</div>
+          <div class="risk-cell">높음</div>
+          <div class="risk-cell risk-high">High</div>
+        </div>
+        <div class="risk-row">
+          <div class="risk-cell">인력 부족</div>
+          <div class="risk-cell">25%</div>
+          <div class="risk-cell">중간</div>
+          <div class="risk-cell risk-medium">Medium</div>
+        </div>
+      </div>
+
+      <h3 style="font-size: 18px; font-weight: 500; margin: 32px 0 16px 0; color: var(--ink);">주요 대응 전략</h3>
+      <ul class="highlight-list">
+        <li><strong style="color: var(--gold);">악천후:</strong> 백업 배터리 용량 확대(현 500kWh → 목표 800kWh), 다중화 시스템 구축</li>
+        <li><strong style="color: var(--gold);">공급 지연:</strong> 다중 공급처 확보, 3개월 안전재고 유지</li>
+        <li><strong style="color: var(--gold);">사이버:</strong> 블록체인 기반 제어 시스템, 실시간 위협 모니터링 AI</li>
+        <li><strong style="color: var(--gold);">인력:</strong> 전문가 양성 프로그램, 자동화 지속 확대</li>
+      </ul>
+    </section>
+
+    <!-- SECTION 11: 규정 준수 -->
+    <section class="section" id="compliance">
+      <h2 class="section-title">규정 준수</h2>
+      <p class="section-subtitle">국제 기준과 로컬 규정을 모두 만족하는 합법적 운영 체계</p>
+      
+      <div style="margin-top: 32px;">
+        <h3 style="font-size: 18px; font-weight: 500; margin-bottom: 16px; color: var(--ink);">국제 표준</h3>
+        <ul class="highlight-list">
+          <li><strong style="color: var(--gold);">ISO 50001:</strong> 에너지경영 시스템</li>
+          <li><strong style="color: var(--gold);">ISO 9001:</strong> 품질경영 시스템</li>
+          <li><strong style="color: var(--gold);">ISO 14001:</strong> 환경경영 시스템</li>
+          <li><strong style="color: var(--gold);">IEC 61508:</strong> 기능 안전</li>
+          <li><strong style="color: var(--gold);">NIST Cybersecurity:</strong> 사이버 보안 프레임워크</li>
+        </ul>
+      </div>
+
+      <div style="margin-top: 32px;">
+        <h3 style="font-size: 18px; font-weight: 500; margin-bottom: 16px; color: var(--ink);">로컬 규정</h3>
+        <ul class="highlight-list">
+          <li><strong style="color: var(--gold);">신재생에너지:</strong> 한국 태양광·풍력 설치 기준 준수</li>
+          <li><strong style="color: var(--gold);">안전:</strong> 산업안전보건법, 전기사업법 준수</li>
+          <li><strong style="color: var(--gold);">환경:</strong> 환경영향평가, 폐기물관리법 준수</li>
+          <li><strong style="color: var(--gold);">노동:</strong> 근로기준법, 직업안전보건법 준수</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SECTION 12: 결론 -->
+    <section class="section" id="timeline">
+      <h2 class="section-title">맺음말</h2>
+      <p class="section-subtitle">혁신과 실행의 만남</p>
+      
+      <div class="info-box" style="background: var(--gold2); border-left-color: var(--gold); margin-top: 32px;">
+        <div class="info-box-title" style="color: var(--gold);">최종 메시지</div>
+        <p>Stories of Business의 생산 파이프라인 설계서는 단순한 기술 명세가 아닙니다. 이것은 "환경과 경제가 대립하지 않는다"는 신념을 구체화한 설계입니다.</p>
+        <p style="margin-top: 12px;">매 단계마다 엄격한 검증과 지속적 개선을 통해, 우리는 세계 최초의 탄소중립 에너지 독립 클러스터를 현실로 만들 것입니다.</p>
+        <p style="margin-top: 12px;"><strong style="color: var(--gold);">시작은 지금입니다. 우리의 비전이 당신의 미래를 바꿀 것입니다.</strong></p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+  </div>
+</main>
+
+<footer>
+  <span>Stories of Business</span>
+  <span>·</span>
+  <span>생산 파이프라인 설계서 v1.0</span>
+  <span>·</span>
+  <span>MCWS · Seed OS Project</span>
+  <span>·</span>
+  <span>다음: Phase 1 구축 시작</span>
+</footer>
+
 </body>
 </html>
