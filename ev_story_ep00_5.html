@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stories of Business: EV Leadership - 정의선 vs 일론 머스크</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0e0c0a;
+            --bg-darker: #0a0805;
+            --text-light: #e8e6e1;
+            --text-muted: #a8a5a0;
+            --accent-gold: #d4af37;
+            --hyundai: #002c5f;
+            --hyundai-light: #1e5ba8;
+            --tesla: #cc0000;
+            --tesla-light: #ff3333;
+            --border-color: #3a3733;
+            --card-bg: #1a1815;
+        }
+
+        html, body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ========== HEADER ========== */
+        header {
+            background: linear-gradient(135deg, var(--bg-darker) 0%, rgba(20, 15, 10, 0.8) 100%);
+            border-bottom: 2px solid var(--accent-gold);
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.03) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .series-label {
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            color: var(--accent-gold);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 24px;
+            color: var(--text-muted);
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .episode-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* ========== INTRO SECTION ========== */
+        .intro-section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .intro-section h2 {
+            font-size: 32px;
+            color: var(--accent-gold);
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .intro-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text-light);
+            max-width: 900px;
+            margin: 0 auto 40px;
+        }
+
+        .stat-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .stat-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .stat-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* ========== LEADER CARDS ========== */
+        .leaders-section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .leaders-section h2 {
+            font-size: 32px;
+            color: var(--accent-gold);
+            margin-bottom: 50px;
+            text-align: center;
+            font-weight: 300;
+        }
+
+        .leaders-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .leader-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            padding: 40px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .leader-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+        }
+
+        .leader-card.hyundai {
+            border-left: 5px solid var(--hyundai);
+        }
+
+        .leader-card.tesla {
+            border-left: 5px solid var(--tesla);
+        }
+
+        .leader-name {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .leader-title {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .leader-bio {
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 25px;
+        }
+
+        .key-traits {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .traits-label {
+            font-size: 11px;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .trait-tag {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--accent-gold);
+            padding: 8px 16px;
+            margin: 5px 5px 5px 0;
+            font-size: 12px;
+            border-radius: 3px;
+        }
+
+        /* ========== TIMELINE ========== */
+        .timeline-section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .timeline-section h2 {
+            font-size: 32px;
+            color: var(--accent-gold);
+            margin-bottom: 60px;
+            text-align: center;
+            font-weight: 300;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--hyundai), var(--tesla));
+            transform: translateX(-1px);
+        }
+
+        .timeline-item {
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            text-align: right;
+            padding-right: calc(50% + 30px);
+        }
+
+        .timeline-item:nth-child(even) {
+            text-align: left;
+            padding-left: calc(50% + 30px);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            background: var(--accent-gold);
+            border: 3px solid var(--bg-dark);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .timeline-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 20px 25px;
+            border-radius: 4px;
+        }
+
+        .timeline-year {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin-bottom: 8px;
+        }
+
+        .timeline-text {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* ========== COMPARISON GRID ========== */
+        .comparison-section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .comparison-section h2 {
+            font-size: 32px;
+            color: var(--accent-gold);
+            margin-bottom: 50px;
+            text-align: center;
+            font-weight: 300;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        .comparison-table th {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--accent-gold);
+        }
+
+        .comparison-table td {
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: rgba(26, 24, 21, 0.5);
+        }
+
+        .comparison-table td:nth-child(1) {
+            font-weight: 600;
+            color: var(--accent-gold);
+            width: 20%;
+        }
+
+        .comparison-table td:nth-child(2) {
+            color: var(--text-light);
+            border-right: 2px solid var(--hyundai);
+        }
+
+        .comparison-table td:nth-child(3) {
+            color: var(--text-light);
+            border-left: 2px solid var(--tesla);
+        }
+
+        /* ========== NODE MAPPING ========== */
+        .node-section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .node-section h2 {
+            font-size: 32px;
+            color: var(--accent-gold);
+            margin-bottom: 50px;
+            text-align: center;
+            font-weight: 300;
+        }
+
+        .node-container {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            border-radius: 4px;
+        }
+
+        .node-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .node {
+            text-align: center;
+        }
+
+        .node-number {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            background: linear-gradient(135deg, var(--hyundai) 0%, var(--tesla) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .node-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin-bottom: 12px;
+        }
+
+        .node-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ========== INSIGHTS ========== */
+        .insights-section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .insights-section h2 {
+            font-size: 32px;
+            color: var(--accent-gold);
+            margin-bottom: 50px;
+            text-align: center;
+            font-weight: 300;
+        }
+
+        .insight-box {
+            background: var(--card-bg);
+            border-left: 4px solid var(--accent-gold);
+            padding: 30px;
+            margin-bottom: 25px;
+            border-radius: 2px;
+        }
+
+        .insight-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin-bottom: 12px;
+        }
+
+        .insight-text {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* ========== CONCLUSION ========== */
+        .conclusion {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .conclusion h2 {
+            font-size: 32px;
+            color: var(--accent-gold);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .conclusion-quote {
+            font-size: 24px;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            line-height: 1.8;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            font-style: italic;
+        }
+
+        .conclusion-text {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: var(--bg-darker);
+            border-top: 1px solid var(--border-color);
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        footer p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+            }
+
+            .subtitle {
+                font-size: 18px;
+            }
+
+            .stat-row {
+                grid-template-columns: 1fr;
+            }
+
+            .leaders-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 0;
+            }
+
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                text-align: left;
+                padding-left: 50px;
+                padding-right: 0;
+            }
+
+            .timeline-dot {
+                left: 0;
+            }
+
+            .node-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-table {
+                font-size: 12px;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="series-label">Stories of Business - EV Industry</div>
+                <h1>이야기로 읽는 회사</h1>
+                <p class="subtitle">리더십: 정의선 vs 일론 머스크</p>
+                <div class="episode-info">
+                    <span>Episode 00-5: Leadership Layer</span>
+                    <span>March 2026</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- INTRO -->
+        <section class="intro-section">
+            <h2>왜 리더십인가</h2>
+            <p class="intro-text">재무제표가 포착하지 못하는 것</p>
+
+            <div class="stat-row">
+                <div class="stat-box">
+                    <div class="stat-label">Hyundai Motor Group</div>
+                    <div style="margin-top: 15px;">
+                        <div class="stat-value" style="color: var(--hyundai);">KRW 186.3T</div>
+                        <div class="stat-desc">Annual Revenue 2025</div>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <div class="stat-value" style="color: var(--hyundai); font-size: 20px;">4.14M units</div>
+                        <div class="stat-desc">Total Sales | 960K EV units</div>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Tesla Inc.</div>
+                    <div style="margin-top: 15px;">
+                        <div class="stat-value" style="color: var(--tesla);">$94.8B</div>
+                        <div class="stat-desc">Annual Revenue 2025</div>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <div class="stat-value" style="color: var(--tesla); font-size: 20px;">1.64M units</div>
+                        <div class="stat-desc">Total Sales | BYD Overtook 2024</div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="intro-text" style="margin-top: 50px;">숫자의 차이를 만든 것은 두 CEO의 세계관 차이다. 매출액으로는 현대차가 1.4배 크지만, 시장은 테슬라에 20배의 프리미엄을 준다. 이 '역설'의 중심에 정의선과 일론 머스크의 리더십이 있다.</p>
+        </section>
+
+        <!-- LEADERS -->
+        <section class="leaders-section">
+            <h2>두 수장의 궤적</h2>
+
+            <div class="leaders-grid">
+                <div class="leader-card hyundai">
+                    <div class="leader-name">정의선</div>
+                    <div class="leader-title">Chung Euisun</div>
+                    <div class="leader-title">Hyundai Motor Group Chairman</div>
+
+                    <p class="leader-bio">
+                        현대차 3세 회장. 2020년 회장 취임 후 'From Complete Car Maker to AI Mobility Company'를 선언하며 대담한 체질 전환을 추진 중. 보스턴 다이내믹스 인수(2021, $1.1B), E-GMP 플랫폼 개발, 조지아 공장 착공을 주도.
+                    </p>
+
+                    <div class="key-traits">
+                        <div class="traits-label">Key Traits</div>
+                        <div>
+                            <span class="trait-tag">체질 전환</span>
+                            <span class="trait-tag">장기 투자</span>
+                            <span class="trait-tag">프리미엄화</span>
+                            <span class="trait-tag">멀티 파워트레인</span>
+                            <span class="trait-tag">AI 모빌리티</span>
+                            <span class="trait-tag">보스턴 다이내믹스</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="leader-card tesla">
+                    <div class="leader-name">일론 머스크</div>
+                    <div class="leader-title">Elon Musk</div>
+                    <div class="leader-title">Tesla CEO & Co-Founder</div>
+
+                    <p class="leader-bio">
+                        PayPal 공동창업자에서 Tesla CEO로. 2003년 초기 투자로 시작해 자동차 산업의 판을 완전히 바꿈. FSD(자율주행) 비전, 기가팩토리 혁신, 에너지 사업 확장의 주인공. 2025년 DOGE 참여로 매출 9% 하락, 시니어 임원 8명 이상 이탈.
+                    </p>
+
+                    <div class="key-traits">
+                        <div class="traits-label">Key Traits</div>
+                        <div>
+                            <span class="trait-tag">비전 리더십</span>
+                            <span class="trait-tag">기술 독재</span>
+                            <span class="trait-tag">정치적 리스크</span>
+                            <span class="trait-tag">에너지 확장</span>
+                            <span class="trait-tag">FSD 집착</span>
+                            <span class="trait-tag">기가팩토리</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TIMELINE -->
+        <section class="timeline-section">
+            <h2>결정적 순간들</h2>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 50px;">리더십 결절점 타임라인 (2003-2026)</p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2003</div>
+                        <div class="timeline-text">Elon Musk invests in Tesla, founding vision</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2008</div>
+                        <div class="timeline-text">Roadster launch - Tesla survives financial crisis</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2012</div>
+                        <div class="timeline-text">Model S launch - paradigm shift in EV</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2017</div>
+                        <div class="timeline-text">Model 3 "production hell" - overcome through vision</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2019</div>
+                        <div class="timeline-text">Gigafactory Shanghai completed in 1 year</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2020</div>
+                        <div class="timeline-text">Euisun Chung becomes Hyundai Chairman - EV declared</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2021</div>
+                        <div class="timeline-text">Boston Dynamics acquisition ($1.1B) - AI mobility pivot</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2022</div>
+                        <div class="timeline-text">IONIQ 5 global hit - IRA passed - EV boom</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2023</div>
+                        <div class="timeline-text">Hyundai-Kia HMGMA Georgia groundbreaking</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2024</div>
+                        <div class="timeline-text">BYD overtakes Tesla - HMGMA operation begins</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2025</div>
+                        <div class="timeline-text">Musk DOGE participation - Tesla revenue -9%</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2026</div>
+                        <div class="timeline-text">IONIQ 9 production begins - Robotaxi expansion</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMPARISON -->
+        <section class="comparison-section">
+            <h2>6가지 차원 비교</h2>
+
+            <div class="comparison-table">
+                <tr>
+                    <th>Dimension</th>
+                    <th>Hyundai Motor Group (정의선)</th>
+                    <th>Tesla Inc. (일론 머스크)</th>
+                </tr>
+                <tr>
+                    <td>배경 & DNA</td>
+                    <td>3세 재벌, 건설-자동차 전통, 계획경제적 체질</td>
+                    <td>기술 창업가, 우주-에너지-이동의 생태계 철학</td>
+                </tr>
+                <tr>
+                    <td>핵심 신념</td>
+                    <td>"만드는 것으로 증명" - 품질, 가격, 수량</td>
+                    <td>"미래로 증명" - 비전, 기술, 가능성</td>
+                </tr>
+                <tr>
+                    <td>전략 스타일</td>
+                    <td>다각화 + 프리미엄화 + 로컬 제조</td>
+                    <td>집중 + 기가팩토리 + 에너지 통합</td>
+                </tr>
+                <tr>
+                    <td>자본 전략</td>
+                    <td>내부 유보금 중심, 보수적 차입</td>
+                    <td>주식 시장 레버리지, $1.1T 시총 활용</td>
+                </tr>
+                <tr>
+                    <td>리스크 성향</td>
+                    <td>다중 헤지 (하이브리드, 멀티 연료)</td>
+                    <td>집중 베팅 (BEV+에너지+로봇택시)</td>
+                </tr>
+                <tr>
+                    <td>거버넌스</td>
+                    <td>가족경영 + 전문경영진</td>
+                    <td>개인 독재 + 권력 집중</td>
+                </tr>
+            </div>
+        </section>
+
+        <!-- NODE MAPPING -->
+        <section class="node-section">
+            <h2>6-Node 리더십 매핑</h2>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 30px;">두 CEO의 리더십이 어디에 연결됐는가</p>
+
+            <div class="node-container">
+                <div class="node-grid">
+                    <div class="node">
+                        <div class="node-number">1</div>
+                        <div class="node-title">Capital Mobilization</div>
+                        <div class="node-desc">정의선: 내부 유보→보수적 전략 | 머스크: 시총 활용→공격적 투자</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-number">2</div>
+                        <div class="node-title">Asset & Investment</div>
+                        <div class="node-desc">정의선: 글로벌 로컬화 | 머스크: 기가팩토리 수직통합</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-number">3</div>
+                        <div class="node-title">Value Chain</div>
+                        <div class="node-desc">정의선: 전통제조+딜러네트워크+SDV | 머스크: 수직통합+직판+OTA</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-number">4</div>
+                        <div class="node-title">Revenue & Profit</div>
+                        <div class="node-desc">정의선: 다양한 파워트레인, 마진 안정화 | 머스크: BEV+에너지+FSD구독</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-number">5</div>
+                        <div class="node-title">EVA & Shareholder Value</div>
+                        <div class="node-desc">정의선: OPM 7.2% 안정적 | 머스크: 변동성 큼 (OPM 2.1~5.8%)</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-number">6</div>
+                        <div class="node-title">Cash & Reinvestment</div>
+                        <div class="node-desc">정의선: KRW 53.6T 현금, 배당 증가 | 머스크: $36.6B 에너지+AI+로봇택시</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INSIGHTS -->
+        <section class="insights-section">
+            <h2>핵심 통찰</h2>
+
+            <div class="insight-box">
+                <div class="insight-title">숫자의 역설</div>
+                <div class="insight-text">현대차는 매출, 판매량, 이익률에서 테슬라를 압도한다. 그러나 시장은 테슬라에 KRW 55T 대 KRW 1.1T의 시가총액을 부여한다. 이는 미래에 대한 '신뢰의 차이'를 반영한다.</div>
+            </div>
+
+            <div class="insight-box">
+                <div class="insight-title">비전 vs 실행</div>
+                <div class="insight-text">일론 머스크는 "자동차를 넘어 에너지와 로봇의 생태계"를 그렸다. 정의선은 "AI 모빌리티 기업으로의 진화"를 선언했다. 둘 다 야심차지만, 머스크의 비전이 자본시장에 더 강하게 '팔린다'.</div>
+            </div>
+
+            <div class="insight-box">
+                <div class="insight-title">정치적 리스크</div>
+                <div class="insight-text">2025년 머스크의 DOGE 참여는 테슬라에 -9% 매출 감소를 안겼다. CEO의 개인 정치 활동이 기업 가치를 훼손한 사례. 정의선의 '조용한 리더십'과 대비된다.</div>
+            </div>
+
+            <div class="insight-box">
+                <div class="insight-title">다각화 vs 집중</div>
+                <div class="insight-text">정의선: 하이브리드(66%), PHEV, BEV, 연료전지 등 모든 파워트레인 | 머스크: BEV 100% + 에너지+로봇택시. 어느 쪽이 미래인가는 여전히 열려 있다.</div>
+            </div>
+
+            <div class="insight-box">
+                <div class="insight-title">조직문화의 차이</div>
+                <div class="insight-text">정의선: 대규모 조직, 전문경영진, 거버넌스 강조 | 머스크: 개인 권력 집중, 급진적 의사결정. 어느 것이 장기적으로 지속가능한가?</div>
+            </div>
+        </section>
+
+        <!-- CONCLUSION -->
+        <section class="conclusion">
+            <h2>종합: 순환의 중심은 사람이다</h2>
+
+            <p class="conclusion-quote">제조의 왕과 비전의 광인</p>
+
+            <div class="insight-box" style="max-width: 800px; margin: 40px auto; border-left: 4px solid var(--hyundai);">
+                <div class="insight-title" style="color: var(--hyundai);">정의선: 묵직한 체질 전환</div>
+                <div class="insight-text">4위 완성차를 3위로 올리고, "AI 모빌리티 기업"으로 전환 선언. 보스턴 다이내믹스 인수는 자동차를 넘어 로봇과 소프트웨어 영역으로 확장하려는 야심. 그러나 시장은 여전히 "자동차회사"로 본다.</div>
+            </div>
+
+            <div class="insight-box" style="max-width: 800px; margin: 40px auto; border-left: 4px solid var(--tesla);">
+                <div class="insight-title" style="color: var(--tesla);">일론 머스크: 파괴적 비전의 양날의 검</div>
+                <div class="insight-text">EV 산업 자체를 만들고, 2025년 BYD에 1위를 빼앗겼으며, 정치 활동으로 자사 매출을 -9% 떨어뜨렸다. 비전은 강하지만 실행의 일관성과 리스크 관리에 약점. 8명 이상의 시니어 임원 이탈이 조직 신뢰도를 훼손.</div>
+            </div>
+
+            <p class="conclusion-text" style="margin-top: 50px; font-size: 16px;">누가 맞고 누가 틀렸는가? 아직 판단하기 이르다. 다만 분명한 것은, 이 두 리더십의 '세계관 차이'가 현대자동차와 테슬라의 운명을 결정한다는 것이다. 숫자는 거짓말을 하지 않지만, 비전이 숫자를 앞선다는 자본시장의 신념도 무시할 수 없다.</p>
+
+            <p class="conclusion-text" style="margin-top: 40px; color: var(--accent-gold); font-style: italic;">"다음 화: Episode 01에서는 Value Creation Cycle의 6-Node 분석으로 두 기업을 더 깊이 들어간다."</p>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Stories of Business: EV Industry Series | Episode 00-5: Leadership Layer</p>
+            <p style="margin-top: 10px; color: var(--text-muted);">정의선(Chung Euisun) vs 일론 머스크(Elon Musk) | 리더십이 만드는 미래</p>
+        </div>
+    </footer>
+</body>
+</html>
