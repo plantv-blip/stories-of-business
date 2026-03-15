@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stories of Business: 6-Node Analysis - Hyundai vs Tesla</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0e0c0a;
+            --bg-darker: #0a0805;
+            --text-light: #e8e6e1;
+            --text-muted: #a8a5a0;
+            --accent-gold: #d4af37;
+            --hyundai: #002c5f;
+            --hyundai-light: #1e5ba8;
+            --tesla: #cc0000;
+            --tesla-light: #ff3333;
+            --border-color: #3a3733;
+            --card-bg: #1a1815;
+        }
+
+        html, body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ========== HEADER ========== */
+        header {
+            background: linear-gradient(135deg, var(--bg-darker) 0%, rgba(20, 15, 10, 0.8) 100%);
+            border-bottom: 2px solid var(--accent-gold);
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.03) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .series-label {
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            color: var(--accent-gold);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 24px;
+            color: var(--text-muted);
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .episode-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* ========== SCOREBOARD ========== */
+        .scoreboard-section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .scoreboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .score-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            padding: 40px;
+            border-radius: 4px;
+        }
+
+        .score-card.hyundai {
+            border-left: 5px solid var(--hyundai);
+        }
+
+        .score-card.tesla {
+            border-left: 5px solid var(--tesla);
+        }
+
+        .score-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--accent-gold);
+        }
+
+        .score-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .score-row:last-child {
+            border-bottom: none;
+        }
+
+        .score-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .score-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        /* ========== PULL QUOTE ========== */
+        .pull-quote-section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .pull-quote {
+            font-size: 22px;
+            font-style: italic;
+            line-height: 1.8;
+            color: var(--text-light);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            background: var(--card-bg);
+            border-left: 4px solid var(--accent-gold);
+            border-radius: 2px;
+        }
+
+        /* ========== NODE DETAILED SECTION ========== */
+        .nodes-section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nodes-section h2 {
+            font-size: 32px;
+            color: var(--accent-gold);
+            margin-bottom: 60px;
+            text-align: center;
+            font-weight: 300;
+        }
+
+        .node-analysis {
+            margin-bottom: 50px;
+        }
+
+        .node-header {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 30px;
+            align-items: start;
+            margin-bottom: 30px;
+        }
+
+        .node-number-large {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--hyundai) 0%, var(--tesla) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .node-title-section h3 {
+            font-size: 28px;
+            color: var(--text-light);
+            margin-bottom: 8px;
+            font-weight: 400;
+        }
+
+        .node-title-section p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .node-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .node-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 4px;
+        }
+
+        .node-box.hyundai {
+            border-top: 3px solid var(--hyundai);
+        }
+
+        .node-box.tesla {
+            border-top: 3px solid var(--tesla);
+        }
+
+        .node-box-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .node-box-content {
+            font-size: 13px;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .node-box-content ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .node-box-content li {
+            margin-bottom: 8px;
+        }
+
+        /* ========== VERDICT SECTION ========== */
+        .verdict-section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .verdict-section h2 {
+            font-size: 32px;
+            color: var(--accent-gold);
+            margin-bottom: 60px;
+            text-align: center;
+            font-weight: 300;
+        }
+
+        .verdict-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .verdict-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            padding: 40px;
+            border-radius: 4px;
+        }
+
+        .verdict-card.hyundai {
+            border-left: 5px solid var(--hyundai);
+        }
+
+        .verdict-card.tesla {
+            border-left: 5px solid var(--tesla);
+        }
+
+        .verdict-subtitle {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+        }
+
+        .verdict-text {
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-light);
+        }
+
+        .verdict-highlight {
+            font-weight: 600;
+            color: var(--accent-gold);
+        }
+
+        .final-question {
+            background: var(--card-bg);
+            border: 2px solid var(--accent-gold);
+            padding: 40px;
+            text-align: center;
+            border-radius: 4px;
+        }
+
+        .final-question h3 {
+            font-size: 18px;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .final-question p {
+            font-size: 15px;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* ========== INSIGHT BOXES ========== */
+        .insight-box {
+            background: var(--card-bg);
+            border-left: 4px solid var(--accent-gold);
+            padding: 30px;
+            margin-bottom: 25px;
+            border-radius: 2px;
+        }
+
+        .insight-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin-bottom: 12px;
+        }
+
+        .insight-text {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: var(--bg-darker);
+            border-top: 1px solid var(--border-color);
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        footer p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+            }
+
+            .subtitle {
+                font-size: 18px;
+            }
+
+            .scoreboard {
+                grid-template-columns: 1fr;
+            }
+
+            .node-content {
+                grid-template-columns: 1fr;
+            }
+
+            .verdict-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .node-header {
+                grid-template-columns: 1fr;
+            }
+
+            .node-number-large {
+                width: 60px;
+                height: 60px;
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="series-label">Stories of Business - EV Industry</div>
+                <h1>이야기로 읽는 회사</h1>
+                <p class="subtitle">Value Creation Cycle: 6-Node Analysis</p>
+                <div class="episode-info">
+                    <span>Episode 01: 제조의 효율 vs 비전의 프리미엄</span>
+                    <span>March 2026</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- SCOREBOARD -->
+        <section class="scoreboard-section">
+            <h2 style="font-size: 28px; color: var(--accent-gold); margin-bottom: 40px; text-align: center; font-weight: 300;">Scoreboard 2025</h2>
+
+            <div class="scoreboard">
+                <div class="score-card hyundai">
+                    <div class="score-title">Hyundai Motor Group</div>
+
+                    <div class="score-row">
+                        <div class="score-label">Revenue</div>
+                        <div class="score-value">KRW 186.3T</div>
+                    </div>
+                    <div class="score-row">
+                        <div class="score-label">Operating Margin</div>
+                        <div class="score-value">7.2%</div>
+                    </div>
+                    <div class="score-row">
+                        <div class="score-label">Units Sold</div>
+                        <div class="score-value">4.14M</div>
+                    </div>
+                    <div class="score-row">
+                        <div class="score-label">Market Cap</div>
+                        <div class="score-value">KRW ~55T</div>
+                    </div>
+                    <div class="score-row">
+                        <div class="score-label">Business Model</div>
+                        <div class="score-value">B2C + B2B</div>
+                    </div>
+                </div>
+
+                <div class="score-card tesla">
+                    <div class="score-title">Tesla Inc.</div>
+
+                    <div class="score-row">
+                        <div class="score-label">Revenue</div>
+                        <div class="score-value">$94.8B</div>
+                    </div>
+                    <div class="score-row">
+                        <div class="score-label">Operating Margin</div>
+                        <div class="score-value">4.0%</div>
+                    </div>
+                    <div class="score-row">
+                        <div class="score-label">Units Sold</div>
+                        <div class="score-value">1.64M</div>
+                    </div>
+                    <div class="score-row">
+                        <div class="score-label">Market Cap</div>
+                        <div class="score-value">$1.1T</div>
+                    </div>
+                    <div class="score-row">
+                        <div class="score-label">Business Model</div>
+                        <div class="score-value">B2C + Energy</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PULL QUOTE -->
+        <section class="pull-quote-section">
+            <div class="pull-quote">
+                현대차의 시가총액은 테슬라의 1/20이다. 그러나 매출은 1.4배, 판매 대수는 2.5배, 영업이익률은 거의 2배다. 이 괴리는 무엇을 말하는가?
+            </div>
+        </section>
+
+        <!-- NODE ANALYSIS -->
+        <section class="nodes-section">
+            <h2>6-Node Value Creation Cycle</h2>
+
+            <!-- NODE 1 -->
+            <div class="node-analysis">
+                <div class="node-header">
+                    <div class="node-number-large">1</div>
+                    <div class="node-title-section">
+                        <h3>자본조달 (Capital Mobilization)</h3>
+                        <p>How each company raises and deploys capital to fuel growth</p>
+                    </div>
+                </div>
+                <div class="node-content">
+                    <div class="node-box hyundai">
+                        <div class="node-box-title">Hyundai Motor Group</div>
+                        <div class="node-box-content">
+                            <strong>내부 유보금 중심, 보수적 차입</strong>
+                            <ul>
+                                <li>Retained earnings: Strong cash generation from core operations</li>
+                                <li>Conservative leverage: BBB+ credit rating maintained</li>
+                                <li>Shareholder-friendly: Dividends increased YoY</li>
+                                <li>Strategic focus: Prioritizes debt reduction, not debt leverage</li>
+                                <li>Implication: Slower expansion but lower financial risk</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="node-box tesla">
+                        <div class="node-box-title">Tesla Inc.</div>
+                        <div class="node-box-content">
+                            <strong>주식 시장 레버리지, $1.1T 시총 활용</strong>
+                            <ul>
+                                <li>Equity market premium: $1.1T market cap fuels aggressive M&amp;A</li>
+                                <li>Stock as currency: Used for Boston Dynamics, energy acquisitions</li>
+                                <li>No dividend: All cash reinvested into growth</li>
+                                <li>Risk-taking: Willingness to burn cash for future bets</li>
+                                <li>Implication: Faster expansion but higher valuation risk</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NODE 2 -->
+            <div class="node-analysis">
+                <div class="node-header">
+                    <div class="node-number-large">2</div>
+                    <div class="node-title-section">
+                        <h3>자산 및 투자 (Asset & Investment)</h3>
+                        <p>Where capital is deployed - manufacturing, R&amp;D, technology</p>
+                    </div>
+                </div>
+                <div class="node-content">
+                    <div class="node-box hyundai">
+                        <div class="node-box-title">Hyundai Motor Group</div>
+                        <div class="node-box-content">
+                            <strong>글로벌 로컬화 전략</strong>
+                            <ul>
+                                <li>HMGMA Georgia: $7.6B investment (2023 groundbreaking, 2024 ops)</li>
+                                <li>10-year KRW 36.5T capital expenditure plan</li>
+                                <li>E-GMP platform: Shared across Hyundai, Kia, Genesis</li>
+                                <li>Manufacturing scale: 30+ plants globally to serve local markets</li>
+                                <li>Technology: Boston Dynamics ($1.1B) + SDV platform development</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="node-box tesla">
+                        <div class="node-box-title">Tesla Inc.</div>
+                        <div class="node-box-content">
+                            <strong>기가팩토리 수직통합</strong>
+                            <ul>
+                                <li>5 gigafactories globally (Shanghai, Berlin, Austin, Nevada, Mexico)</li>
+                                <li>Shanghai: Built in 1 year, now 50% of Tesla output</li>
+                                <li>Vertical integration: Battery manufacturing in-house</li>
+                                <li>Energy megapacks: Parallel expansion in stationary storage</li>
+                                <li>Focus: Advanced manufacturing automation, not spread</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NODE 3 -->
+            <div class="node-analysis">
+                <div class="node-header">
+                    <div class="node-number-large">3</div>
+                    <div class="node-title-section">
+                        <h3>밸류체인 (Value Chain)</h3>
+                        <p>How products are made and delivered to customers</p>
+                    </div>
+                </div>
+                <div class="node-content">
+                    <div class="node-box hyundai">
+                        <div class="node-box-title">Hyundai Motor Group</div>
+                        <div class="node-box-content">
+                            <strong>전통제조 + 딜러네트워크 + SDV 전환</strong>
+                            <ul>
+                                <li>Traditional supply chain: 3,000+ supplier ecosystem</li>
+                                <li>Dealer network: 5,000+ dealerships for sales and service</li>
+                                <li>SDV transition: Software-Defined Vehicle platform in development</li>
+                                <li>Hybrid approach: Keeping dealer partners while adding digital channels</li>
+                                <li>Strength: Established service network | Weakness: Legacy cost structure</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="node-box tesla">
+                        <div class="node-box-title">Tesla Inc.</div>
+                        <div class="node-box-content">
+                            <strong>수직통합 + 직판 + OTA</strong>
+                            <ul>
+                                <li>Vertical integration: In-house batteries, chips, software</li>
+                                <li>Direct-to-consumer: No dealer network, owned service centers</li>
+                                <li>OTA updates: Over-the-air software improvements like iPhone</li>
+                                <li>Tech-first: Software as primary value-add, not hardware</li>
+                                <li>Strength: Control and speed | Weakness: Service scaling challenges</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NODE 4 -->
+            <div class="node-analysis">
+                <div class="node-header">
+                    <div class="node-number-large">4</div>
+                    <div class="node-title-section">
+                        <h3>매출 및 수익 (Revenue & Profit)</h3>
+                        <p>How the business generates income and expands market reach</p>
+                    </div>
+                </div>
+                <div class="node-content">
+                    <div class="node-box hyundai">
+                        <div class="node-box-title">Hyundai Motor Group</div>
+                        <div class="node-box-content">
+                            <strong>다양한 파워트레인, 마진 안정화</strong>
+                            <ul>
+                                <li>4.14M vehicles sold: Hyundai (1.97M), Kia (1.39M), Genesis (0.78M)</li>
+                                <li>Powertrain mix: Hybrid 66%, BEV 23%, PHEV 8%, Fuel cell 3%</li>
+                                <li>Price positioning: From Verna to Genesis luxury segment</li>
+                                <li>Margin drivers: Scale + multi-brand strategy + premium mix</li>
+                                <li>Risk mitigation: Hedging against EV transition uncertainty</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="node-box tesla">
+                        <div class="node-box-title">Tesla Inc.</div>
+                        <div class="node-box-content">
+                            <strong>BEV 100% + 에너지 + FSD 구독</strong>
+                            <ul>
+                                <li>1.64M vehicles sold: All BEV (Model 3/Y 95% of sales)</li>
+                                <li>Energy segment: 21% of revenue growth, stationary storage boom</li>
+                                <li>FSD subscription: Recurring revenue, <1% take-rate so far</li>
+                                <li>Margin volatility: Price competition with BYD, energy price fluctuations</li>
+                                <li>Future bets: Robotaxi (unproven), Optimus robot (R&amp;D)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NODE 5 -->
+            <div class="node-analysis">
+                <div class="node-header">
+                    <div class="node-number-large">5</div>
+                    <div class="node-title-section">
+                        <h3>이익 및 주주가치 (EVA & Shareholder Value)</h3>
+                        <p>Profitability and return on capital invested</p>
+                    </div>
+                </div>
+                <div class="node-content">
+                    <div class="node-box hyundai">
+                        <div class="node-box-title">Hyundai Motor Group</div>
+                        <div class="node-box-content">
+                            <strong>OPM 7.2%, 안정적 실적</strong>
+                            <ul>
+                                <li>Operating Profit Margin: 7.2% (2025), consistent YoY</li>
+                                <li>Net profit: KRW 10.2T in 2025 (despite recession)</li>
+                                <li>ROE: 12-15% range, respectable for automotive</li>
+                                <li>Dividend: KRW 4,000/share, increasing 5% annually</li>
+                                <li>Valuation discount: P/E 5.2x vs Tesla 40x+ (justified?)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="node-box tesla">
+                        <div class="node-box-title">Tesla Inc.</div>
+                        <div class="node-box-content">
+                            <strong>변동성 큰 이익, 감소 추세 2025</strong>
+                            <ul>
+                                <li>Operating Margin: 4.0% (2025) vs 5.8% (2024), downtrend</li>
+                                <li>Net profit: $18B (2024) → $14.2B (2025), -23% YoY</li>
+                                <li>ROE: 25-30% when profitable, but sustainability questionable</li>
+                                <li>No dividend: All profits reinvested or burned on DOGE/politics</li>
+                                <li>Valuation premium: P/E 40x+ prices in FSD/Robotaxi hopes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NODE 6 -->
+            <div class="node-analysis">
+                <div class="node-header">
+                    <div class="node-number-large">6</div>
+                    <div class="node-title-section">
+                        <h3>현금 및 재투자 (Cash & Reinvestment)</h3>
+                        <p>Cash generation and allocation for future growth</p>
+                    </div>
+                </div>
+                <div class="node-content">
+                    <div class="node-box hyundai">
+                        <div class="node-box-title">Hyundai Motor Group</div>
+                        <div class="node-box-content">
+                            <strong>KRW 53.6T 현금, 배당 증가 정책</strong>
+                            <ul>
+                                <li>Cash position: KRW 53.6T (World #2 auto after Toyota)</li>
+                                <li>Operating cash flow: KRW 15.8T annually (strong and stable)</li>
+                                <li>Capex: KRW 5.2T/year for HMGMA, E-GMP, R&amp;D</li>
+                                <li>Dividend policy: Return 50-60% of earnings to shareholders</li>
+                                <li>Strategy: Balanced growth (invest) and returns (dividends)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="node-box tesla">
+                        <div class="node-box-title">Tesla Inc.</div>
+                        <div class="node-box-content">
+                            <strong>$36.6B 현금, 공격적 재투자</strong>
+                            <ul>
+                                <li>Cash position: $36.6B (strong but burning on ventures)</li>
+                                <li>Operating cash flow: $17.3B (2024), declining with growth</li>
+                                <li>Capex: $8-10B/year on gigafactories, energy, R&amp;D</li>
+                                <li>Allocation: Zero dividends, all-in on Robotaxi/FSD/Optimus/Starship</li>
+                                <li>Risk: Burning cash on speculative bets (DOGE, AI, robots)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VERDICT -->
+        <section class="verdict-section">
+            <h2>최종 평결</h2>
+
+            <div class="verdict-grid">
+                <div class="verdict-card hyundai">
+                    <div class="verdict-subtitle">현대차: 숫자로 증명하는 회사</div>
+                    <div class="verdict-text">
+                        매출, 판매량, 이익률 모두 압도적이다. KRW 186.3T의 매출로 테슬라 $94.8B를 능가하고, 414만 대를 팔아 164만 대의 테슬라를 2.5배 초월한다. 영업이익률 7.2%는 테슬라 4.0%의 1.8배다. 
+                        <br><br>
+                        그러나 시장은 <span class="verdict-highlight">현대차에 1/20의 프리미엄만 준다.</span> 왜인가? 시장은 "현재의 승자"가 아닌 "미래의 승자"에 베팅하기 때문이다. 현대차의 프리미엄화, AI 모빌리티 선언은 신뢰받지 못한다.
+                    </div>
+                </div>
+
+                <div class="verdict-card tesla">
+                    <div class="verdict-subtitle">테슬라: 미래로 증명하는 회사</div>
+                    <div class="verdict-text">
+                        현재 실적은 하락 중이다. 2025년 매출 -9%, 이익 -23%, BYD에 1위를 빼앗겼다. CEO의 DOGE 정치 참여는 신뢰를 훼손했고, 8명 이상의 시니어 임원이 이탈했다.
+                        <br><br>
+                        그러나 시장은 <span class="verdict-highlight">테슬라에 20배의 프리미엄을 부여한다.</span> 왜인가? 에너지+AI+로보택시의 생태계 비전이 자동차의 미래를 재정의한다고 믿기 때문이다. 비전이 숫자를 압도한다.
+                    </div>
+                </div>
+            </div>
+
+            <div class="final-question">
+                <h3>핵심 질문</h3>
+                <p>이 밸류에이션 격차(20배)는 정당한가, 아니면 교정될 것인가?</p>
+                <p style="margin-top: 15px; font-size: 13px; color: var(--text-muted);">만약 테슬라의 FSD와 로보택시가 실현되면, KRW 55T는 KRW 550T로 향할 것이다. 만약 현대차의 AI 모빌리티 비전이 증명된다면, KRW 1.1T는 KRW 5.5T로 올라갈 것이다. 다음 5년이 역사를 결정한다.</p>
+            </div>
+        </section>
+
+        <!-- CLOSING INSIGHTS -->
+        <section style="padding: 80px 0;">
+            <h2 style="font-size: 28px; color: var(--accent-gold); margin-bottom: 40px; text-align: center; font-weight: 300;">내 생각</h2>
+
+            <div class="insight-box">
+                <div class="insight-title">현대차의 숨겨진 강점</div>
+                <div class="insight-text">현대차는 "매질 제조사"라는 평가를 받지만, 실은 "현금 수용기계"다. KRW 53.6T의 현금으로 어떤 회사든 인수할 수 있다. 만약 정의선이 보스턴 다이내믹스(로봇) 같은 AI 기업을 5-10개 더 인수한다면? 시장의 평가가 달라질 수 있다.</div>
+            </div>
+
+            <div class="insight-box">
+                <div class="insight-title">테슬라의 숨겨진 약점</div>
+                <div class="insight-text">테슬라의 프리미엄은 "일론 머스크의 비전"에 베팅하는 것이다. 그런데 2025년 그 비전은 정치(DOGE)로 오염되었다. 임원 이탈과 매출 감소는 조직이 머스크의 비전을 더 이상 따르지 않는다는 신호다. 비전이 없으면 테슬라는 "배터리 자동차 회사"일 뿐이다.</div>
+            </div>
+
+            <div class="insight-box">
+                <div class="insight-title">투자자의 딜레마</div>
+                <div class="insight-text">현대차 주식을 사면 "확실한 배당"을 얻지만 "수익성 정체"의 리스크를 진다. 테슬라 주식을 사면 "극적인 성장성"의 꿈을 사지만 "CEO 리스크"와 "구조적 한계"를 짊어진다. 정답은 없다. 다만 어떤 미래를 믿는가의 차이일 뿐이다.</div>
+            </div>
+
+            <div class="insight-box">
+                <div class="insight-title">다음 5년의 시나리오</div>
+                <div class="insight-text">
+                    <strong>Bull Case (현대차):</strong> 정의선의 AI 모빌리티 선언이 실현되고, 보스턴 다이내믹스 기술이 상용화되며, HMGMA가 수익성을 증명하면 → KRW 1.1T → KRW 5-10T<br><br>
+                    <strong>Bull Case (테슬라):</strong> FSD 레벨 4를 달성하고, 로보택시가 운영 대수를 2배 이상 늘리며, 에너지 사업이 30% 성장하면 → $1.1T → $3-5T<br><br>
+                    <strong>Bear Case (현대차):</strong> 프리미엄화 실패, 로컬 경쟁 심화, 전동화 미진 → KRW 1.1T → KRW 600B<br><br>
+                    <strong>Bear Case (테슬라):</strong> FSD 난항, 로보택시 규제 난제, BYD 경쟁 심화 → $1.1T → $300-500B
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Stories of Business: EV Industry Series | Episode 01: 6-Node Value Creation Analysis</p>
+            <p style="margin-top: 10px; color: var(--text-muted);">제조의 효율 vs 비전의 프리미엄 | Hyundai Motor Group vs Tesla Inc.</p>
+        </div>
+    </footer>
+</body>
+</html>
