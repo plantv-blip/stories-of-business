@@ -5,7 +5,784 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>이야기로 읽는 회사 — EP.00.5 리더십 레이어</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:     #0e0c0a;
+  --bg2:    #161410;
+  --bg3:    #1e1b16;
+  --ink:    #f0ece3;
+  --ink2:   #c8c4ba;
+  --muted:  #6a6760;
+  --rule:   rgba(240,236,227,0.08);
+  --rule2:  rgba(240,236,227,0.04);
+  --gold:   #d4a853;
+  --gold2:  #a07828;
+  --sam:    #4a9fd4;
+  --sam-d:  #1a5276;
+  --sk:     #e07070;
+  --sk-d:   #8a2020;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+/* MASTHEAD */
+.masthead {
+  border-bottom: 1px solid var(--rule);
+  padding: 0 56px;
+  background: var(--bg2);
+}
+.masthead-top {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 0 12px; border-bottom: 1px solid var(--rule);
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase;
+}
+.series-name {
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.18em;
+  color: var(--muted); text-transform: uppercase; text-align: center;
+  padding: 16px 0 8px;
+}
+.headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(30px, 5vw, 58px); font-weight: 400;
+  line-height: 1.1; text-align: center; padding: 0 0 8px;
+  letter-spacing: -0.02em; color: var(--ink);
+}
+.headline em { font-style: italic; color: var(--gold); }
+.deck {
+  font-size: 14.5px; font-weight: 300; text-align: center; color: var(--ink2);
+  padding: 8px 0 20px; max-width: 700px; margin: 0 auto; line-height: 1.65;
+}
+.masthead-byline {
+  border-top: 1px solid var(--rule); display: flex; justify-content: center;
+  gap: 32px; padding: 10px 0; font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.1em; color: var(--muted);
+}
+
+/* CONTENT */
+.content-wrap { max-width: 1060px; margin: 0 auto; padding: 0 56px; }
+
+/* CHAPTER */
+.chapter { padding: 52px 0 0; }
+.chapter-tag {
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
+}
+.chapter-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px, 3vw, 32px); font-weight: 400;
+  line-height: 1.2; margin-bottom: 10px; color: var(--ink);
+}
+.chapter-title em { font-style: italic; color: var(--gold); }
+.chapter-rule { border: none; border-top: 1px solid var(--rule); margin: 0 0 28px; }
+
+/* PROSE */
+.prose {
+  font-size: 14.5px; line-height: 1.88; color: var(--ink2);
+  margin-bottom: 22px; max-width: 780px;
+}
+.prose strong { font-weight: 600; color: var(--ink); }
+
+/* LEADER PROFILE */
+.leader-section {
+  display: grid; grid-template-columns: 280px 1fr;
+  gap: 0; border: 1px solid var(--rule); margin: 28px 0 32px;
+  background: var(--bg2);
+}
+.leader-left {
+  padding: 32px 28px; border-right: 1px solid var(--rule);
+  display: flex; flex-direction: column;
+}
+.leader-color-bar { height: 3px; margin-bottom: 20px; }
+.leader-role {
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+}
+.leader-name {
+  font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 400;
+  line-height: 1.2; margin-bottom: 4px; color: var(--ink);
+}
+.leader-name-ko { font-size: 14px; color: var(--muted); margin-bottom: 16px; }
+.leader-career {
+  font-size: 12px; line-height: 1.8; color: var(--muted);
+  border-top: 1px solid var(--rule); padding-top: 14px; margin-top: auto;
+}
+.leader-career b { color: var(--ink2); font-weight: 500; }
+.leader-right { padding: 32px 32px; }
+.leader-kw-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+.leader-kw {
+  font-family: 'DM Mono', monospace; font-size: 10px; padding: 3px 10px;
+  border: 1px solid; letter-spacing: 0.04em;
+}
+.leader-kw.sam { color: var(--sam); border-color: rgba(74,159,212,0.3); background: rgba(74,159,212,0.06); }
+.leader-kw.sk  { color: var(--sk);  border-color: rgba(224,112,112,0.3); background: rgba(224,112,112,0.06); }
+.leader-kw.gold { color: var(--gold); border-color: rgba(212,168,83,0.3); background: rgba(212,168,83,0.06); }
+.leader-desc { font-size: 13.5px; line-height: 1.82; color: var(--ink2); }
+.leader-desc strong { font-weight: 600; color: var(--ink); }
+.leader-desc em { font-style: italic; color: var(--gold); }
+
+/* DECISION TIMELINE */
+.timeline { margin: 28px 0 36px; }
+.timeline-item {
+  display: grid; grid-template-columns: 80px 24px 1fr;
+  gap: 0 16px; margin-bottom: 0;
+}
+.timeline-item:not(:last-child) .tl-line { border-left: 1px solid var(--rule); }
+.tl-year {
+  font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted);
+  text-align: right; padding-top: 14px; letter-spacing: 0.06em;
+}
+.tl-dot-col { display: flex; flex-direction: column; align-items: center; }
+.tl-dot {
+  width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid;
+  flex-shrink: 0; margin-top: 16px; position: relative; z-index: 1;
+  background: var(--bg);
+}
+.tl-dot.sam { border-color: var(--sam); background: rgba(74,159,212,0.2); }
+.tl-dot.sk  { border-color: var(--sk);  background: rgba(224,112,112,0.2); }
+.tl-dot.gold { border-color: var(--gold); background: rgba(212,168,83,0.2); }
+.tl-line { flex: 1; width: 1px; background: var(--rule); margin-top: 0; }
+.tl-content {
+  padding: 10px 0 22px;
+}
+.tl-label {
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 4px;
+}
+.tl-label.sam { color: var(--sam); }
+.tl-label.sk  { color: var(--sk); }
+.tl-label.gold { color: var(--gold); }
+.tl-title { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 5px; }
+.tl-desc { font-size: 13px; line-height: 1.75; color: var(--ink2); }
+.tl-desc strong { color: var(--ink); font-weight: 600; }
+
+/* DECISION BOX */
+.decision-box {
+  background: var(--bg3); border: 1px solid var(--rule);
+  border-left: 3px solid; padding: 20px 24px; margin: 10px 0 16px;
+}
+.decision-box.sam { border-left-color: var(--sam); }
+.decision-box.sk  { border-left-color: var(--sk); }
+.decision-box.gold { border-left-color: var(--gold); }
+.db-label {
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.db-label.sam { color: var(--sam); }
+.db-label.sk  { color: var(--sk); }
+.db-label.gold { color: var(--gold); }
+.decision-box p { font-size: 13.5px; line-height: 1.78; color: var(--ink2); }
+.decision-box p strong { color: var(--ink); font-weight: 600; }
+.decision-box p em { font-style: italic; color: var(--gold); }
+
+/* QUOTE */
+.big-quote {
+  padding: 40px 0; margin: 32px 0;
+  border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+}
+.big-quote blockquote {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(17px, 2.5vw, 24px); font-style: italic;
+  font-weight: 400; line-height: 1.55; color: var(--ink);
+  max-width: 760px; margin: 0 auto; text-align: center;
+}
+.big-quote blockquote em { color: var(--gold); font-style: normal; }
+.big-quote cite {
+  display: block; margin-top: 16px; text-align: center;
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+  font-style: normal;
+}
+
+/* COMPARE TABLE */
+.compare { margin: 28px 0 36px; }
+.compare-head {
+  display: grid; grid-template-columns: 160px 1fr 1fr;
+  background: var(--bg3); border: 1px solid var(--rule);
+}
+.compare-row {
+  display: grid; grid-template-columns: 160px 1fr 1fr;
+  border: 1px solid var(--rule); border-top: none;
+}
+.compare-cell {
+  padding: 14px 18px; border-right: 1px solid var(--rule); font-size: 13px; line-height: 1.7;
+}
+.compare-cell:last-child { border-right: none; }
+.compare-cell.label {
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted); display: flex; align-items: center;
+  background: rgba(255,255,255,0.02);
+}
+.compare-cell.head {
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 12px 18px;
+}
+.compare-cell.head.sam { color: var(--sam); }
+.compare-cell.head.sk  { color: var(--sk); }
+.compare-cell.sam-val { color: #8bbfd4; }
+.compare-cell.sk-val  { color: #d4a0a0; }
+.compare-cell strong { font-weight: 600; color: var(--ink); }
+.compare-row:nth-child(even) .compare-cell { background: rgba(255,255,255,0.015); }
+
+/* NODE INSIGHT */
+.node-insight {
+  display: grid; grid-template-columns: 40px 1fr; gap: 0 16px;
+  border: 1px solid var(--rule); margin-bottom: 12px; padding: 18px 20px;
+  background: var(--bg2);
+}
+.ni-num {
+  font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400;
+  font-style: italic; color: var(--rule); line-height: 1; padding-top: 2px;
+  text-align: right;
+}
+.ni-body {}
+.ni-tag {
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 5px;
+}
+.ni-title { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+.ni-text { font-size: 13px; line-height: 1.72; color: var(--ink2); }
+.ni-text strong { color: var(--ink); font-weight: 600; }
+
+/* SYNTHESIS */
+.synthesis {
+  background: linear-gradient(135deg, #1a1410 0%, #0e1418 100%);
+  border: 1px solid var(--rule); padding: 48px 48px;
+  margin: 40px 0;
+}
+.syn-header {
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 18px;
+  text-align: center;
+}
+.syn-title {
+  font-family: 'Playfair Display', serif; font-size: clamp(20px, 3.5vw, 36px);
+  font-weight: 400; text-align: center; margin-bottom: 36px; color: var(--ink);
+  line-height: 1.25;
+}
+.syn-title em { font-style: italic; color: var(--gold); }
+.syn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 36px; }
+.syn-card { background: rgba(255,255,255,0.03); border: 1px solid var(--rule); padding: 24px; }
+.syn-card-label {
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.14em;
+  text-transform: uppercase; margin-bottom: 12px;
+}
+.syn-card-label.sam { color: var(--sam); }
+.syn-card-label.sk  { color: var(--sk); }
+.syn-card h3 {
+  font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 400;
+  margin-bottom: 12px; color: var(--ink);
+}
+.syn-card p { font-size: 13px; line-height: 1.78; color: var(--ink2); }
+.syn-card p strong { color: var(--gold); font-weight: 600; }
+.syn-conclusion {
+  border-top: 1px solid var(--rule); padding-top: 32px; text-align: center;
+}
+.syn-conclusion p {
+  font-size: 14.5px; line-height: 1.88; color: var(--ink2);
+  max-width: 760px; margin: 0 auto 16px;
+}
+.syn-conclusion p strong { color: var(--gold); font-weight: 600; }
+
+/* FRAMEWORK NOTE */
+.framework-note {
+  padding: 36px 0; border-top: 1px solid var(--rule);
+}
+.framework-note h4 {
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 14px;
+}
+.fw-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.fw-tag {
+  font-size: 11px; font-family: 'DM Mono', monospace; padding: 4px 10px;
+  border: 1px solid var(--rule); color: var(--muted); letter-spacing: 0.03em;
+}
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--rule); padding: 16px 56px;
+  display: flex; justify-content: space-between; background: var(--bg2);
+  font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 780px) {
+  .masthead, .content-wrap, footer { padding-left: 20px; padding-right: 20px; }
+  .leader-section { grid-template-columns: 1fr; }
+  .leader-left { border-right: none; border-bottom: 1px solid var(--rule); }
+  .syn-grid, .compare-head, .compare-row { grid-template-columns: 1fr; }
+  .compare-cell.label { display: none; }
+  .synthesis { padding: 32px 20px; }
+}
+</style>
 </head>
 <body>
+
+<div class="masthead">
+  <div class="masthead-top">
+    <span>이야기로 읽는 회사 · Stories of Business</span>
+    <span>리더십 레이어</span>
+    <span>Episode 00.5 · 반도체</span>
+  </div>
+  <div class="series-name">숨겨진 7번째 노드 — Leadership Layer</div>
+  <h1 class="headline">
+    순환의 중심에는<br><em>사람</em>이 있다
+  </h1>
+  <p class="deck">재무제표는 과거의 의사결정이 굳어진 화석이다. 그 결정을 내린 사람을 알아야 비로소 숫자가 이야기가 된다. 삼성전자 DS와 SK하이닉스의 2024년 역전극은 결국 리더십의 역전극이었다.</p>
+  <div class="masthead-byline">
+    <span>전제: Value Creation Cycle 6-Node Framework</span>
+    <span>이 문서는 EP.01 이전에 읽는 것을 권장함</span>
+  </div>
+</div>
+
+<div class="content-wrap">
+
+  <!-- WHY LEADERSHIP -->
+  <div class="chapter">
+    <div class="chapter-tag">Chapter 0 · 왜 리더십인가</div>
+    <h2 class="chapter-title">6노드의 <em>중심에 없는 것</em></h2>
+    <hr class="chapter-rule">
+  </div>
+
+  <p class="prose">가치 순환 프레임워크의 6개 노드는 각각 재무제표에서 읽을 수 있다. ①자본조달은 재무상태표에, ③밸류체인은 손익계산서에, ⑥현금순환은 현금흐름표에 기록된다. 그런데 회계 시스템이 포착하지 못하는 것이 하나 있다 — <strong>왜 그 자본이 HBM으로 향했는가</strong>. 왜 범용 DRAM을 팔 때도 메모리를 수직 적층하는 연구를 멈추지 않았는가. 왜 파운드리가 적자임에도 계속 투자하는가.</p>
+
+  <p class="prose">거대한 공장은 관성으로 돌아간다. 그러나 방향을 바꾸는 것은 사람이다. 수십 조원의 투자가 결정되는 순간, 기술 로드맵의 분기점에서 어느 쪽을 택하는 순간, 위기 앞에서 사과를 하고 재설계를 지시하는 순간 — 이 <strong>"결절점(結節點)"들의 집합이 오늘의 숫자를 만들었다.</strong></p>
+
+  <div class="big-quote">
+    <blockquote>
+      "H(NVIDIA)가 우리를 경쟁사로 생각하지 않는다.<br>삼성은 위기감이 없고 <em>혁신을 잃었다</em>고 한다."
+    </blockquote>
+    <cite>전영현 삼성전자 DS부문장 — 2024년 5월 전략회의 첫 발언</cite>
+  </div>
+
+  <p class="prose">새 DS부문장이 조직에 첫 진단을 내린 이 발언은, 6노드 중 어느 것도 숫자로 설명하지 못하는 것을 담고 있다. 숫자는 결과다. 이 말은 원인을 말하고 있다.</p>
+
+  <!-- SK HYNIX LEADERSHIP -->
+  <div class="chapter">
+    <div class="chapter-tag">Chapter 1 · SK하이닉스</div>
+    <h2 class="chapter-title">만년 2등이 1등이 된 것은<br><em>15년의 결단</em>이 쌓인 결과다</h2>
+    <hr class="chapter-rule">
+  </div>
+
+  <p class="prose">SK하이닉스의 HBM 승리는 2024년의 사건이 아니다. 2009년 HBM 연구 착수부터 2012년 최태원의 인수 결단, 2021~2022년 곽노정의 집중 베팅까지 — 15년 동안 이어진 의사결정의 복리가 2024년에 폭발한 것이다.</p>
+
+  <!-- 최태원 -->
+  <div class="leader-section">
+    <div class="leader-left">
+      <div class="leader-color-bar" style="background: var(--gold);"></div>
+      <div class="leader-role">SK그룹 회장 · 전략 오너</div>
+      <div class="leader-name">Chey Tae-won</div>
+      <div class="leader-name-ko">최태원</div>
+      <div class="leader-career">
+        <b>1998</b> SK그룹 회장 취임<br>
+        <b>2012</b> 하이닉스 인수 결단 (3.4조원)<br>
+        <b>2013~</b> 채권단 체제 탈피, 장기 투자 본격화<br>
+        <b>2016</b> "근본적 변화 없으면 돌연사" 경고<br>
+        <b>2024</b> "우리는 길목에 서 있었다" — HBM 회고
+      </div>
+    </div>
+    <div class="leader-right">
+      <div class="leader-kw-row">
+        <span class="leader-kw gold">장기적 관점</span>
+        <span class="leader-kw gold">인수 결단</span>
+        <span class="leader-kw gold">기술 투자 철학</span>
+        <span class="leader-kw gold">오너 리더십</span>
+      </div>
+      <div class="leader-desc">
+        <p>2012년 경영난에 시달리던 하이닉스 반도체를 <strong>3조 4,000억원에 인수</strong>할 때, 재계는 반신반의했다. 반도체는 사이클 산업이고, 당시 하이닉스는 채권단 관리 체제였다. 그러나 최 회장의 계산은 달랐다 — <em>"이 회사의 기술 DNA는 살아있다."</em></p>
+        <p style="margin-top: 12px;">인수 직후 그가 한 것은 임원 100명과의 1대1 면담이었다. 조직의 결을 직접 읽기 위해서다. 그리고 채권단 체제에서 불가능했던 <strong>대규모 시설 투자를 즉각 승인</strong>했다. 경쟁사들이 단기 실적에 집착할 때, 최 회장은 10년 후를 보고 있었다. HBM 연구가 투자 가치가 있다는 판단이 이미 2012년에 서 있었다.</p>
+        <p style="margin-top: 12px;">2016년 그가 내린 "근본적 변화 없으면 갑작스러운 죽음(Sudden Death)"이라는 경고는, 조직에 위기의식을 심는 리더십 언어다. 이 말이 씨앗이 되어, 2년 뒤 HBM 집중 투자 결정으로 이어진다.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 곽노정 -->
+  <div class="leader-section">
+    <div class="leader-left">
+      <div class="leader-color-bar" style="background: var(--sk);"></div>
+      <div class="leader-role">SK하이닉스 대표이사 사장 · CEO</div>
+      <div class="leader-name">Kwak No-jung</div>
+      <div class="leader-name-ko">곽노정</div>
+      <div class="leader-career">
+        <b>1993</b> SK하이닉스 입사 (DRAM 개발)<br>
+        <b>~2021</b> DRAM개발실장, CTO 등 기술 리더십<br>
+        <b>2022.03</b> 대표이사 취임<br>
+        <b>2022~23</b> 반도체 불황기에도 R&D 지속 확대<br>
+        <b>2022~24</b> HBM 집중 전략 전면 실행<br>
+        <b>2024</b> 창사 이래 최대 실적 달성, D램 1위 등극
+      </div>
+    </div>
+    <div class="leader-right">
+      <div class="leader-kw-row">
+        <span class="leader-kw sk">엔지니어 CEO</span>
+        <span class="leader-kw sk">선택과 집중</span>
+        <span class="leader-kw sk">기술적 확신</span>
+        <span class="leader-kw sk">원팀 문화</span>
+        <span class="leader-kw sk">불황에 R&D 증가</span>
+      </div>
+      <div class="leader-desc">
+        <p>곽노정의 리더십을 이해하는 키워드는 <strong>"엔지니어가 CEO가 되면 어떤 결정을 내리는가"</strong>다. 30년 가까이 DRAM 개발 현장에서 쌓은 기술적 확신이 CEO의 전략 결단으로 이어졌다. 그는 HBM의 기술 경쟁력을 직접 이해하고 있었다 — 컨설턴트의 보고서가 아니라, 자신의 손으로 만져본 기술이었다.</p>
+        <p style="margin-top: 12px;">취임 직후 가장 논란이 된 결정은 <strong>수익성이 부진한 CIS(이미지센서) 사업 철수</strong>였다. 반도체 회사가 잘 되는 사업을 접은 것이다. 이유는 하나 — "그 인력과 자본이 HBM에 집중되어야 한다." 선택과 집중을 말이 아니라 실제 사업 철수로 실행했다.</p>
+        <p style="margin-top: 12px;"><em>2023년 7.7조원 적자 국면</em>에서도 R&D를 18.3% 늘렸다. 이것이 6노드 중 ①자본조달 노드에서 말한 "자본의 절대량이 아니라 자본이 향하는 곳"의 실체다. 조직 문화에서는 강한 카리스마보다 <strong>소통과 "원팀"</strong>을 내세웠다 — "다치면서 만들어야 할 반도체는 없다"는 말이 상징하듯, 사람을 먼저 보는 경영자다.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SK 결절점 타임라인 -->
+  <div class="chapter" style="padding-top: 36px;">
+    <div class="chapter-tag">결절점 연대기 — SK하이닉스</div>
+    <h2 class="chapter-title">15년의 <em>의사결정이 쌓인</em> 지도</h2>
+    <hr class="chapter-rule">
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="tl-year">2009</div>
+      <div class="tl-dot-col"><div class="tl-dot sk"></div><div class="tl-line"></div></div>
+      <div class="tl-content">
+        <div class="tl-label sk">HBM 연구 착수</div>
+        <div class="tl-title">세계 최초 HBM 개발 결정</div>
+        <div class="tl-desc">시장에 수요가 존재하지도 않던 시점에 DRAM 수직 적층 연구를 시작했다. 이 결정이 없었다면 2024년 HBM 1위는 없었다. <strong>결실을 수확하는 데 15년이 걸린 씨앗.</strong></div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-year">2012</div>
+      <div class="tl-dot-col"><div class="tl-dot gold"></div><div class="tl-line"></div></div>
+      <div class="tl-content">
+        <div class="tl-label gold">최태원 · 전략 결단</div>
+        <div class="tl-title">하이닉스 인수 — 3.4조원 베팅</div>
+        <div class="tl-desc">채권단 체제, 경영난, 반도체 불황의 3중 악재 속에서 인수를 결정했다. 인수 직후 18년 만에 신규 팹 투자를 승인. <strong>오너의 장기 투자 시각이 없었으면 불가능한 결정.</strong></div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-year">2013</div>
+      <div class="tl-dot-col"><div class="tl-dot sk"></div><div class="tl-line"></div></div>
+      <div class="tl-content">
+        <div class="tl-label sk">기술 마일스톤</div>
+        <div class="tl-title">세계 최초 HBM 1세대 출시</div>
+        <div class="tl-desc">4년의 연구 끝에 시장에 내놓았다. 하지만 시장은 아직 HBM을 원하지 않았다. 이 시점에서 많은 기업이 포기를 선택했을 것이다. SK하이닉스는 계속했다.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-year">2021~22</div>
+      <div class="tl-dot-col"><div class="tl-dot sk"></div><div class="tl-line"></div></div>
+      <div class="tl-content">
+        <div class="tl-label sk">곽노정 · 전략 전환</div>
+        <div class="tl-title">HBM3 개발 + NVIDIA 협력 심화</div>
+        <div class="tl-desc">엔비디아 H100 프로젝트에 HBM3을 공급하기 시작했다. 이 파트너십이 2024년 슈퍼사이클의 직접 원인이 된다. 기술 개발과 고객 관계 구축이 동시에 이루어진 결절점.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-year">2022~23</div>
+      <div class="tl-dot-col"><div class="tl-dot sk"></div><div class="tl-line"></div></div>
+      <div class="tl-content">
+        <div class="tl-label sk">곽노정 · 역주행 결단</div>
+        <div class="tl-title">불황기 R&D 18.3% 증가 + CIS 사업 철수</div>
+        <div class="tl-desc"><strong>2023년 적자 7.7조원</strong>을 기록하면서도 R&D를 늘렸다. 같은 해 CIS 사업을 철수해 그 인력과 자본을 HBM으로 재배치했다. "선택과 집중"을 실제 사업 철수로 실행한 리더십.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-year">2024</div>
+      <div class="tl-dot-col"><div class="tl-dot sk"></div></div>
+      <div class="tl-content">
+        <div class="tl-label sk">수확의 해</div>
+        <div class="tl-title">영업이익 23.5조, D램 점유율 1위, HBM 60%+</div>
+        <div class="tl-desc">2009년의 씨앗이 15년 만에 결실로 돌아왔다. <strong>이 숫자의 기원은 재무제표에 없다. 수십 개의 결절점에 있다.</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAMSUNG DS LEADERSHIP -->
+  <div class="chapter">
+    <div class="chapter-tag">Chapter 2 · 삼성전자 DS</div>
+    <h2 class="chapter-title">1등의 관성이 만든 위기,<br>그리고 <em>정면돌파</em>의 리더십</h2>
+    <hr class="chapter-rule">
+  </div>
+
+  <p class="prose">삼성전자 DS의 2024년 위기는 기술 열위 때문이 아니었다. 삼성의 DRAM 기술력은 여전히 세계 최고 수준이었다. 문제는 다른 곳에 있었다 — <strong>1등의 관성이 만들어낸 "위기감 없는 조직"</strong>이었다. 전영현이 부임 첫날 들은 말 — "H가 우리를 경쟁사로 생각하지 않는다" — 이 한 문장이 문제의 본질을 요약한다.</p>
+
+  <!-- 이재용 -->
+  <div class="leader-section">
+    <div class="leader-left">
+      <div class="leader-color-bar" style="background: var(--sam);"></div>
+      <div class="leader-role">삼성전자 회장 · 최종 의사결정자</div>
+      <div class="leader-name">Lee Jae-yong</div>
+      <div class="leader-name-ko">이재용</div>
+      <div class="leader-career">
+        <b>2014</b> 삼성전자 부회장<br>
+        <b>2017~22</b> 법적 리스크 + 미래전략실 해체<br>
+        <b>2022</b> 회장 취임<br>
+        <b>2024.05</b> 전영현 DS부문장 전격 발탁<br>
+        <b>2024~</b> HBM4 재설계에 전폭 지원 지시<br>
+        <b>2026</b> 시총 1,000조원 목전
+      </div>
+    </div>
+    <div class="leader-right">
+      <div class="leader-kw-row">
+        <span class="leader-kw sam">위기 인식</span>
+        <span class="leader-kw sam">기술 인재 발탁</span>
+        <span class="leader-kw sam">원스톱 솔루션 전략</span>
+        <span class="leader-kw sam">사법 리스크 속 경영</span>
+      </div>
+      <div class="leader-desc">
+        <p>이재용 회장의 리더십에서 가장 결정적인 순간은 <strong>2024년 5월의 인사</strong>였다. 연말도 아닌 시기에, 공개 위기 상황에서, 기술 전문가 전영현을 DS부문장으로 전격 투입했다. "단기 실적보다 기술 경쟁력 회복을 최우선으로 삼겠다"는 신호였다. 이 결정은 삼성 특유의 도전적 엔지니어링 문화를 복원하겠다는 의지의 표명이었다.</p>
+        <p style="margin-top: 12px;">이 회장은 또한 HBM4에 들어가는 <strong>'하이브리드 본딩' 장비에 경쟁사를 압도하는 자본 투입을 지시</strong>했다. 장비 당 40억원의 본더를 대량 발주하는 결정은, CEO가 아니라 오너만이 내릴 수 있는 결단이다. 9년간 이어진 사법 리스크 속에서도 이 수준의 장기 기술 투자를 결정했다는 것이 이 회장 리더십의 특이점이다.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 전영현 -->
+  <div class="leader-section">
+    <div class="leader-left">
+      <div class="leader-color-bar" style="background: var(--sam);"></div>
+      <div class="leader-role">삼성전자 DS부문장 부회장 · CEO</div>
+      <div class="leader-name">Jeon Young-hyun</div>
+      <div class="leader-name-ko">전영현</div>
+      <div class="leader-career">
+        <b>2000</b> 삼성전자 메모리사업부 입사<br>
+        <b>~2017</b> D램·낸드 개발, 전략마케팅, 메모리사업부장<br>
+        <b>2017</b> 삼성SDI로 이동, 적자 극복<br>
+        <b>2023.12</b> 삼성전자 미래사업기획단장<br>
+        <b>2024.05</b> DS부문장 전격 투입 (4개월 만에 복귀)<br>
+        <b>2024.10</b> 이례적 사과문 발표
+      </div>
+    </div>
+    <div class="leader-right">
+      <div class="leader-kw-row">
+        <span class="leader-kw sam">정면돌파</span>
+        <span class="leader-kw sam">문제 드러내기</span>
+        <span class="leader-kw sam">1c D램 승부수</span>
+        <span class="leader-kw sam">보고체계 혁파</span>
+        <span class="leader-kw sam">현장 중심</span>
+      </div>
+      <div class="leader-desc">
+        <p>전영현의 취임 첫 행동은 진단이었다. 사업부별 현안을 직접 보고받고, 내린 결론은 한 문장이었다 — <em>"생각했던 것보다 심각하다."</em> 이 솔직함이 이후 모든 변화의 출발점이 되었다. 삼성처럼 큰 조직에서 CEO가 공개적으로 "심각하다"고 말하는 것은 용기다.</p>
+        <p style="margin-top: 12px;">가장 드라마틱한 결단은 <strong>HBM4 코어 다이로 개발 초기 단계의 1c D램을 선택한 것</strong>이었다. 내부 비관론이 있었다. 그는 되물었다 — "경쟁사와 같은 제품을 써서 어떻게 이기겠느냐." 기존 1a/1b D램을 쓰면 안전하지만 따라잡을 수 없다. 재설계를 감수하더라도 기술 선점을 택했다.</p>
+        <p style="margin-top: 12px;"><strong>2024년 10월의 사과문</strong>은 한국 대기업 역사에서 이례적인 사건이다. "모든 책임은 경영진에 있다"고 직접 밝혔다. 책임 회피가 아니라 책임 수용 — 이것이 이후 조직 문화 변화의 신호탄이었다. 동시에 <strong>다단계 보고체계를 혁파</strong>하고 현장 중심 의사결정 구조로 전환했다. "보고를 위한 보고"가 사라지고 실행 속도가 올라갔다.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 삼성 결절점 타임라인 -->
+  <div class="chapter" style="padding-top: 36px;">
+    <div class="chapter-tag">결절점 연대기 — 삼성전자 DS</div>
+    <h2 class="chapter-title">위기의 정점에서 <em>반격</em>을 선택하다</h2>
+    <hr class="chapter-rule">
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="tl-year">2023</div>
+      <div class="tl-dot-col"><div class="tl-dot sam"></div><div class="tl-line"></div></div>
+      <div class="tl-content">
+        <div class="tl-label sam">위기의 시작</div>
+        <div class="tl-title">DS부문 15조 적자 + HBM 인증 지연</div>
+        <div class="tl-desc">반도체 슈퍼사이클이 시작되었는데 삼성 DS만 소외되는 상황이 만들어졌다. NVIDIA H100의 HBM 공급 인증이 계속 지연되었다. 조직 내 위기감이 전달되지 않는 구조적 문제가 수면 위로 올라왔다.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-year">2024.05</div>
+      <div class="tl-dot-col"><div class="tl-dot sam"></div><div class="tl-line"></div></div>
+      <div class="tl-content">
+        <div class="tl-label sam">이재용 · 핵심 결단</div>
+        <div class="tl-title">전영현 DS부문장 전격 투입</div>
+        <div class="tl-desc">연말이 아닌 5월, 공개적 위기 상황에서 단행된 "핀셋 인사." 전 부회장은 부문장과 메모리사업부장을 동시에 겸임 — <strong>삼성의 인사 관행을 깬 것 자체가 위기 심각성의 신호였다.</strong></div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-year">2024.05</div>
+      <div class="tl-dot-col"><div class="tl-dot sam"></div><div class="tl-line"></div></div>
+      <div class="tl-content">
+        <div class="tl-label sam">전영현 · 첫 진단</div>
+        <div class="tl-title">"심각하다" 선언 + 1c D램 승부수</div>
+        <div class="tl-desc">취임 직후 전략회의에서 현실을 직시했다. 두 달 만에 HBM4 코어 다이로 초기 개발 단계인 1c D램 적용을 결정했다. <strong>안전한 길 대신 기술 선점을 선택한 결절점.</strong></div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-year">2024.07</div>
+      <div class="tl-dot-col"><div class="tl-dot sam"></div><div class="tl-line"></div></div>
+      <div class="tl-content">
+        <div class="tl-label sam">조직 혁파</div>
+        <div class="tl-title">HBM 전담팀 신설 + 보고체계 축소</div>
+        <div class="tl-desc">부문장 직속 HBM 개발팀 신설로 의사결정 속도를 올렸다. 파트장-PL-그룹장-상무-부사장의 다단계 보고 구조를 축소. "현장과 속도" 중심으로 조직 운영 방식 자체를 바꿨다.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-year">2024.10</div>
+      <div class="tl-dot-col"><div class="tl-dot sam"></div><div class="tl-line"></div></div>
+      <div class="tl-content">
+        <div class="tl-label sam">전영현 · 이례적 선택</div>
+        <div class="tl-title">"모든 책임은 경영진에 있다" — 공개 사과문</div>
+        <div class="tl-desc">3분기 실적 부진 후 CEO가 직접 사과문을 냈다. 한국 대기업 역사에서 매우 드문 일. <strong>책임 수용이 조직 문화 변화의 신호탄이 되었다.</strong> 이후 문제를 숨기지 않고 드러내는 문화가 형성되기 시작했다.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-year">2024.12</div>
+      <div class="tl-dot-col"><div class="tl-dot sam"></div><div class="tl-line"></div></div>
+      <div class="tl-content">
+        <div class="tl-label sam">기술 반전</div>
+        <div class="tl-title">1c D램 수율 상승 + HBM3E 인증 통과</div>
+        <div class="tl-desc">재설계에 투입된 30명의 에이스 엔지니어가 약 10개월 만에 성과를 냈다. 1c D램 성능과 수율이 목표치에 도달. <strong>삼성전자는 이들에게 5억원 규모의 자사주를 인센티브로 지급했다.</strong></div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-year">2026</div>
+      <div class="tl-dot-col"><div class="tl-dot sam"></div></div>
+      <div class="tl-content">
+        <div class="tl-label sam">반격 국면</div>
+        <div class="tl-title">HBM4 출하 + DS 영업이익 100조 전망</div>
+        <div class="tl-desc">전영현 체제 2년 만에 DS부문은 100조원 영업이익 시대를 향하고 있다. 1c D램 기반 HBM4로 SK하이닉스와의 경쟁이 다시 시작되었다. <strong>리더십 교체 후 2년 — 이것이 큰 조직이 방향을 바꾸는 데 걸리는 최소 시간이다.</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPARISON -->
+  <div class="chapter">
+    <div class="chapter-tag">Chapter 3 · 비교 분석</div>
+    <h2 class="chapter-title">두 리더십 스타일이<br><em>6노드에 미친 영향</em></h2>
+    <hr class="chapter-rule">
+  </div>
+
+  <div class="compare">
+    <div class="compare-head">
+      <div class="compare-cell head" style="background: rgba(255,255,255,0.03);">리더십 차원</div>
+      <div class="compare-cell head sam">삼성전자 DS — 전영현</div>
+      <div class="compare-cell head sk">SK하이닉스 — 곽노정</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell label">리더십 원천</div>
+      <div class="compare-cell sam-val">D램·낸드 개발 30년 + SDI 소방수 경험<br>→ <strong>위기 관리형 전문가</strong></div>
+      <div class="compare-cell sk-val">SK하이닉스 전일 경력 + CTO 출신<br>→ <strong>기술 확신형 내부자</strong></div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell label">핵심 결단</div>
+      <div class="compare-cell sam-val">1c D램 HBM4 적용 (재설계 감수)<br>다단계 보고체계 혁파</div>
+      <div class="compare-cell sk-val">CIS 사업 철수 → HBM 집중<br>불황기 R&D 18.3% 증가</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell label">①자본조달에<br>미친 영향</div>
+      <div class="compare-cell sam-val">HBM4 하이브리드 본딩 장비 대량 발주<br>이재용 회장 직접 승인</div>
+      <div class="compare-cell sk-val">CCC 개선으로 자본 재순환 가속<br>차입금 6.8조 감소</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell label">③밸류체인에<br>미친 영향</div>
+      <div class="compare-cell sam-val">HBM 전담팀 직속화<br>파운드리·메모리 기술 통합 추진</div>
+      <div class="compare-cell sk-val">HBM 전 공정 특화 체계 완성<br>미주 HBM 기술조직 신설</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell label">조직 문화</div>
+      <div class="compare-cell sam-val">"문제를 드러내고 토론으로 해결"<br>수직적 보고 → 현장 중심 전환</div>
+      <div class="compare-cell sk-val">"원팀, 소통, 안전"<br>성과 기반 인사 + 세대교체</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell label">2024년 결과</div>
+      <div class="compare-cell sam-val">DS 영업이익 15.1조 (13.5%)<br>HBM3E 인증 지연 → 연말 회복</div>
+      <div class="compare-cell sk-val">영업이익 23.5조 (35.5%)<br>HBM 점유율 60%+, D램 1위</div>
+    </div>
+  </div>
+
+  <!-- NODE MAPPING -->
+  <div class="chapter">
+    <div class="chapter-tag">Chapter 4 · 6노드 매핑</div>
+    <h2 class="chapter-title">리더십 결단이 각 노드에<br><em>어떻게 연결되었는가</em></h2>
+    <hr class="chapter-rule">
+  </div>
+
+  <div class="node-insight">
+    <div class="ni-num">①</div>
+    <div class="ni-body">
+      <div class="ni-tag">자본조달 — 리더십 연결</div>
+      <div class="ni-title">최태원의 2012년 인수 결단이 ①번 노드의 기초를 만들었다</div>
+      <div class="ni-text">채권단 체제 탈피 → 독립적 자본 배분 권한 확보 → HBM 장기 투자 가능. <strong>자본조달 능력은 오너의 결단에서 시작되었다.</strong> 3.4조원 인수가 없었으면 오늘의 46조원 CapEx 여력도 없었다.</div>
+    </div>
+  </div>
+  <div class="node-insight">
+    <div class="ni-num">②</div>
+    <div class="ni-body">
+      <div class="ni-tag">자산·투자 — 리더십 연결</div>
+      <div class="ni-title">곽노정의 CIS 철수가 자산 집중도를 결정했다</div>
+      <div class="ni-text">눈에 보이지 않는 결단이 재무상태표를 바꿨다. CIS 자산을 HBM으로 재배치하는 결정 — 이것이 "HBM 집중"이라는 자산 구조를 만든 경영 행위다. <strong>자산 효율은 자산 배치 결정에서 온다.</strong></div>
+    </div>
+  </div>
+  <div class="node-insight">
+    <div class="ni-num">③</div>
+    <div class="ni-body">
+      <div class="ni-tag">밸류체인 — 리더십 연결</div>
+      <div class="ni-title">전영현의 보고체계 혁파가 밸류체인 속도를 바꿨다</div>
+      <div class="ni-text">현장에서 의사결정자까지의 단계를 줄이면, 문제가 빠르게 올라오고 해결이 빠르게 내려온다. 삼성 DS의 과거 문제 중 하나는 밸류체인의 각 단계가 너무 많은 관료적 필터를 통과해야 했다는 것이다. <strong>조직 구조를 바꾸는 것이 곧 밸류체인 효율을 바꾸는 것이다.</strong></div>
+    </div>
+  </div>
+  <div class="node-insight">
+    <div class="ni-num">⑤</div>
+    <div class="ni-body">
+      <div class="ni-tag">이익·EVA — 리더십 연결</div>
+      <div class="ni-title">불황기 R&D 증가 결정이 EVA 스프레드의 씨앗이 되었다</div>
+      <div class="ni-text">2023년 7.7조 적자에도 R&D를 늘린 결정 — 이것은 현재의 NOPAT을 희생하며 미래의 ROIC 상승에 투자한 것이다. <strong>EVA 공식(NOPAT − WACC × 투하자본)에서 분자를 키우는 결단을 적자 국면에 내릴 수 있는가</strong>가 리더십의 시험대다.</div>
+    </div>
+  </div>
+  <div class="node-insight">
+    <div class="ni-num">⑥</div>
+    <div class="ni-body">
+      <div class="ni-tag">현금·재투자 — 리더십 연결</div>
+      <div class="ni-title">전영현의 30명 에이스 집중 투입이 CCC를 단축했다</div>
+      <div class="ni-text">1c D램 재설계에 30명의 핵심 인력을 집중 투입한 결과, 10개월 만에 성과가 나왔다. 인력이라는 자원을 어떻게 집중하느냐가 현금 순환 주기를 결정한다. <strong>사람에 대한 투자 결정도 자본 배분이다.</strong> 그리고 이에 대한 자사주 인센티브 지급은 그 순환을 강화하는 피드백 루프다.</div>
+    </div>
+  </div>
+
+  <!-- SYNTHESIS -->
+  <div class="synthesis">
+    <div class="syn-header">최종 통찰 — 리더십 × 6-Node Framework</div>
+    <div class="syn-title">
+      리더십은 7번째 노드가 아니다.<br><em>6개 노드 전부를 관통하는 중심축이다.</em>
+    </div>
+
+    <div class="syn-grid">
+      <div class="syn-card">
+        <div class="syn-card-label sk">SK하이닉스의 교훈</div>
+        <h3>15년의 결단이 1년의 성과를 만든다</h3>
+        <p>최태원의 2012년 인수와 곽노정의 2022~23년 집중 투자는, 어느 시점에서도 재무적으로 최선의 선택처럼 보이지 않았다. 그러나 <strong>기술 확신과 장기 관점</strong>이 단기 재무 논리를 이겼다. 이것이 6노드 순환을 가속시킨 리더십의 핵심이다.</p>
+      </div>
+      <div class="syn-card">
+        <div class="syn-card-label sam">삼성전자의 교훈</div>
+        <h3>1등의 관성이 가장 위험한 적이다</h3>
+        <p>"NVIDIA가 우리를 경쟁사로 보지 않는다"는 현실은, 기술이 아니라 <strong>조직 문화의 실패</strong>였다. 전영현이 "사과"라는 이례적 선택으로 문화를 바꾸고, 1c D램 승부수로 기술을 바꾸었다. 방향 전환에 2년이 걸렸다 — 거대한 조직일수록 리더십의 속도가 더 중요하다.</p>
+      </div>
+    </div>
+
+    <div class="syn-conclusion">
+      <p>재무제표를 읽는 것은 과거를 보는 것이다. 밸류체인 구조를 이해하는 것은 현재를 보는 것이다. 그리고 <strong>리더십을 읽는 것은 미래를 보는 것이다.</strong> 지금 이 회사의 최고 의사결정자가 어떤 결절점에서 어떤 선택을 하고 있는지 — 그것이 3년 후 재무제표에 찍힐 숫자다.</p>
+      <p>"거대한 공장도 의사결정권자에 의해서 변화의 결절점들이 선택, 누적된다." 이 한 문장이 이 문서 전체의 요약이다.</p>
+    </div>
+  </div>
+
+  <div class="framework-note">
+    <h4>이 분석에 적용된 리더십 프레임</h4>
+    <div class="fw-tags">
+      <span class="fw-tag">결절점 분석 (Decision Node Analysis)</span>
+      <span class="fw-tag">리더십 스타일 (엔지니어형 vs 전략가형)</span>
+      <span class="fw-tag">Capital Allocation — Mauboussin</span>
+      <span class="fw-tag">조직 문화 변화 이론</span>
+      <span class="fw-tag">선택과 집중 전략</span>
+      <span class="fw-tag">장기 투자 관점 (Long-termism)</span>
+    </div>
+  </div>
+
+</div><!-- /content-wrap -->
+
+<footer>
+  <span>이야기로 읽는 회사 · Episode 00.5 · 리더십 레이어</span>
+  <span>전: EP.00 반도체 입문 → 다음: EP.01 삼성DS vs SK하이닉스 6-Node</span>
+</footer>
+
 </body>
 </html>
