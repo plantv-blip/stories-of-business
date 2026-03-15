@@ -3,9 +3,1429 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>이야기로 읽는 회사 — 콘테람츠 표준 스펙 v1.0</title>
+<title>이야기로 읽는 회사 — 콘텐츠 표준 스펙 v1.0</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #fafaf8;
+  --bg2:      #f3f2ee;
+  --bg3:      #eceae4;
+  --ink:      #18160f;
+  --ink2:     #3a3830;
+  --muted:    #8c8a82;
+  --rule:     rgba(24,22,15,0.1);
+  --rule2:    rgba(24,22,15,0.05);
+  --gold:     #8a6914;
+  --gold-bg:  #fdf6e3;
+  --blue:     #1a4a7a;
+  --blue-bg:  #edf4fb;
+  --green:    #1a5c32;
+  --green-bg: #edf7f1;
+  --red:      #7a1a1a;
+  --red-bg:   #fbedf0;
+  --purple:   #4a1a7a;
+  --purple-bg:#f3edfb;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+/* ── COVER ── */
+.cover {
+  background: var(--ink);
+  color: #f0ece3;
+  padding: 64px 72px 52px;
+  border-bottom: 4px solid var(--gold);
+}
+.cover-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(240,236,227,0.4); margin-bottom: 24px;
+  display: flex; gap: 32px;
+}
+.cover-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 4vw, 48px); font-weight: 400;
+  line-height: 1.15; margin-bottom: 10px;
+}
+.cover-title em { font-style: italic; color: #d4a853; }
+.cover-sub {
+  font-size: 15px; color: rgba(240,236,227,0.6);
+  max-width: 640px; line-height: 1.65;
+}
+.cover-tags {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px;
+}
+.cover-tag {
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  padding: 4px 10px; border: 1px solid rgba(240,236,227,0.2);
+  color: rgba(240,236,227,0.5); border-radius: 2px;
+}
+
+/* ── ARTICLE ── */
+article { max-width: 840px; margin: 0 auto; padding: 60px 72px; }
+article h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px; font-weight: 400; font-style: italic;
+  color: var(--gold); margin-bottom: 32px; line-height: 1.2;
+}
+article h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-weight: 400; font-style: italic;
+  color: var(--ink); margin: 40px 0 20px; padding-bottom: 12px;
+  border-bottom: 2px solid var(--gold);
+}
+article h3 {
+  font-size: 14px; font-weight: 500; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--muted);
+  margin: 32px 0 16px; margin-top: 48px;
+}
+article p { margin-bottom: 20px; }
+article strong { font-weight: 500; color: var(--ink2); }
+article em { font-style: italic; color: var(--muted); }
+
+/* CODE & EXAMPLES */
+code {
+  background: var(--bg2); padding: 2px 6px;
+  font-family: 'DM Mono', monospace; font-size: 12px;
+  color: var(--blue); border-radius: 2px;
+}
+pre {
+  background: var(--bg2); padding: 16px;
+  border-left: 4px solid var(--blue);
+  font-family: 'DM Mono', monospace; font-size: 12px;
+  overflow-x: auto; margin: 20px 0; border-radius: 4px;
+}
+pre code { background: none; padding: 0; color: var(--ink); font-size: 12px; }
+
+/* BLOCK ELEMENTS */
+.block {
+  padding: 20px; margin: 32px 0; border-radius: 4px;
+  border-left: 4px solid var(--rule);
+}
+.block.gold { background: var(--gold-bg); border-left-color: var(--gold); }
+.block.blue { background: var(--blue-bg); border-left-color: var(--blue); }
+.block.green { background: var(--green-bg); border-left-color: var(--green); }
+.block.red { background: var(--red-bg); border-left-color: var(--red); }
+.block.purple { background: var(--purple-bg); border-left-color: var(--purple); }
+
+.block-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; font-weight: 500; text-transform: uppercase;
+  letter-spacing: 0.08em; margin-bottom: 12px;
+  color: var(--ink2);
+}
+.block-gold .block-title { color: var(--gold); }
+.block-blue .block-title { color: var(--blue); }
+.block-green .block-title { color: var(--green); }
+.block-red .block-title { color: var(--red); }
+.block-purple .block-title { color: var(--purple); }
+
+.block p:last-child { margin-bottom: 0; }
+.block strong { font-weight: 500; }
+
+/* LISTS */
+ul, ol { margin: 20px 0 20px 20px; }
+li { margin-bottom: 12px; line-height: 1.65; }
+
+/* TABLE */
+table {
+  width: 100%; border-collapse: collapse; margin: 28px 0;
+  border: 1px solid var(--rule);
+}
+thead {
+  background: var(--bg2); font-weight: 500;
+  font-family: 'DM Mono', monospace; font-size: 12px;
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--rule); }
+tbody tr:hover { background: var(--bg2); }
+tbody tr:last-child td { border-bottom: none; }
+
+/* FIGURE & CAPTION */
+figure { margin: 40px 0; }
+figcaption {
+  font-family: 'DM Mono', monospace; font-size: 12px;
+  color: var(--muted); text-align: center;
+  margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--rule2);
+}
+
+/* HORIZONTAL RULE */
+hr {
+  border: none; height: 1px;
+  background: var(--rule); margin: 48px 0;
+}
+
+/* FOOTER & TOC */
+.toc {
+  background: var(--bg2); padding: 28px 32px;
+  border-radius: 4px; margin: 40px 0;
+}
+.toc h3 {
+  font-size: 12px; font-weight: 500; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--muted); margin: 0 0 16px;
+}
+.toc ul {
+  list-style: none; margin: 0; font-size: 13px;
+}
+.toc li { margin-bottom: 8px; }
+.toc a {
+  color: var(--blue); text-decoration: none; border-bottom: 1px solid rgba(26, 74, 122, 0.3);
+}
+.toc a:hover {
+  color: var(--ink); border-bottom-color: var(--rule);
+}
+
+/* FOOTNOTES & REFERENCES */
+.fn-ref {
+  font-size: 11px; font-weight: 500;
+  vertical-align: super; color: var(--blue);
+}
+.footnote {
+  font-size: 12px; line-height: 1.6;
+  padding: 12px 0; border-top: 1px solid var(--rule2);
+  margin-top: 40px;
+}
+.footnote p { margin-bottom: 8px; }
+
+/* FOOTER */
+footer {
+  background: var(--bg2); padding: 40px 72px;
+  border-top: 2px solid var(--rule);
+  font-size: 12px; color: var(--muted);
+  text-align: center; margin-top: 60px;
+}
+footer p { margin-bottom: 8px; }
+footer p:last-child { margin-bottom: 0; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  article, .cover, footer { padding: 40px 24px; }
+  article h1 { font-size: 24px; }
+  article h2 { font-size: 16px; }
+  table, figure { margin: 24px -24px; border-radius: 0; }
+  .toc { padding: 20px 24px; margin: 32px -24px; }
+}
+
+/* UTILITY */
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-muted { color: var(--muted); }
+.text-gold { color: var(--gold); }
+.text-blue { color: var(--blue); }
+.text-green { color: var(--green); }
+.text-red { color: var(--red); }
+.text-purple { color: var(--purple); }
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: 16px; }
+.mt-2 { margin-top: 32px; }
+.mt-3 { margin-top: 48px; }
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: 16px; }
+.mb-2 { margin-bottom: 32px; }
+.mb-3 { margin-bottom: 48px; }
+</style>
 </head>
 <body>
+
+<div class="cover">
+  <div class="cover-meta">
+    <span>v1.0 · 2024.12</span>
+    <span>Stories of Business</span>
+  </div>
+  <h1 class="cover-title">이야기로 읽는 회사<br/><em>— 콘텐츠 표준 스펙</em></h1>
+  <p class="cover-sub">
+    다양한 매체와 플랫폼에서 기업의 이야기를 일관되게 전달하기 위한<br/>
+    콘텐츠 표준과 가이드라인
+  </p>
+  <div class="cover-tags">
+    <span class="cover-tag">스펙 v1.0</span>
+    <span class="cover-tag">2024.12</span>
+    <span class="cover-tag">콘텐츠 표준</span>
+  </div>
+</div>
+
+<article>
+
+<h2 id="intro">0. 소개</h2>
+
+<p>
+  <strong>이야기로 읽는 회사</strong>는 기업의 역사, 가치, 비전을 스토리텔링을 통해 전달하는 프로젝트입니다.
+  이 문서는 다양한 매체(웹사이트, 소셜 미디어, 인쇄물, 영상)와 플랫폼에서 기업의 이야기를 일관되게 표현하기 위한
+  콘텐츠 표준과 가이드라인을 정의합니다.
+</p>
+
+<p>
+  본 스펙은 <strong>기업 스토리텔링의 구조</strong>, <strong>콘텐츠 분류</strong>, <strong>작성 및 편집 기준</strong>,
+  그리고 <strong>멀티채널 적용 방법</strong>을 다룹니다.
+</p>
+
+<h3>문서 범위</h3>
+<ul>
+  <li>기업 스토리 콘텐츠의 분류 및 정의</li>
+  <li>각 콘텐츠 타입별 작성 기준 및 포맷</li>
+  <li>메타데이터 및 구조화 데이터 표준</li>
+  <li>멀티플랫폼 적용 및 최적화 기준</li>
+  <li>시각 및 톤 오브 보이스 가이드라인</li>
+</ul>
+
+<h3>문서 범위 밖</h3>
+<ul>
+  <li>브랜드 아이덴티티 및 시각 디자인 시스템 (별도 정의)</li>
+  <li>UX/UI 설계 및 인터랙션 (별도 정의)</li>
+  <li>기술 구현 및 개발 스펙 (별도 정의)</li>
+</ul>
+
+<hr/>
+
+<h2 id="story-types">1. 스토리 콘텐츠 분류</h2>
+
+<p>
+  기업 스토리는 그 성격과 목적에 따라 다음과 같이 분류됩니다.
+  각 타입은 고유한 구조, 길이, 톤, 그리고 표현 방식을 가집니다.
+</p>
+
+<h3>1.1 Origin Story (창립 및 역사 이야기)</h3>
+<div class="block block-gold">
+  <div class="block-title">정의</div>
+  <p>
+    기업이 언제, 왜, 어떻게 시작되었는지를 설명하는 스토리.
+    창립자의 비전, 초기 도전과 성취, 그리고 회사가 성장하면서 거친 주요 이정표를 포함합니다.
+  </p>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>속성</th>
+      <th>설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>길이</strong></td>
+      <td>1,200 ~ 2,500자</td>
+      <td>약 5 ~ 10분 읽이</td>
+    </tr>
+    <tr>
+      <td><strong>톤</strong></td>
+      <td>존경스럽고 진정성 있으며 희망적</td>
+      <td>"우리는 이를 믿고 시작했습니다"</td>
+    </tr>
+    <tr>
+      <td><strong>구조</strong></td>
+      <td>배경 → 아이디어 → 초기 도전 → 성장 → 현재</td>
+      <td>시간 순서대로 전개</td>
+    </tr>
+    <tr>
+      <td><strong>시각 요소</strong></td>
+      <td>과거 사진, 아카이브 이미지, 타임라인</td>
+      <td>회사 초기 사무실, 창립자 사진</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>작성 팁:</strong></p>
+<ul>
+  <li>구체적인 시간, 장소, 인물명을 포함하여 신뢰성 강화</li>
+  <li>창립자 또는 핵심 인물의 목소리로 직접 인용문 포함</li>
+  <li>어려움과 해결 과정을 솔직하게 표현</li>
+  <li>현재와의 연결고리를 명확하게 구성</li>
+</ul>
+
+<h3>1.2 Mission & Vision Story (미션 및 비전 이야기)</h3>
+<div class="block block-blue">
+  <div class="block-title">정의</div>
+  <p>
+    기업이 왜 존재하는지(미션), 어디로 나아가려고 하는지(비전)를 스토리로 표현.
+    미션은 현재의 행동과 목적을, 비전은 미래의 염원과 영향력을 설명합니다.
+  </p>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>속성</th>
+      <th>설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>길이</strong></td>
+      <td>600 ~ 1,200자</td>
+      <td>약 2 ~ 4분 읽이</td>
+    </tr>
+    <tr>
+      <td><strong>톤</strong></td>
+      <td>확신 있고 영감적이며 명확함</td>
+      <td>"우리는 미래를 만듭니다"</td>
+    </tr>
+    <tr>
+      <td><strong>구조</strong></td>
+      <td>현재의 문제 → 우리의 신념 → 행동 및 영향 → 미래</td>
+      <td>논리적 흐름으로 설득</td>
+    </tr>
+    <tr>
+      <td><strong>시각 요소</strong></td>
+      <td>비전을 표현하는 상징적 이미지, 그래픽</td>
+      <td>미래 지향적 이미지, 추상화된 그래픽</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>작성 팁:</strong></p>
+<ul>
+  <li>추상적이지 않게 구체적인 영향 사례 포함</li>
+  <li>세대를 넘어선 영향력을 표현</li>
+  <li>고객, 직원, 사회가 받게 될 영향을 명확히</li>
+  <li>열정과 논리의 균형 유지</li>
+</ul>
+
+<h3>1.3 Value Story (가치관 이야기)</h3>
+<div class="block block-green">
+  <div class="block-title">정의</div>
+  <p>
+    기업이 무엇을 중요하게 여기는지, 그 가치가 어떻게 행동으로 구현되는지를 보여주는 스토리.
+    추상적인 가치를 구체적인 사례와 결과로 설명합니다.
+  </p>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>속성</th>
+      <th>설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>길이</strong></td>
+      <td>400 ~ 800자 (가치당)</td>
+      <td>약 1 ~ 3분 읽이</td>
+    </tr>
+    <tr>
+      <td><strong>톤</strong></td>
+      <td>정직하고 실천적이며 성찰적</td>
+      <td>"이것이 우리가 하는 일입니다"</td>
+    </tr>
+    <tr>
+      <td><strong>구조</strong></td>
+      <td>가치 정의 → 구체적 사례 → 결과 또는 교훈</td>
+      <td>추상에서 구체로</td>
+    </tr>
+    <tr>
+      <td><strong>시각 요소</strong></td>
+      <td>가치를 체현하는 실제 행동 사진, 영상</td>
+      <td>팀 협업, 고객 만족, 혁신 장면</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>작성 팁:</strong></p>
+<ul>
+  <li>가치를 선언하는 것이 아닌 실제 구현 방식을 보여줌</li>
+  <li>구체적인 개인의 경험과 증언 포함</li>
+  <li>도전과 성찰의 순간도 솔직하게 표현</li>
+  <li>각 가치가 조직 전체에 어떻게 스며있는지 설명</li>
+</ul>
+
+<h3>1.4 Impact Story (영향력 이야기)</h3>
+<div class="block block-purple">
+  <div class="block-title">정의</div>
+  <p>
+    기업이 고객, 사회, 환경에 미친 긍정적 영향과 변화를 설명하는 스토리.
+    데이터, 사례, 개인의 증언을 통해 구체적인 영향력을 보여줍니다.
+  </p>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>속성</th>
+      <th>설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>길이</strong></td>
+      <td>800 ~ 1,500자</td>
+      <td>약 3 ~ 6분 읽이</td>
+    </tr>
+    <tr>
+      <td><strong>톤</strong></td>
+      <td>데이터 기반이고 감정적이며 감사함</td>
+      <td>"이것이 우리가 달성한 것입니다"</td>
+    </tr>
+    <tr>
+      <td><strong>구조</strong></td>
+      <td>문제 인식 → 우리의 행동 → 결과 및 데이터 → 미래</td>
+      <td>증거 기반의 설득</td>
+    </tr>
+    <tr>
+      <td><strong>시각 요소</strong></td>
+      <td>통계, 인포그래픽, 변화 전후 이미지</td>
+      <td>차트, 개선 사진, 수혜자 증언</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>작성 팁:</strong></p>
+<ul>
+  <li>정량적 지표(숫자, 통계)와 질적 증거(사례, 증언) 균형</li>
+  <li>영향의 규모와 지속성을 명확히 표현</li>
+  <li>수혜자의 목소리와 변화를 생생하게 담음</li>
+  <li>지속 가능한 임팩트에 대한 약속 포함</li>
+</ul>
+
+<h3>1.5 Behind-the-Scenes Story (비하인드 이야기)</h3>
+<div class="block block-red">
+  <div class="block-title">정의</div>
+  <p>
+    기업의 일상, 팀, 문화, 그리고 제품/서비스가 어떻게 만들어지는지를 보여주는 스토리.
+    고객이 보지 못하는 내부의 노력과 창의성을 공개합니다.
+  </p>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>속성</th>
+      <th>설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>길이</strong></td>
+      <td>600 ~ 1,200자</td>
+      <td>약 2 ~ 4분 읽이</td>
+    </tr>
+    <tr>
+      <td><strong>톤</strong></td>
+      <td>친근하고 투명하며 재미있음</td>
+      <td>"우리는 이렇게 일합니다"</td>
+    </tr>
+    <tr>
+      <td><strong>구조</strong></td>
+      <td>장면 설정 → 과정 → 배운 점 또는 재미있는 사실</td>
+      <td>일화와 자세한 설명</td>
+    </tr>
+    <tr>
+      <td><strong>시각 요소</strong></td>
+      <td>팀 사진, 작업 과정, 오피스, 영상</td>
+      <td>실제 장면과 순간들</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>작성 팁:</strong></p>
+<ul>
+  <li>너무 세련되지 않은, 사람다운 톤 유지</li>
+  <li>팀원의 개인적 성격과 이야기 포함</li>
+  <li>도전과 재미있는 순간 모두 공유</li>
+  <li>고객이 제품/서비스의 가치를 더 깊이 이해하도록 도움</li>
+</ul>
+
+<h3>1.6 Customer/Partner Story (고객 및 파트너 이야기)</h3>
+<div class="block block-gold">
+  <div class="block-title">정의</div>
+  <p>
+    기업의 고객이나 파트너가 경험한 변화와 성공 사례를 그들의 관점에서 설명하는 스토리.
+    제3자 증언을 통해 기업의 가치를 입증합니다.
+  </p>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>속성</th>
+      <th>설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>길이</strong></td>
+      <td>500 ~ 1,000자</td>
+      <td>약 2 ~ 3분 읽이</td>
+    </tr>
+    <tr>
+      <td><strong>톤</strong></td>
+      <td>진정하고 감사하며 추천하는</td>
+      <td>"이들이 우리를 도왔습니다"</td>
+    </tr>
+    <tr>
+      <td><strong>구조</strong></td>
+      <td>배경과 도전 → 협력 과정 → 결과 및 영향</td>
+      <td>고객 중심 시각</td>
+    </tr>
+    <tr>
+      <td><strong>시각 요소</strong></td>
+      <td>고객/파트너 사진, 인터뷰, 추천 영상</td>
+      <td>실제 인물 사진, 증언 영상</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>작성 팁:</strong></p>
+<ul>
+  <li>고객의 목소리와 경험을 최대한 살림</li>
+  <li>직접 인용문과 증언을 포함</li>
+  <li>회사가 제공한 가치를 고객 관점에서 표현</li>
+  <li>다양한 세그먼트의 고객 사례 제시</li>
+</ul>
+
+<hr/>
+
+<h2 id="content-structure">2. 콘텐츠 구조 표준</h2>
+
+<p>
+  모든 스토리 콘텐츠는 다음의 표준 구조를 따릅니다.
+  이는 일관성을 보장하고 다양한 플랫폼으로의 조정을 용이하게 합니다.
+</p>
+
+<h3>2.1 표준 메타데이터</h3>
+
+<pre><code>{
+  "id": "story-001",
+  "type": "origin-story",
+  "title": "우리의 시작, 그리고 지금",
+  "subtitle": "창립자가 말하는 회사의 역사",
+  "slug": "our-beginning-and-now",
+  "author": "John Doe",
+  "publishedDate": "2024-12-15",
+  "updatedDate": "2024-12-15",
+  "status": "published",
+  "language": "ko",
+  "tags": ["history", "founder", "growth"],
+  "category": "origin-story",
+  "readingTime": 8,
+  "wordCount": 1850,
+  "summary": "회사가 어떻게 시작되었고, 무엇을 거쳐 현재에 이르렀는지를 설명합니다.",
+  "thumbnail": "image-url",
+  "visuals": [
+    {
+      "type": "image",
+      "url": "image-url",
+      "caption": "우리의 첫 사무실"
+    }
+  ],
+  "seo": {
+    "metaDescription": "회사의 역사와 창립 이야기",
+    "keywords": ["회사 역사", "창립자", "성장 스토리"]
+  }
+}</code></pre>
+
+<p>
+  <strong>필수 필드:</strong> id, type, title, slug, author, publishedDate, status, language, category
+</p>
+<p>
+  <strong>권장 필드:</strong> subtitle, readingTime, wordCount, summary, thumbnail, seo
+</p>
+
+<h3>2.2 본문 구조</h3>
+
+<p>모든 스토리는 다음의 표준 섹션으로 구성됩니다:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>섹션</th>
+      <th>목적</th>
+      <th>길이</th>
+      <th>필수 여부</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>리드(Lead)</strong></td>
+      <td>독자를 끌어들이고 스토리의 본질 전달</td>
+      <td>1 ~ 3문단 (100 ~ 200자)</td>
+      <td>필수</td>
+    </tr>
+    <tr>
+      <td><strong>바디(Body)</strong></td>
+      <td>스토리의 상세한 내용과 증거 제시</td>
+      <td>3 ~ 8개 문단</td>
+      <td>필수</td>
+    </tr>
+    <tr>
+      <td><strong>비주얼 (Visuals)</strong></td>
+      <td>이미지, 영상, 인포그래픽 삽입</td>
+      <td>3 ~ 6개</td>
+      <td>권장</td>
+    </tr>
+    <tr>
+      <td><strong>콜-투-액션(CTA)</strong></td>
+      <td>독자의 다음 행동 유도</td>
+      <td>1 ~ 2문장</td>
+      <td>권장</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>2.3 리드 작성 기준</h3>
+
+<p>효과적인 리드는 다음 요소를 포함합니다:</p>
+
+<div class="block block-blue">
+  <div class="block-title">리드 구성 요소</div>
+  <ul>
+    <li><strong>훅(Hook):</strong> 독자의 관심을 즉시 사로잡는 문장</li>
+    <li><strong>컨텍스트:</strong> 스토리의 배경과 중요성 설명</li>
+    <li><strong>약속:</strong> 이 스토리를 읽으면 무엇을 얻을 수 있는지 암시</li>
+  </ul>
+</div>
+
+<p><strong>예시 (Origin Story):</strong></p>
+<blockquote>
+  "회사를 시작한 첫날, 우리는 한 가지 믿음만 있었습니다. 
+  그 믿음이 어디서 왔는지, 그리고 10년이 지난 지금 무엇이 변했는지를 
+  이 이야기를 통해 나누고 싶습니다."
+</blockquote>
+
+<h3>2.4 바디 작성 기준</h3>
+
+<p>강력한 바디는 다음 구조를 따릅니다:</p>
+
+<ol>
+  <li><strong>장면 설정:</strong> 구체적인 시간, 장소, 인물 제시</li>
+  <li><strong>도전 또는 아이디어:</strong> 문제 또는 비전 소개</li>
+  <li><strong>행동과 결과:</strong> 어떻게 해결했는지, 무엇을 배웠는지</li>
+  <li><strong>의미와 연결:</strong> 이 경험이 오늘날의 조직에 미치는 영향</li>
+</ol>
+
+<p><strong>작성 팁:</strong></p>
+<ul>
+  <li>구체적인 수치와 사례 사용</li>
+  <li>직접 인용문과 1인칭 관점 포함</li>
+  <li>감정 표현과 논리적 설득의 균형</li>
+  <li>짧고 명확한 문장 선호 (평균 15 ~ 20자)</li>
+  <li>능동태 사용</li>
+</ul>
+
+<h3>2.5 시각 자료 가이드라인</h3>
+
+<p>각 스토리는 최소 3개 이상의 시각 자료를 포함해야 합니다:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>유형</th>
+      <th>목적</th>
+      <th>권장 규격</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>히어로 이미지</strong></td>
+      <td>스토리의 대표 이미지</td>
+      <td>1920 × 1080 px</td>
+      <td>창립자 사진, 회사 전경</td>
+    </tr>
+    <tr>
+      <td><strong>컨텍스트 이미지</strong></td>
+      <td>본문 내용을 시각적으로 지원</td>
+      <td>800 × 600 px</td>
+      <td>사무실, 제품, 팀 사진</td>
+    </tr>
+    <tr>
+      <td><strong>인포그래픽</strong></td>
+      <td>데이터와 통계 시각화</td>
+      <td>800 × 1000 px</td>
+      <td>성장 차트, 타임라인</td>
+    </tr>
+    <tr>
+      <td><strong>인용문 그래픽</strong></td>
+      <td>주요 인용문 강조</td>
+      <td>1080 × 1080 px (소셜)</td>
+      <td>창립자 명언</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>이미지 선택 기준:</strong></p>
+<ul>
+  <li>고해상도 (최소 72 DPI, 웹 기준 300 DPI 권장)</li>
+  <li>스토리의 톤과 브랜드 이미지 일치</li>
+  <li>다양성 및 포용성 반영</li>
+  <li>과도한 보정이나 스톡 사진 피하기</li>
+  <li>캡션과 출처 표기 필수</li>
+</ul>
+
+<h3>2.6 콜-투-액션 (CTA) 기준</h3>
+
+<p>각 스토리의 끝에는 독자를 다음 단계로 유도하는 CTA가 있어야 합니다:</p>
+
+<div class="block block-green">
+  <div class="block-title">CTA 유형</div>
+  <ul>
+    <li><strong>탐색형:</strong> "더 많은 스토리 읽기", "우리의 영향력 탐색하기"</li>
+    <li><strong>참여형:</strong> "팀에 합류하기", "뉴스레터 구독하기"</li>
+    <li><strong>공유형:</strong> "이 이야기를 나누기", "소셜 미디어에 공유"</li>
+    <li><strong>연락형:</strong> "문의하기", "미팅 예약하기"</li>
+  </ul>
+</div>
+
+<p><strong>CTA 작성 팁:</strong></p>
+<ul>
+  <li>행동 동사로 시작하기 ("읽기", "탐색하기", "발견하기")</li>
+  <li>명확하고 간결한 문구 (3 ~ 8자)</li>
+  <li>스토리의 내용과 자연스럽게 연결</li>
+  <li>2 ~ 3개의 대안 제시</li>
+</ul>
+
+<hr/>
+
+<h2 id="tone-voice">3. 톤 오브 보이스 및 문체 가이드</h2>
+
+<p>
+  <strong>톤 오브 보이스(Tone of Voice)</strong>는 기업의 개성과 가치를 반영하는 방식입니다.
+  우리의 스토리 콘텐츠는 다음의 특징을 가집니다.
+</p>
+
+<h3>3.1 핵심 톤의 특징</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>특징</th>
+      <th>설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>진정성 (Authentic)</strong></td>
+      <td>과장 없이 사실에 기반한 이야기</td>
+      <td>"우리는 실패도 경험했습니다"</td>
+    </tr>
+    <tr>
+      <td><strong>명확함 (Clear)</strong></td>
+      <td>복잡한 개념을 쉽게 설명</td>
+      <td>전문 용어 최소화, 비유 활용</td>
+    </tr>
+    <tr>
+      <td><strong>존경심 (Respectful)</strong></td>
+      <td>독자와 이해관계자를 존중</td>
+      <td>다양한 관점을 인정</td>
+    </tr>
+    <tr>
+      <td><strong>영감적 (Inspiring)</strong></td>
+      <td>행동과 변화를 유도</td>
+      <td>"함께 우리는 더 나은 미래를 만듭니다"</td>
+    </tr>
+    <tr>
+      <td><strong>접근 가능함 (Accessible)</strong></td>
+      <td>모든 배경의 독자에게 열려 있음</td>
+      <td>단순하고 직설적인 표현</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>3.2 피해야 할 톤</h3>
+
+<ul>
+  <li>과장되거나 거창한 표현</li>
+  <li>기업 중심의 자찬</li>
+  <li>복잡한 기술 용어와 전문 언어</li>
+  <li>감정조작적이거나 가벼운 어조</li>
+  <li>다른 기업이나 개인을 깎아내리는 표현</li>
+</ul>
+
+<h3>3.3 문체 가이드라인</h3>
+
+<p><strong>문장:</strong></p>
+<ul>
+  <li>평균 길이: 15 ~ 20자</li>
+  <li>능동태 사용</li>
+  <li>주어를 명확하게</li>
+  <li>한 문장 = 한 아이디어</li>
+</ul>
+
+<p><strong>단락:</strong></p>
+<ul>
+  <li>평균 3 ~ 5문장</li>
+  <li>주제 문장으로 시작</li>
+  <li>명확한 논리 흐름</li>
+</ul>
+
+<p><strong>단어 선택:</strong></p>
+<ul>
+  <li>일반적인 단어를 더 높이 평가</li>
+  <li>구어체와 문어체의 균형</li>
+  <li>강력한 동사 사용</li>
+  <li>중복 제거</li>
+</ul>
+
+<h3>3.4 스토리 타입별 톤 조정</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>스토리 타입</th>
+      <th>주요 톤</th>
+      <th>문체 특징</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Origin Story</td>
+      <td>존경심, 영감</td>
+      <td>개인적, 회상적</td>
+    </tr>
+    <tr>
+      <td>Mission & Vision</td>
+      <td>확신, 영감</td>
+      <td>선언적, 설득적</td>
+    </tr>
+    <tr>
+      <td>Value Story</td>
+      <td>진정성, 성찰</td>
+      <td>개인적, 구체적</td>
+    </tr>
+    <tr>
+      <td>Impact Story</td>
+      <td>데이터 기반, 감정</td>
+      <td>증거 중심, 고객 중심</td>
+    </tr>
+    <tr>
+      <td>Behind-the-Scenes</td>
+      <td>친근함, 투명성</td>
+      <td>일화적, 캐주얼</td>
+    </tr>
+    <tr>
+      <td>Customer Story</td>
+      <td>진정성, 감사</td>
+      <td>증언 중심, 고객 목소리</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr/>
+
+<h2 id="translation-localization">4. 다국어 및 지역화 표준</h2>
+
+<p>
+  스토리 콘텐츠는 전 세계의 이해관계자와 소통하기 위해 여러 언어로 제공될 수 있습니다.
+  번역과 지역화 시 다음의 기준을 따릅니다.
+</p>
+
+<h3>4.1 번역 기준</h3>
+
+<ul>
+  <li><strong>의미 중심 번역:</strong> 단어 대 단어 번역이 아닌 의미와 톤 전달 우선</li>
+  <li><strong>문화적 맥락:</strong> 각 지역의 문화와 가치에 맞게 조정</li>
+  <li><strong>프로 번역자 이용:</strong> 모든 공식 콘텐츠는 전문 번역자 또는 네이티브 스피커 검토 필수</li>
+  <li><strong>용어 일관성:</strong> 회사 특정 용어와 이름은 번역 가이드 참조</li>
+  <li><strong>검증 프로세스:</strong> 원본 저자 또는 전문가의 최종 검토</li>
+</ul>
+
+<h3>4.2 지역화 조정사항</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>요소</th>
+      <th>조정 방식</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>날짜와 시간</strong></td>
+      <td>지역 형식에 맞게</td>
+      <td>2024-12-15 (ISO) → 2024년 12월 15일 (한국)</td>
+    </tr>
+    <tr>
+      <td><strong>숫자와 통화</strong></td>
+      <td>지역 형식과 통화 표기</td>
+      <td>1,000.50 USD → 1.000,50€ (유럽)</td>
+    </tr>
+    <tr>
+      <td><strong>사진과 비디오</strong></td>
+      <td>지역에 맞는 시각 자료 고려</td>
+      <td>다양성 및 지역 맥락 반영</td>
+    </tr>
+    <tr>
+      <td><strong>인용문</strong></td>
+      <td>지역의 유명 인물이나 관례 반영</td>
+      <td>로컬 파트너나 고객 증언 추가</td>
+    </tr>
+    <tr>
+      <td><strong>예시와 참고</strong></td>
+      <td>지역에 이해 가능한 예시로 변경</td>
+      <td>글로벌 브랜드 → 로컬 성공 사례</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr/>
+
+<h2 id="multichannel">5. 멀티채널 적용 가이드</h2>
+
+<p>
+  콘텐츠는 웹사이트, 소셜 미디어, 이메일, 인쇄물 등 다양한 채널을 통해 배포됩니다.
+  각 채널의 특성에 맞게 콘텐츠를 조정하는 기준은 다음과 같습니다.
+</p>
+
+<h3>5.1 웹사이트 (Website)</h3>
+
+<p><strong>포맷:</strong> 긴 형식 기사 (Long-form article)</p>
+
+<ul>
+  <li>전체 스토리 게시</li>
+  <li>구조화된 마크업 (Schema.org) 적용</li>
+  <li>내부 링크로 관련 스토리와 연결</li>
+  <li>댓글 및 공유 기능 활성화</li>
+  <li>검색 최적화 (SEO) 적용</li>
+</ul>
+
+<p><strong>권장 요소:</strong></p>
+<ul>
+  <li>목차 (Table of Contents)</li>
+  <li>저자 정보 상자</li>
+  <li>발행일 및 업데이트 날짜</li>
+  <li>추천 글 섹션</li>
+  <li>뉴스레터 구독 CTA</li>
+</ul>
+
+<h3>5.2 소셜 미디어 (Social Media)</h3>
+
+<p><strong>포맷:</strong> 짧고 임팩트 있는 콘텐츠 (Short-form content)</strong></p>
+
+<p><strong>플랫폼별 기준:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>플랫폼</th>
+      <th>길이</th>
+      <th>포맷</th>
+      <th>빈도</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>LinkedIn</strong></td>
+      <td>150 ~ 300자</td>
+      <td>프로페셔널한 톤, 인사이트</td>
+      <td>주 2 ~ 3회</td>
+    </tr>
+    <tr>
+      <td><strong>Instagram</strong></td>
+      <td>50 ~ 150자</td>
+      <td>시각적, 감정적, 캡션 짧음</td>
+      <td>주 1 ~ 2회</td>
+    </tr>
+    <tr>
+      <td><strong>Twitter/X</strong></td>
+      <td>140자 이내</td>
+      <td>직설적, 질문형, 링크</td>
+      <td>주 3 ~ 5회</td>
+    </tr>
+    <tr>
+      <td><strong>YouTube</strong></td>
+      <td>3 ~ 10분 영상</td>
+      <td>시각적 스토리텔링, 인터뷰</td>
+      <td>월 1 ~ 2회</td>
+    </tr>
+    <tr>
+      <td><strong>TikTok</strong></td>
+      <td>15 ~ 60초 영상</td>
+      <td>재미있고 창의적, 트렌디</td>
+      <td>주 1 ~ 2회</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>5.3 이메일 (Email)</h3>
+
+<p><strong>포맷:</strong> 큐레이션된 콘텐츠 요약</p>
+
+<ul>
+  <li><strong>뉴스레터:</strong> 월 1 ~ 2회, 3 ~ 5개의 스토리 하이라이트</li>
+  <li><strong>구독자 세그먼트:</strong> 직원, 고객, 파트너, 일반 대중</li>
+  <li><strong>권장 길이:</strong> 200 ~ 400자 요약 + 원문 링크</li>
+  <li><strong>시각 자료:</strong> 썸네일 이미지 포함</li>
+  <li><strong>CTA:</strong> "전체 글 읽기", "더 알아보기"</li>
+</ul>
+
+<h3>5.4 인쇄물 (Print)</h3>
+
+<p><strong>포맷:</strong> 조정된 형식</p>
+
+<ul>
+  <li><strong>브로셔/팜플렛:</strong> 500 ~ 800자 요약본</li>
+  <li><strong>연간 보고서:</strong> 주요 스토리 발췌</li>
+  <li><strong>매거진:</strong> 1,000 ~ 2,000자 기사</li>
+  <li><strong>포스터:</strong> 핵심 문구와 이미지 강조</li>
+</ul>
+
+<p><strong>인쇄 최적화:</strong></p>
+<ul>
+  <li>QR 코드로 웹 버전 링크</li>
+  <li>고해상도 이미지 (최소 300 DPI)</li>
+  <li>인쇄 안전 영역 고려</li>
+  <li>색상 관리 (CMYK)</li>
+</ul>
+
+<h3>5.5 영상 콘텐츠 (Video)</h3>
+
+<p><strong>타입:</strong></p>
+<ul>
+  <li><strong>다큐멘터리 스타일:</strong> 5 ~ 10분, 인터뷰 기반</li>
+  <li><strong>숏폼:</strong> 15 ~ 60초, 소셜 미디어 최적화</li>
+  <li><strong>애니메이션:</strong> 2 ~ 3분, 데이터나 복잡한 개념 설명</li>
+  <li><strong>라이브 스트리밍:</strong> 30분 ~ 2시간, Q&A 세션</li>
+</ul>
+
+<p><strong>필수 요소:</strong></p>
+<ul>
+  <li>자막 (다국어 지원)</li>
+  <li>음성 오버 또는 인터뷰</li>
+  <li>비주얼 자료 (그래픽, 이미지, 영상)</li>
+  <li>배경음 및 음효과</li>
+  <li>YouTube 설명란에 상세 정보 포함</li>
+</ul>
+
+<hr/>
+
+<h2 id="editorial-workflow">6. 편집 및 워크플로우</h2>
+
+<h3>6.1 콘텐츠 개발 단계</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>단계</th>
+      <th>담당자</th>
+      <th>산출물</th>
+      <th>기간</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. 기획</strong></td>
+      <td>콘텐츠 매니저, 전략팀</td>
+      <td>스토리 개요, 목표, 대상층</td>
+      <td>1 ~ 2일</td>
+    </tr>
+    <tr>
+      <td><strong>2. 리서치</strong></td>
+      <td>저자, 연구원</td>
+      <td>자료 수집, 인터뷰, 데이터</td>
+      <td>3 ~ 7일</td>
+    </tr>
+    <tr>
+      <td><strong>3. 집필</strong></td>
+      <td>저자/라이터</td>
+      <td>초고, 드래프트</td>
+      <td>5 ~ 10일</td>
+    </tr>
+    <tr>
+      <td><strong>4. 편집</strong></td>
+      <td>에디터</td>
+      <td>검수, 톤/스타일 조정</td>
+      <td>2 ~ 5일</td>
+    </tr>
+    <tr>
+      <td><strong>5. 리뷰</strong></td>
+      <td>관계자, 승인자</td>
+      <td>피드백, 최종 승인</td>
+      <td>2 ~ 5일</td>
+    </tr>
+    <tr>
+      <td><strong>6. 시각 자료 준비</strong></td>
+      <td>디자이너, 포토그래퍼</td>
+      <td>이미지, 그래픽, 영상</td>
+      <td>5 ~ 10일</td>
+    </tr>
+    <tr>
+      <td><strong>7. 게시</strong></td>
+      <td>퍼블리셔</td>
+      <td>웹사이트, 소셜 미디어 게시</td>
+      <td>1일</td>
+    </tr>
+    <tr>
+      <td><strong>8. 프로모션</strong></td>
+      <td>마케팅팀</td>
+      <td>이메일, SNS, 광고</td>
+      <td>2 ~ 4주</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>6.2 편집 체크리스트</h3>
+
+<div class="block block-gold">
+  <div class="block-title">콘텐츠 편집 체크리스트</div>
+  <ul>
+    <li>사실 확인 및 출처 검증</li>
+    <li>톤 오브 보이스 일관성 검토</li>
+    <li>문법, 맞춤법, 구두점</li>
+    <li>구조와 논리 흐름</li>
+    <li>단어 반복 및 중복 제거</li>
+    <li>인용문의 정확성과 출처</li>
+    <li>데이터와 통계 검증</li>
+    <li>이미지 해상도 및 저작권</li>
+    <li>메타데이터 완성</li>
+    <li>SEO 최적화 (제목, 설명, 키워드)</li>
+    <li>링크 및 CTA 작동 확인</li>
+    <li>다양성 및 포용성 검토</li>
+  </ul>
+</div>
+
+<h3>6.3 품질 관리 기준</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>항목</th>
+      <th>기준</th>
+      <th>측정 방법</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>정확성</strong></td>
+      <td>100% 사실 기반</td>
+      <td>사실 확인 리스트, 출처 검증</td>
+    </tr>
+    <tr>
+      <td><strong>톤</strong></td>
+      <td>일관성 있는 음성</td>
+      <td>톤 가이드 대조, 전문가 검토</td>
+    </tr>
+    <tr>
+      <td><strong>가독성</strong></td>
+      <td>Flesch-Kincaid 레벨 7 이하</td>
+      <td>자동 가독성 도구</td>
+    </tr>
+    <tr>
+      <td><strong>길이</strong></td>
+      <td>스토리 타입별 기준 준수</td>
+      <td>단어 수 확인</td>
+    </tr>
+    <tr>
+      <td><strong>SEO</strong></td>
+      <td>기본 SEO 점수 70점 이상</td>
+      <td>SEO 분석 도구</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr/>
+
+<h2 id="metrics">7. 성과 지표 및 분석</h2>
+
+<p>
+  콘텐츠의 성과를 측정하고 지속적으로 개선하기 위해 다음의 지표를 추적합니다.
+</p>
+
+<h3>7.1 주요 성과 지표 (KPI)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>지표</th>
+      <th>정의</th>
+      <th>목표</th>
+      <th>측정 빈도</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>뷰</strong></td>
+      <td>콘텐츠 페이지 조회 수</td>
+      <td>월 3,000 이상</td>
+      <td>매주</td>
+    </tr>
+    <tr>
+      <td><strong>도달</strong></td>
+      <td>소셜 미디어 임프레션</td>
+      <td>월 10,000 이상</td>
+      <td>매주</td>
+    </tr>
+    <tr>
+      <td><strong>참여</strong></td>
+      <td>댓글, 공유, 좋아요</td>
+      <td>뷰의 5% 이상</td>
+      <td>매주</td>
+    </tr>
+    <tr>
+      <td><strong>클릭</strong></td>
+      <td>CTA 클릭 수</td>
+      <td>뷰의 3% 이상</td>
+      <td>매주</td>
+    </tr>
+    <tr>
+      <td><strong>체류 시간</strong></td>
+      <td>페이지 평균 체류 시간</td>
+      <td>2분 30초 이상</td>
+      <td>매주</td>
+    </tr>
+    <tr>
+      <td><strong>이탈률</strong></td>
+      <td>페이지 이탈 비율</td>
+      <td>30% 이하</td>
+      <td>매주</td>
+    </tr>
+    <tr>
+      <td><strong>공유</strong></td>
+      <td>사회적 공유 수</td>
+      <td>월 500 이상</td>
+      <td>매주</td>
+    </tr>
+    <tr>
+      <td><strong>전환</strong></td>
+      <td>뉴스레터 구독, 문의 등</td>
+      <td>뷰의 1% 이상</td>
+      <td>매주</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>7.2 정성적 평가</h3>
+
+<ul>
+  <li><strong>댓글 감정:</strong> 긍정/부정 댓글 비율</li>
+  <li><strong>공유 피드백:</strong> 소셜 미디어 언급과 태그</li>
+  <li><strong>전문가 평가:</strong> 업계 전문가의 인정 및 인용</li>
+  <li><strong>독자 설문:</strong> 만족도, 유용성, 신뢰도 조사</li>
+</ul>
+
+<h3>7.3 분석 리뷰 일정</h3>
+
+<ul>
+  <li><strong>주간:</strong> 기본 성과 지표 검토</li>
+  <li><strong>월간:</strong> 상세 분석 및 트렌드 파악</li>
+  <li><strong>분기별:</strong> 전략 조정 및 개선 계획</li>
+  <li><strong>연간:</strong> 종합 평가 및 내년 목표 설정</li>
+</ul>
+
+<hr/>
+
+<h2 id="conclusion">8. 결론</h2>
+
+<p>
+  <strong>이야기로 읽는 회사</strong> 콘텐츠 표준 스펙은 다양한 매체와 플랫폼에서
+  우리 회사의 이야기를 일관되고 효과적으로 전달하기 위한 종합 가이드입니다.
+</p>
+
+<p>
+  이 스펙을 따르면:
+</p>
+<ul>
+  <li>모든 채널에서 일관된 톤과 메시지 유지</li>
+  <li>높은 품질의 콘텐츠 지속적 생산</li>
+  <li>다양한 대상층에 효과적인 소통</li>
+  <li>브랜드 신뢰도와 충성도 강화</li>
+  <li>국제 시장에서의 일관된 표현</li>
+</ul>
+
+<p>
+  <strong>다음 단계:</strong>
+</p>
+<ul>
+  <li>팀 교육 및 온보딩</li>
+  <li>편집 도구 및 템플릿 개발</li>
+  <li>파일럿 프로젝트 실행</li>
+  <li>피드백 수집 및 스펙 개선</li>
+  <li>정기적인 리뷰 및 업데이트</li>
+</ul>
+
+<hr/>
+
+<h2 id="appendix">부록</h2>
+
+<h3>A. 스토리 타입별 템플릿</h3>
+
+<div class="block block-blue">
+  <div class="block-title">Origin Story 템플릿</div>
+  <pre><code>## [회사명] 창립 이야기: [핵심 메시지]
+
+### 리드
+[훅 - 관심을 끌 수 있는 오프닝]
+[컨텍스트 - 배경 설명]
+[약속 - 이 이야기에서 배울 점]
+
+### 본문 (3 ~ 5개 섹션)
+#### 섹션 1: 시작 전의 상황
+[배경과 이유]
+
+#### 섹션 2: 아이디어와 영감
+[영감의 출처와 창립자의 비전]
+
+#### 섹션 3: 초기 도전
+[극복해야 했던 어려움]
+
+#### 섹션 4: 성장과 진화
+[주요 전환점과 이정표]
+
+#### 섹션 5: 오늘날의 의미
+[과거 경험이 현재 조직에 미치는 영향]
+
+### 콜-투-액션
+[다음 읽을 콘텐츠 또는 행동 유도]</code></pre>
+</div>
+
+<h3>B. 편집 기준 체크리스트 (한국어)</h3>
+
+<div class="block block-green">
+  <div class="block-title">편집 체크리스트</div>
+  <pre><code>[ ] 제목이 명확하고 흥미로운가?
+[ ] 리드가 효과적으로 독자를 끌어들이는가?
+[ ] 내용이 사실에 기반하고 검증되었는가?
+[ ] 톤이 일관되고 가이드를 따르는가?
+[ ] 문법, 맞춤법, 구두점이 정확한가?
+[ ] 문장이 명확하고 간결한가?
+[ ] 단락 구조가 논리적인가?
+[ ] 시각 자료가 충분하고 관련성이 있는가?
+[ ] 이미지 캡션이 설명적인가?
+[ ] 데이터와 통계가 정확하고 최신인가?
+[ ] 인용문이 정확하고 출처가 명확한가?
+[ ] SEO 최적화가 되었는가?
+[ ] CTA가 명확하고 관련성이 있는가?
+[ ] 메타데이터가 완성되었는가?
+[ ] 다양성과 포용성이 반영되었는가?</code></pre>
+</div>
+
+<h3>C. 참고 자료 및 링크</h3>
+
+<ul>
+  <li><a href="#">브랜드 가이드라인</a></li>
+  <li><a href="#">SEO 최적화 가이드</a></li>
+  <li><a href="#">이미지 가이드라인</a></li>
+  <li><a href="#">토너 오브 보이스 가이드</a></li>
+  <li><a href="#">소셜 미디어 가이드</a></li>
+</ul>
+
+<hr/>
+
+<footer>
+  <p>이 문서는 정기적으로 검토되고 업데이트됩니다.</p>
+  <p>최종 업데이트: 2024년 12월</p>
+  <p>다음 버전: v1.1 (예상 2025년 6월)</p>
+  <p>문의: <a href="mailto:content@example.com">content@example.com</a></p>
+  <span>copyright © 2024 · Stories of Business · All rights reserved.</span>
+  <span>Seed OS Project · 2025</span>
+  <span>다음 버전: 영어 병행 발행 체계 추가 예정</span>
+</footer>
+
 </body>
 </html>
