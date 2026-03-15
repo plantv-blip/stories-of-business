@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이야기로 읽는 회사 — EP.00 AI 산업 입문</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Serif KR", Georgia, serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 3rem 2rem;
+  text-align: center;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+.header h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 2.5em;
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+}
+.header p {
+  font-size: 1.1em;
+  margin: 0;
+  opacity: 0.95;
+}
+.content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  line-height: 1.8;
+}
+.content h2 {
+  color: #667eea;
+  font-family: "Playfair Display", serif;
+  font-size: 2em;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+.content h3 {
+  color: #764ba2;
+  font-size: 1.5em;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+}
+.content p {
+  color: #333;
+  margin: 1em 0;
+  text-align: justify;
+}
+.content ul, .content ol {
+  color: #555;
+  margin: 1em 0;
+  padding-left: 2em;
+}
+.content li {
+  margin: 0.5em 0;
+}
+.highlight {
+  background: #fff3cd;
+  padding: 1rem;
+  border-left: 4px solid #ffc107;
+  margin: 1rem 0;
+  border-radius: 4px;
+}
+.code-block {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  border: 1px solid #dee2e6;
+  font-family: "DM Mono", monospace;
+  font-size: 0.9em;
+}
+a {
+  color: #667eea;
+  text-decoration: none;
+  border-bottom: 1px solid #667eea;
+  transition: all 0.3s ease;
+}
+a:hover {
+  color: #764ba2;
+  border-bottom-color: #764ba2;
+}
+.footer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #ddd;
+  text-align: center;
+  color: #666;
+  font-size: 0.9em;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>이야기로 읽는 회사</h1>
+    <p>EP.00 — AI 산업 입문</p>
+  </div>
+  <div class="content">
+    <h2>AI 산업, 어떻게 이해할 것인가?</h2>
+    <p>Artificial Intelligence(인공지능)는 이제 단순한 기술용어가 아니다. 투자자부터 일반인까지 모두가 주목하는 글로벌 트렌드이자, 미래 경제를 좌우할 핵심 산업이 되었다. 하지만 AI에 대한 이해는 여전히 부족하다. 대부분의 사람들은 AI를 '똑똑한 기계', '인간을 대체하는 기술' 정도로만 이해하고 있다.</p>
+    <p>이 시리즈는 AI 산업을 '이야기'로 풀어가고자 한다. 복잡한 기술 용어 대신, AI가 어떻게 발전해왔고, 누가 주도하고 있으며, 어떤 기회와 위험이 있는지 구체적인 사례를 통해 살펴볼 것이다.</p>
+    
+    <h2>AI 산업의 구조 이해하기</h2>
+    <p>AI 산업을 이해하기 위해서는 세 가지 계층으로 나누어 생각하면 된다:</p>
+    <ul>
+      <li><strong>Infrastructure Layer (인프라 계층)</strong>: GPU, 칩셋, 클라우드 서비스 등 AI 모델을 학습하고 실행하는 데 필요한 하드웨어와 플랫폼</li>
+      <li><strong>Model & Framework Layer (모델 계층)</strong>: ChatGPT, Gemini 같은 대규모 언어 모델(LLM)이나 이를 만드는 프레임워크</li>
+      <li><strong>Application Layer (응용 계층)</strong>: AI를 활용해 실제 문제를 푸는 소프트웨어와 서비스</li>
+    </ul>
+    <p>세 계층은 서로 영향을 주고받으며 발전하는 생태계를 이룬다.</p>
+    
+    <h2>왜 지금 AI인가?</h2>
+    <p>AI는 오래전부터 있었던 개념이다. 그렇다면 왜 지금 갑자기 세상이 떠들썩한가?</p>
+    <div class="highlight">
+      <strong>세 가지 변화가 동시에 일어났기 때문이다:</strong><br>
+      1. 컴퓨팅 파워의 폭발적 증가<br>
+      2. 인터넷을 통한 빅데이터의 축적<br>
+      3. 알고리즘의 획기적 개선 (특히 딥러닝)
+    </div>
+    <p>이 세 가지가 모두 갖춰졌을 때, AI는 비로소 '실용적인 기술'에서 '세상을 바꾸는 도구'로 진화했다.</p>
+    
+    <h2>앞으로의 여정</h2>
+    <p>이 시리즈를 통해 우리는 AI 산업의 현재를 이해하고, 각 계층에서 일어나는 경쟁과 협력의 드라마를 살펴볼 것이다. 다음 에피소드부터는 실제 기업들의 이야기를 통해 AI 시대의 기회와 과제를 함께 탐구해보자.</p>
+    
+    <div class="footer">
+      <p>Stories of Business — AI & Semiconductor Series</p>
+      <p>다음 에피소드: Nvidia의 대전환</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

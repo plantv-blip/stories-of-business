@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stories of Business - 이야기로 읽는 회사</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Serif KR", Georgia, serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 4rem 2rem;
+  text-align: center;
+  border-radius: 12px;
+  margin-bottom: 3rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+.header h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 3.5em;
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+}
+.header p {
+  font-size: 1.3em;
+  margin: 0;
+  opacity: 0.95;
+}
+.intro {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+.intro p {
+  color: #333;
+  margin: 1rem 0;
+}
+.episodes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+.episode-card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+.episode-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+.episode-card-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1.5rem;
+}
+.episode-card-header h3 {
+  margin: 0 0 0.5rem 0;
+  font-family: "Playfair Display", serif;
+  font-size: 1.3em;
+}
+.episode-card-body {
+  padding: 1.5rem;
+}
+.episode-card-body p {
+  margin: 0 0 1rem 0;
+  color: #666;
+  line-height: 1.6;
+}
+.episode-tag {
+  display: inline-block;
+  background: #f0f0f0;
+  color: #667eea;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85em;
+  margin-right: 0.5rem;
+}
+.read-more {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 2px solid #667eea;
+  transition: all 0.3s ease;
+}
+.read-more:hover {
+  color: #764ba2;
+  border-bottom-color: #764ba2;
+}
+.footer {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #ddd;
+  color: #666;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>Stories of Business</h1>
+    <p>이야기로 읽는 회사</p>
+  </div>
+  
+  <div class="intro">
+    <p><strong>복잡한 기술과 산업을 이야기로 풀어갑니다.</strong></p>
+    <p>AI, 반도체, 소프트웨어... 세상을 움직이는 기술들이 어떻게 발전해왔고, 누가 주도하고 있으며, 어떤 기회와 위험이 있는지 구체적인 사례를 통해 살펴봅니다.</p>
+    <p>이 시리즈는 투자자, 개발자, 비즈니스 리더, 그리고 단순히 세상이 어떻게 돌아가는지 알고 싶은 모든 사람을 위한 것입니다.</p>
+  </div>
+  
+  <h2 style="font-family: 'Playfair Display', serif; color: #667eea; font-size: 2em; margin-top: 2rem;">AI & Semiconductor Series</h2>
+  
+  <div class="episodes">
+    <div class="episode-card">
+      <div class="episode-card-header">
+        <h3>EP.00: AI 산업 입문</h3>
+      </div>
+      <div class="episode-card-body">
+        <p>AI 산업의 구조를 이해하는 첫 번째 이야기. 인프라 계층, 모델 계층, 응용 계층 세 가지 레벨로 나누어 생각합니다.</p>
+        <span class="episode-tag">기초</span>
+        <a href="ai_story_ep00.html" class="read-more">읽기 →</a>
+      </div>
+    </div>
+    
+    <div class="episode-card">
+      <div class="episode-card-header">
+        <h3>EP.00.5: 3가지 거대한 변화</h3>
+      </div>
+      <div class="episode-card-body">
+        <p>AI가 지금 주목받는 이유는? 컴퓨팅 파워, 빅데이터, 알고리즘 혁신이 동시에 만난 시점입니다.</p>
+        <span class="episode-tag">기초</span>
+        <span class="episode-tag">데이터</span>
+        <a href="ai_story_ep00_5.html" class="read-more">읽기 →</a>
+      </div>
+    </div>
+    
+    <div class="episode-card">
+      <div class="episode-card-header">
+        <h3>EP.01: NVIDIA - 게임에서 AI로</h3>
+      </div>
+      <div class="episode-card-body">
+        <p>역사상 가장 빠르게 부자가 된 회사의 이야기. Nvidia가 어떻게 GPU 왕이 되었고, AI 시대에 압도적 이득을 얻는지 살펴봅니다.</p>
+        <span class="episode-tag">기업</span>
+        <span class="episode-tag">반도체</span>
+        <a href="ai_story_ep01.html" class="read-more">읽기 →</a>
+      </div>
+    </div>
+    
+    <div class="episode-card">
+      <div class="episode-card-header">
+        <h3>EP.02: 반도체 산업의 구조</h3>
+      </div>
+      <div class="episode-card-body">
+        <p>반도체는 어떻게 만들어질까? 설계, 제조, 패키징... 각 단계의 거인들과 그들의 경쟁 구도를 파악합니다.</p>
+        <span class="episode-tag">산업구조</span>
+        <span class="episode-tag">반도체</span>
+        <a href="semiconductor_story_ep00.html" class="read-more">읽기 →</a>
+      </div>
+    </div>
+    
+    <div class="episode-card">
+      <div class="episode-card-header">
+        <h3>EP.02.5: TSMC의 독점</h3>
+      </div>
+      <div class="episode-card-body">
+        <p>세상의 거의 모든 고성능 반도체는 한 곳에서 만들어집니다. TSMC가 어떻게 이런 지위를 얻었을까요?</p>
+        <span class="episode-tag">기업</span>
+        <span class="episode-tag">반도체</span>
+        <a href="semiconductor_story_ep00_5.html" class="read-more">읽기 →</a>
+      </div>
+    </div>
+    
+    <div class="episode-card">
+      <div class="episode-card-header">
+        <h3>EP.03: Transformer와 언어 모델</h3>
+      </div>
+      <div class="episode-card-body">
+        <p>ChatGPT를 가능하게 한 기술은 무엇일까? "Attention is All You Need" 이후의 이야기입니다.</p>
+        <span class="episode-tag">기술</span>
+        <span class="episode-tag">AI</span>
+        <a href="ai_story_ep01.html" class="read-more">읽기 →</a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <p><strong>Stories of Business</strong> — AI & Semiconductor Series</p>
+    <p>Complex business and technology stories, told simply</p>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이야기로 읽는 회사 — EP.00.5 AI의 부상: 3가지 거대한 변화</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Serif KR", Georgia, serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 3rem 2rem;
+  text-align: center;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+.header h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 2.5em;
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+}
+.header p {
+  font-size: 1.1em;
+  margin: 0;
+  opacity: 0.95;
+}
+.content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  line-height: 1.8;
+}
+.content h2 {
+  color: #667eea;
+  font-family: "Playfair Display", serif;
+  font-size: 2em;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+.content h3 {
+  color: #764ba2;
+  font-size: 1.5em;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+}
+.content p {
+  color: #333;
+  margin: 1em 0;
+  text-align: justify;
+}
+.timeline-item {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  border-left: 4px solid #667eea;
+  border-radius: 4px;
+}
+.timeline-item h4 {
+  margin: 0 0 0.5rem 0;
+  color: #667eea;
+}
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+.comparison-table th,
+.comparison-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+.comparison-table th {
+  background: #f8f9fa;
+  font-weight: 600;
+  color: #333;
+}
+.comparison-table tr:hover {
+  background: #f8f9fa;
+}
+.highlight {
+  background: #fff3cd;
+  padding: 1rem;
+  border-left: 4px solid #ffc107;
+  margin: 1rem 0;
+  border-radius: 4px;
+}
+.footer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #ddd;
+  text-align: center;
+  color: #666;
+  font-size: 0.9em;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>이야기로 읽는 회사</h1>
+    <p>EP.00.5 — AI의 부상: 3가지 거대한 변화</p>
+  </div>
+  <div class="content">
+    <h2>AI 혁명을 촉발한 세 가지 변화</h2>
+    <p>AI가 갑자기 주목받기 시작한 것은 역사적 필연이다. 세 가지 조건이 동시에 충족되었을 때, AI는 비로소 '게임 체인저'가 되었다.</p>
+    
+    <h2>변화 #1: 컴퓨팅 파워의 기하급수적 증가</h2>
+    <div class="timeline-item">
+      <h4>무어의 법칙에서 가속도의 법칙으로</h4>
+      <p>반도체 산업은 50년 동안 무어의 법칙을 따라왔다: "트랜지스터의 개수는 약 2년마다 2배 증가한다."</p>
+      <p>하지만 최근 10년간은 이를 초월하는 변화가 일어났다. GPU(Graphics Processing Unit)의 등장이 그것이다.</p>
+      <ul>
+        <li><strong>CPU의 한계</strong>: 순차적 작업에 최적화된 CPU는 대규모 병렬 처리에 부족했다.</li>
+        <li><strong>GPU의 혁신</strong>: 본래 게임 그래픽을 위해 설계된 GPU는 수천 개의 코어로 동시에 연산을 수행할 수 있다.</li>
+        <li><strong>AI의 맞춤형 칩</strong>: Google의 TPU, Apple의 Neural Engine, Amazon의 Trainium 등 AI 전용 칩이 등장했다.</li>
+      </ul>
+    </div>
+    
+    <h2>변화 #2: 빅데이터 혁명</h2>
+    <div class="timeline-item">
+      <h4>데이터가 곧 자산이 되다</h4>
+      <p>AI 모델은 데이터를 먹고 자란다. 데이터가 많을수록, 다양할수록 더 똑똑해진다.</p>
+      <table class="comparison-table">
+        <tr>
+          <th>시대</th>
+          <th>데이터 규모</th>
+          <th>데이터 출처</th>
+        </tr>
+        <tr>
+          <td>1990년대</td>
+          <td>메가바이트 (MB)</td>
+          <td>기관, 조직의 정형 데이터</td>
+        </tr>
+        <tr>
+          <td>2000년대</td>
+          <td>기가바이트 (GB)</td>
+          <td>웹사이트, 검색 기록</td>
+        </tr>
+        <tr>
+          <td>2010년대</td>
+          <td>테라바이트 (TB)</td>
+          <td>소셜미디어, 모바일 데이터</td>
+        </tr>
+        <tr>
+          <td>2020년대</td>
+          <td>페타바이트 (PB)</td>
+          <td>전 지구적 디지털 흔적</td>
+        </tr>
+      </table>
+      <p>스마트폰의 보급, 소셜미디어, IoT 기기들은 인류 역사상 가장 방대한 데이터 자산을 만들었다.</p>
+    </div>
+    
+    <h2>변화 #3: 알고리즘 혁신 - 딥러닝의 등장</h2>
+    <div class="timeline-item">
+      <h4>신경망에서 신경망까지</h4>
+      <p>컴퓨팅 파워와 데이터가 있어도, 이를 활용할 알고리즘이 없다면 소용없다. 2012년 일어난 '딥러닝 혁명'이 바로 그 변곡점이었다.</p>
+      <ul>
+        <li><strong>AlexNet (2012)</strong>: Geoffrey Hinton의 팀이 이미지 인식 대회에서 압도적으로 우승했다. 이것이 딥러닝의 시작이었다.</li>
+        <li><strong>Transformer (2017)</strong>: "Attention is All You Need" 논문이 발표되면서, 자연언어 처리에 혁명이 일어났다.</li>
+        <li><strong>Large Language Models (2020~)</strong>: GPT-3, ChatGPT 등 수십억 개의 매개변수를 가진 거대 모델들이 등장했다.</li>
+      </ul>
+    </div>
+    
+    <h2>세 변화의 교점: 완벽한 폭풍</h2>
+    <div class="highlight">
+      <strong>언제부터인가, AI는 더 이상 미래의 기술이 아니라 현재의 현실이 되었다.</strong><br><br>
+      컴퓨팅 파워 × 빅데이터 × 알고리즘 혁신 = AI 시대의 도래
+    </div>
+    
+    <h2>이제 누가 주도하는가?</h2>
+    <p>이 세 변화로부터 누가 가장 큰 이득을 얻는가? 답은 단순하지 않다:</p>
+    <ul>
+      <li><strong>하드웨어 기업</strong> (Nvidia, Intel, AMD): GPU와 칩 수요 폭증으로 역사상 최고 수익</li>
+      <li><strong>클라우드 기업</strong> (Amazon, Google, Microsoft): AI 인프라를 제공하는 플랫폼으로 급부상</li>
+      <li><strong>AI 모델 기업</strong> (OpenAI, Google DeepMind): 원천 기술로 시장 주도권 행사</li>
+      <li><strong>응용 기업</strong> (다양한 스타트업과 기존 기업들): AI를 도구로 삼아 혁신 중</li>
+    </ul>
+    
+    <div class="footer">
+      <p>Stories of Business — AI & Semiconductor Series</p>
+      <p>다음 에피소드: Nvidia와 GPU 혁명</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

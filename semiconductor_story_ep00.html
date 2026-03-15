@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이야기로 읽는 회사 — EP.02 반도체 산업의 구조</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Serif KR", Georgia, serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+.header {
+  background: linear-gradient(135deg, #e94560 0%, #8b3a3a 100%);
+  color: white;
+  padding: 3rem 2rem;
+  text-align: center;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+.header h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 2.5em;
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+}
+.header p {
+  font-size: 1.1em;
+  margin: 0;
+  opacity: 0.95;
+}
+.content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  line-height: 1.8;
+}
+.content h2 {
+  color: #e94560;
+  font-family: "Playfair Display", serif;
+  font-size: 2em;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+.content h3 {
+  color: #8b3a3a;
+  font-size: 1.5em;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+}
+.content p {
+  color: #333;
+  margin: 1em 0;
+  text-align: justify;
+}
+.value-chain {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 2rem 0;
+  overflow-x: auto;
+}
+.chain-step {
+  flex: 1;
+  min-width: 150px;
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-left: 4px solid #e94560;
+  border-radius: 4px;
+  text-align: center;
+}
+.chain-step strong {
+  color: #e94560;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.highlight {
+  background: #fff3cd;
+  padding: 1rem;
+  border-left: 4px solid #ffc107;
+  margin: 1rem 0;
+  border-radius: 4px;
+}
+.company-box {
+  background: #f0f0f0;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  border-left: 4px solid #8b3a3a;
+  border-radius: 4px;
+}
+.company-box strong {
+  color: #8b3a3a;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.footer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #ddd;
+  text-align: center;
+  color: #666;
+  font-size: 0.9em;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>이야기로 읽는 회사</h1>
+    <p>EP.02 — 반도체 산업의 구조</p>
+  </div>
+  <div class="content">
+    <h2>반도체는 어떻게 만들어질까?</h2>
+    <p>"반도체"는 우리가 아는 것보다 훨씬 복잡한 산업이다. 대부분의 사람들은 "반도체 = 칩을 만드는 회사"라고 생각한다. 하지만 현실은 다르다. 반도체 산업은 여러 개의 분화된 비즈니스로 이루어져 있으며, 각각이 높은 진입장벽을 가지고 있다.</p>
+    
+    <h2>반도체 가치사슬 (Value Chain)</h2>
+    <div class="value-chain">
+      <div class="chain-step">
+        <strong>설계</strong>
+        <p>칩의 구조를 설계하는 단계</p>
+      </div>
+      <div class="chain-step">
+        <strong>EDA</strong>
+        <p>설계 도구와 소프트웨어</p>
+      </div>
+      <div class="chain-step">
+        <strong>제조</strong>
+        <p>설계를 물리적 칩으로 만드는 단계</p>
+      </div>
+      <div class="chain-step">
+        <strong>패키징</strong>
+        <p>칩을 보호하고 연결하기</p>
+      </div>
+      <div class="chain-step">
+        <strong>테스트</strong>
+        <p>품질 검증</p>
+      </div>
+    </div>
+    
+    <h2>각 단계별 주요 기업들</h2>
+    
+    <h3>1. 설계 (Design)</h3>
+    <div class="company-box">
+      <strong>Fabless 기업들 (Fab을 가지지 않은 기업)</strong>
+      <p>Nvidia, AMD, Qualcomm, Apple, Broadcom 등은 칩을 직접 만들지 않는다. 대신 칩 설계를 전문으로 한다. 이들의 강점은:</p>
+      <ul>
+        <li>고객의 요구를 이해하는 깊은 도메인 전문성</li>
+        <li>최첨단 설계 기술</li>
+        <li>빠른 개선 사이클</li>
+      </ul>
+      <p><strong>비즈니스 모델:</strong> 칩당 로열티 또는 라이선싱</p>
+    </div>
+    
+    <h3>2. EDA 도구 (Electronic Design Automation)</h3>
+    <div class="company-box">
+      <strong>Synopsys, Cadence Design Systems</strong>
+      <p>반도체 설계는 손으로 할 수 없다. 수십억 개의 트랜지스터를 배치하고 최적화하는 데는 정교한 소프트웨어가 필수다.</p>
+      <p><strong>이들의 지배력:</strong> 전 세계 반도체 설계의 90% 이상이 이들의 도구로 이루어진다.</p>
+      <p><strong>수익:</strong> 고액의 소프트웨어 라이선싱 (연간 수백만 달러/고객)</p>
+    </div>
+    
+    <h3>3. 제조 (Manufacturing) - 가장 비용이 큰 부분</h3>
+    <p>반도체 제조는 세계에서 가장 복잡한 산업이다. 현대적인 반도체 공장 (Fab)은:</p>
+    <ul>
+      <li>건설 비용: $10~20 억 달러</li>
+      <li>운영 비용: 연간 수백억 달러</li>
+      <li>기술 수준: 극자외선(EUV) 광학기술, 나노미터 단위 정밀도</li>
+    </ul>
+    
+    <div class="company-box">
+      <strong>TSMC (Taiwan Semiconductor Manufacturing Company)</strong>
+      <p>전 세계 반도체 제조의 절반 이상을 담당한다. Nvidia의 GPU, Apple의 M 칩, AMD의 프로세서 모두 TSMC에서 만들어진다.</p>
+      <p><strong>수익:</strong> 칩당 제조 비용의 일정 비율 또는 고정 수수료</p>
+    </div>
+    
+    <div class="company-box">
+      <strong>Samsung, Intel (Foundry Service)</strong>
+      <p>TSMC의 주요 경쟁사. 하지만 기술 수준에서 2~3년 뒤쳐져 있다.</p>
+    </div>
+    
+    <h3>4. 패키징 (Packaging)</h3>
+    <div class="company-box">
+      <strong>ASUS Tech, Amkor, JSR</strong>
+      <p>설계된 칩을 사용 가능한 형태로 만드는 단계. 마이크로 기술이 필요하다.</p>
+    </div>
+    
+    <h3>5. 테스트 (Testing)</h3>
+    <div class="company-box">
+      <strong>Xcerra, Teradyne</strong>
+      <p>칩의 성능과 품질을 검증한다. 불량품은 제거된다.</p>
+    </div>
+    
+    <h2>왜 TSMC가 절대 강자인가?</h2>
+    <div class="highlight">
+      <strong>TSMC의 경쟁 우위:</strong><br>
+      1. 기술 리더십 (최신 공정 기술)
+      2. 규모의 경제 (최고의 수율)
+      3. 고객 관계 (Nvidia, Apple 등 주요 설계사와의 깊은 협력)
+      4. 공급망 (필요한 모든 부품과 장비에 빠른 접근)
+    </div>
+    
+    <p>TSMC가 없으면 현대의 AI, 스마트폰, 클라우드 서비스 모두 불가능하다. 이것이 왜 TSMC가 미국, 중국, 대만의 지정학적 갈등의 중심인지 설명한다.</p>
+    
+    <h2>산업 구조의 의미</h2>
+    <ul>
+      <li><strong>설계 기업들(Fabless)</strong>은 빠르고 유연하지만, 제조 비용에 의존한다.</li>
+      <li><strong>제조 기업(Foundry)</strong은 느리고 자본 집약적이지만, 공급 측면에서 절대적 권력을 가진다.</li>
+      <li><strong>EDA 도구 회사들</strong은 가장 높은 마진율을 가지지만, 가장 덜 주목받는다.</li>
+    </ul>
+    
+    <p>이 구조 때문에, 반도체 산업은 결코 완전한 자유 경쟁이 아니다. 각 계층에서 소수의 기업만이 생존할 수 있는 구조를 가지고 있다.</p>
+    
+    <div class="footer">
+      <p>Stories of Business — AI & Semiconductor Series</p>
+      <p>다음 에피소드: TSMC의 독점</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

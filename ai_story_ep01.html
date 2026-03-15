@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이야기로 읽는 회사 — EP.01 NVIDIA: 게임에서 AI로</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Serif KR", Georgia, serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+.header {
+  background: linear-gradient(135deg, #76b900 0%, #2a8c2a 100%);
+  color: white;
+  padding: 3rem 2rem;
+  text-align: center;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+.header h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 2.5em;
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+}
+.header p {
+  font-size: 1.1em;
+  margin: 0;
+  opacity: 0.95;
+}
+.content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  line-height: 1.8;
+}
+.content h2 {
+  color: #76b900;
+  font-family: "Playfair Display", serif;
+  font-size: 2em;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+.content h3 {
+  color: #2a8c2a;
+  font-size: 1.5em;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+}
+.content p {
+  color: #333;
+  margin: 1em 0;
+  text-align: justify;
+}
+.milestone {
+  background: #f0f7f0;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  border-left: 4px solid #76b900;
+  border-radius: 4px;
+}
+.milestone h4 {
+  margin: 0 0 0.5rem 0;
+  color: #2a8c2a;
+}
+.highlight {
+  background: #fff3cd;
+  padding: 1rem;
+  border-left: 4px solid #ffc107;
+  margin: 1rem 0;
+  border-radius: 4px;
+}
+.stat-box {
+  display: inline-block;
+  background: #f0f7f0;
+  padding: 1rem 1.5rem;
+  margin: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #76b900;
+}
+.stat-box strong {
+  color: #76b900;
+  display: block;
+  font-size: 1.5em;
+}
+.footer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #ddd;
+  text-align: center;
+  color: #666;
+  font-size: 0.9em;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>이야기로 읽는 회사</h1>
+    <p>EP.01 — NVIDIA: 게임에서 AI로</p>
+  </div>
+  <div class="content">
+    <h2>역사상 가장 빠르게 부자가 된 회사의 이야기</h2>
+    <p>2023년 한 해 동안 Nvidia의 주가는 240% 상승했다. 이는 단순한 수치가 아니다. 역사상 가장 빠르게 부자가 된 회사의 이야기이며, 동시에 AI 시대가 어떻게 경제를 재편하는지 보여주는 가장 생생한 사례다.</p>
+    
+    <h2>Nvidia는 어떻게 GPU 왕이 되었나?</h2>
+    <div class="milestone">
+      <h4>1. 시작: 게임 그래픽의 혁명 (1999~2005)</h4>
+      <p>Nvidia는 1999년 한 개의 칩, 하나의 꿈으로 시작했다: "복잡한 3D 그래픽을 실시간으로 렌더링하자."</p>
+      <p>당시 CPU는 순차적 처리에만 최적화되어 있었다. 하지만 3D 게임은 수백만 개의 픽셀을 동시에 계산해야 한다. Nvidia의 GPU는 이 문제를 우아하게 해결했다.</p>
+      <ul>
+        <li>GeForce 3 (2001): 실시간 3D 그래픽 혁명</li>
+        <li>GeForce 4 (2002): 게임 업계 표준 확립</li>
+      </ul>
+    </div>
+    
+    <div class="milestone">
+      <h4>2. 변곡점: CUDA의 등장 (2006)</h4>
+      <p>만약 Nvidia가 단순히 게임 그래픽 회사였다면, 지금쯤 경쟁에 밀려났을 것이다.</p>
+      <p>하지만 Nvidia는 대담한 결정을 내렸다: GPU를 범용 병렬 컴퓨팅 플랫폼으로 개방하자는 것이다.</p>
+      <p><strong>CUDA (Compute Unified Device Architecture)</strong>는 게임 그래픽을 계산하는 수천 개의 코어를 과학 계산, 데이터 처리 등에 활용할 수 있게 했다.</p>
+      <p>이 결정이 바로 Nvidia를 게임사에서 데이터센터 회사로 변신시킨 순간이었다.</p>
+    </div>
+    
+    <div class="milestone">
+      <h4>3. 도약: 딥러닝 시대의 도래 (2012~)</h4>
+      <p>2012년 AlexNet이 이미지 인식 대회에서 우승했을 때, 승자의 칩은 Nvidia GPU였다.</p>
+      <p>사람들은 깨달았다: AI를 학습하려면 GPU가 필요하다.</p>
+      <p>Google은 TPU를 개발했지만, Nvidia의 CUDA 에코시스템을 완전히 대체할 수 없었다.</p>
+      <ul>
+        <li>TensorFlow, PyTorch 등 모든 주류 AI 프레임워크가 CUDA 지원</li>
+        <li>AI 연구자들의 표준 도구</li>
+        <li>일반인들도 사용하는 Stable Diffusion, ChatGPT를 만드는 데 핵심 역할</li>
+      </ul>
+    </div>
+    
+    <h2>Nvidia의 비즈니스 모델</h2>
+    <div class="highlight">
+      <strong>Nvidia는 왜 AI 시대에 압도적 이득을 얻는가?</strong><br><br>
+      답: 인프라 레이어의 플랫폼 독점
+    </div>
+    
+    <p>AI 산업 구조상 세 계층이 있다고 했다. Nvidia는 가장 기초적인 계층을 지배한다:</p>
+    
+    <ul>
+      <li><strong>모든 AI 모델이 Nvidia GPU 위에서 학습된다</strong>: OpenAI, Google, Meta, Microsoft... 모두 Nvidia 고객</li>
+      <li><strong>전환 비용이 엄청나다</strong>: AI 프레임워크, 라이브러리, 최적화된 코드 모두 CUDA 기반</li>
+      <li><strong>성능 격차가 크다</strong>: 독자적인 칩(TPU, IPU)도 CUDA 생태계의 다양성을 따라잡지 못함</li>
+    </ul>
+    
+    <h2>숫자로 본 Nvidia의 지배력</h2>
+    <p style="text-align: center;">
+      <span class="stat-box">
+        <strong>$1.8T</strong>
+        Nvidia 시가총액 (2024년 초)
+      </span>
+      <span class="stat-box">
+        <strong>~95%</strong>
+        AI 데이터센터용 GPU 시장점유율
+      </span>
+      <span class="stat-box">
+        <strong>$60B+</strong>
+        2024년 예상 매출
+      </span>
+    </p>
+    
+    <h2>Nvidia의 미래: 위험 요인들</h2>
+    <p>하지만 성공이 영구적이지 않다는 것을 역사는 보여준다.</p>
+    <ul>
+      <li><strong>자체 칩 개발 움직임</strong>: 큰 고객들(Google, Meta, Microsoft)이 자신들의 AI 칩 개발에 투자 중</li>
+      <li><strong>경쟁 기업의 추격</strong>: AMD, Intel, Qualcomm이 GPU 개발에 박차</li>
+      <li><strong>마진 압박</strong>: 칩 공급 부족 시대가 끝나면서 가격 경쟁 심화 가능성</li>
+      <li><strong>지정학적 리스크</strong>: 미국의 중국 반도체 수출 규제로 매출 위험</li>
+    </ul>
+    
+    <div class="footer">
+      <p>Stories of Business — AI & Semiconductor Series</p>
+      <p>다음 에피소드: 반도체 산업의 구조</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>
