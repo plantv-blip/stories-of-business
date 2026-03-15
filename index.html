@@ -3,211 +3,155 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stories of Business - 이야기로 읽는 회사</title>
+<title>이야기로 읽는 회사 — Stories of Business</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #fafaf8; --bg2: #f3f2ee; --ink: #18160f; --ink2: #3a3830;
+  --muted: #8c8a82; --rule: rgba(24,22,15,0.1); --gold: #8a6914;
+}
+html { scroll-behavior: smooth; }
 body {
-  margin: 0;
-  padding: 0;
-  font-family: "Noto Serif KR", Georgia, serif;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: var(--bg); color: var(--ink);
+  font-family: 'Noto Serif KR', serif; font-weight: 300; line-height: 1.8;
   min-height: 100vh;
 }
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-}
 .header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 4rem 2rem;
-  text-align: center;
-  border-radius: 12px;
-  margin-bottom: 3rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  background: var(--ink); color: #f0ece3; padding: 64px 56px 48px;
+  border-bottom: 4px solid var(--gold);
+}
+.header-meta {
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: rgba(240,236,227,0.4); margin-bottom: 24px;
 }
 .header h1 {
-  font-family: "Playfair Display", serif;
-  font-size: 3.5em;
-  margin: 0 0 0.5rem 0;
-  font-weight: 600;
+  font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 56px);
+  font-weight: 400; line-height: 1.12; margin-bottom: 12px;
 }
+.header h1 em { font-style: italic; color: #d4a853; }
 .header p {
-  font-size: 1.3em;
-  margin: 0;
-  opacity: 0.95;
+  font-size: 15px; color: rgba(240,236,227,0.6); max-width: 640px; line-height: 1.65;
 }
-.intro {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  line-height: 1.8;
-  margin-bottom: 2rem;
+.main { max-width: 1000px; margin: 0 auto; padding: 48px 56px; }
+
+.series-block { margin-bottom: 56px; }
+.series-label {
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
 }
-.intro p {
-  color: #333;
-  margin: 1rem 0;
+.series-title {
+  font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400;
+  margin-bottom: 6px;
 }
-.episodes {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin: 2rem 0;
+.series-title em { font-style: italic; color: var(--gold); }
+.series-desc { font-size: 14px; color: var(--ink2); margin-bottom: 20px; }
+
+.ep-list { list-style: none; }
+.ep-item {
+  border: 1px solid var(--rule); margin-bottom: 10px; overflow: hidden;
+  transition: border-color 0.15s;
 }
-.episode-card {
-  background: white;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
+.ep-item:hover { border-color: var(--gold); }
+.ep-item a {
+  display: grid; grid-template-columns: 80px 1fr auto;
+  align-items: center; text-decoration: none; color: inherit; padding: 18px 22px;
 }
-.episode-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+.ep-num {
+  font-family: 'DM Mono', monospace; font-size: 12px; color: var(--gold);
+  letter-spacing: 0.08em;
 }
-.episode-card-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 1.5rem;
+.ep-title { font-size: 16px; font-weight: 500; }
+.ep-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.ep-arrow { font-size: 18px; color: var(--muted); }
+
+.spec-link {
+  display: inline-block; margin-top: 12px;
+  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.06em;
+  color: var(--gold); text-decoration: none; padding: 6px 14px;
+  border: 1px solid rgba(138,105,20,0.3);
 }
-.episode-card-header h3 {
-  margin: 0 0 0.5rem 0;
-  font-family: "Playfair Display", serif;
-  font-size: 1.3em;
+.spec-link:hover { background: rgba(138,105,20,0.06); }
+
+footer {
+  border-top: 2px solid var(--ink); padding: 16px 56px;
+  display: flex; justify-content: space-between;
+  font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted);
 }
-.episode-card-body {
-  padding: 1.5rem;
-}
-.episode-card-body p {
-  margin: 0 0 1rem 0;
-  color: #666;
-  line-height: 1.6;
-}
-.episode-tag {
-  display: inline-block;
-  background: #f0f0f0;
-  color: #667eea;
-  padding: 0.3rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.85em;
-  margin-right: 0.5rem;
-}
-.read-more {
-  color: #667eea;
-  text-decoration: none;
-  font-weight: 600;
-  border-bottom: 2px solid #667eea;
-  transition: all 0.3s ease;
-}
-.read-more:hover {
-  color: #764ba2;
-  border-bottom-color: #764ba2;
-}
-.footer {
-  text-align: center;
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid #ddd;
-  color: #666;
+
+@media (max-width: 760px) {
+  .header, .main, footer { padding-left: 20px; padding-right: 20px; }
+  .ep-item a { grid-template-columns: 60px 1fr; }
+  .ep-arrow { display: none; }
 }
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="header">
-    <h1>Stories of Business</h1>
-    <p>이야기로 읽는 회사</p>
-  </div>
-  
-  <div class="intro">
-    <p><strong>복잡한 기술과 산업을 이야기로 풀어갑니다.</strong></p>
-    <p>AI, 반도체, 소프트웨어... 세상을 움직이는 기술들이 어떻게 발전해왔고, 누가 주도하고 있으며, 어떤 기회와 위험이 있는지 구체적인 사례를 통해 살펴봅니다.</p>
-    <p>이 시리즈는 투자자, 개발자, 비즈니스 리더, 그리고 단순히 세상이 어떻게 돌아가는지 알고 싶은 모든 사람을 위한 것입니다.</p>
-  </div>
-  
-  <h2 style="font-family: 'Playfair Display', serif; color: #667eea; font-size: 2em; margin-top: 2rem;">AI & Semiconductor Series</h2>
-  
-  <div class="episodes">
-    <div class="episode-card">
-      <div class="episode-card-header">
-        <h3>EP.00: AI 산업 입문</h3>
-      </div>
-      <div class="episode-card-body">
-        <p>AI 산업의 구조를 이해하는 첫 번째 이야기. 인프라 계층, 모델 계층, 응용 계층 세 가지 레벨로 나누어 생각합니다.</p>
-        <span class="episode-tag">기초</span>
-        <a href="ai_story_ep00.html" class="read-more">읽기 →</a>
-      </div>
-    </div>
-    
-    <div class="episode-card">
-      <div class="episode-card-header">
-        <h3>EP.00.5: 3가지 거대한 변화</h3>
-      </div>
-      <div class="episode-card-body">
-        <p>AI가 지금 주목받는 이유는? 컴퓨팅 파워, 빅데이터, 알고리즘 혁신이 동시에 만난 시점입니다.</p>
-        <span class="episode-tag">기초</span>
-        <span class="episode-tag">데이터</span>
-        <a href="ai_story_ep00_5.html" class="read-more">읽기 →</a>
-      </div>
-    </div>
-    
-    <div class="episode-card">
-      <div class="episode-card-header">
-        <h3>EP.01: NVIDIA - 게임에서 AI로</h3>
-      </div>
-      <div class="episode-card-body">
-        <p>역사상 가장 빠르게 부자가 된 회사의 이야기. Nvidia가 어떻게 GPU 왕이 되었고, AI 시대에 압도적 이득을 얻는지 살펴봅니다.</p>
-        <span class="episode-tag">기업</span>
-        <span class="episode-tag">반도체</span>
-        <a href="ai_story_ep01.html" class="read-more">읽기 →</a>
-      </div>
-    </div>
-    
-    <div class="episode-card">
-      <div class="episode-card-header">
-        <h3>EP.02: 반도체 산업의 구조</h3>
-      </div>
-      <div class="episode-card-body">
-        <p>반도체는 어떻게 만들어질까? 설계, 제조, 패키징... 각 단계의 거인들과 그들의 경쟁 구도를 파악합니다.</p>
-        <span class="episode-tag">산업구조</span>
-        <span class="episode-tag">반도체</span>
-        <a href="semiconductor_story_ep00.html" class="read-more">읽기 →</a>
-      </div>
-    </div>
-    
-    <div class="episode-card">
-      <div class="episode-card-header">
-        <h3>EP.02.5: TSMC의 독점</h3>
-      </div>
-      <div class="episode-card-body">
-        <p>세상의 거의 모든 고성능 반도체는 한 곳에서 만들어집니다. TSMC가 어떻게 이런 지위를 얻었을까요?</p>
-        <span class="episode-tag">기업</span>
-        <span class="episode-tag">반도체</span>
-        <a href="semiconductor_story_ep00_5.html" class="read-more">읽기 →</a>
-      </div>
-    </div>
-    
-    <div class="episode-card">
-      <div class="episode-card-header">
-        <h3>EP.03: Transformer와 언어 모델</h3>
-      </div>
-      <div class="episode-card-body">
-        <p>ChatGPT를 가능하게 한 기술은 무엇일까? "Attention is All You Need" 이후의 이야기입니다.</p>
-        <span class="episode-tag">기술</span>
-        <span class="episode-tag">AI</span>
-        <a href="ai_story_ep01.html" class="read-more">읽기 →</a>
-      </div>
-    </div>
-  </div>
-  
-  <div class="footer">
-    <p><strong>Stories of Business</strong> — AI & Semiconductor Series</p>
-    <p>Complex business and technology stories, told simply</p>
-  </div>
+
+<div class="header">
+  <div class="header-meta">MCWS &middot; Stories of Business &middot; Seed OS Project</div>
+  <h1>이야기로 읽는 <em>회사</em></h1>
+  <p>산업을 이해하고, 리더십을 관찰하고, 재무제표를 구조로 읽는다. 데이터에서 지식으로, 지식에서 지혜로.</p>
 </div>
+
+<div class="main">
+
+  <!-- AI 시리즈 -->
+  <div class="series-block">
+    <div class="series-label">Series 02 &middot; AI &middot; Foundation Model</div>
+    <div class="series-title">지능을 <em>만들어 파는</em> 산업</div>
+    <div class="series-desc">OpenAI vs Anthropic &mdash; 같은 지능을 만들지만, 하나는 넷플릭스가 되려 하고 다른 하나는 AWS가 되려 한다.</div>
+    <ul class="ep-list">
+      <li class="ep-item"><a href="ai_story_ep00.html">
+        <div><div class="ep-num">EP.00</div></div>
+        <div><div class="ep-title">AI 산업 완전 입문</div><div class="ep-sub">파운데이션 모델부터 지정학까지 &mdash; 뉴스를 읽기 위한 10개의 열쇠</div></div>
+        <div class="ep-arrow">&rarr;</div>
+      </a></li>
+      <li class="ep-item"><a href="ai_story_ep00_5.html">
+        <div><div class="ep-num">EP.00.5</div></div>
+        <div><div class="ep-title">Platform의 왕과 Safety의 과학자</div><div class="ep-sub">Sam Altman vs Dario Amodei &mdash; 같은 조직에서 출발한 두 사람의 결단</div></div>
+        <div class="ep-arrow">&rarr;</div>
+      </a></li>
+      <li class="ep-item"><a href="ai_story_ep01.html">
+        <div><div class="ep-num">EP.01</div></div>
+        <div><div class="ep-title">$20B의 플랫폼과 $9B의 인프라</div><div class="ep-sub">Value Creation Cycle 6-Node로 해부하는 AI 양강 구도</div></div>
+        <div class="ep-arrow">&rarr;</div>
+      </a></li>
+    </ul>
+  </div>
+
+  <!-- 반도체 시리즈 -->
+  <div class="series-block">
+    <div class="series-label">Series 01 &middot; Semiconductor &middot; Memory</div>
+    <div class="series-title">모든 것의 <em>두뇌</em>를 만드는 산업</div>
+    <div class="series-desc">삼성전자 DS vs SK하이닉스 &mdash; 절반의 매출, 1.5배의 이익. HBM 선점이 만든 순환 구조의 역전.</div>
+    <ul class="ep-list">
+      <li class="ep-item"><a href="semiconductor_story_ep00.html">
+        <div><div class="ep-num">EP.00</div></div>
+        <div><div class="ep-title">반도체 산업 완전 입문</div><div class="ep-sub">용어부터 지정학까지 &mdash; 반도체를 모르면 삼성과 SK하이닉스 이야기를 읽어도 모른다</div></div>
+        <div class="ep-arrow">&rarr;</div>
+      </a></li>
+      <li class="ep-item"><a href="semiconductor_story_ep00_5.html">
+        <div><div class="ep-num">EP.00.5</div></div>
+        <div><div class="ep-title">리더십 레이어</div><div class="ep-sub">재무제표가 포착하지 못하는 것 &mdash; 결단이 만든 숫자의 차이</div></div>
+        <div class="ep-arrow">&rarr;</div>
+      </a></li>
+    </ul>
+  </div>
+
+  <!-- 스펙 & 프레임워크 -->
+  <div class="series-block">
+    <div class="series-label">Reference</div>
+    <a class="spec-link" href="stories_of_business_spec_v1.html">콘텐츠 표준 스펙 v1.0 &rarr;</a>
+    <a class="spec-link" href="value_creation_cycle.html" style="margin-left:8px;">Value Creation Cycle Framework &rarr;</a>
+  </div>
+
+</div>
+
+<footer>
+  <span>이야기로 읽는 회사 &mdash; Stories of Business</span>
+  <span>MCWS &middot; Seed OS Project &middot; 2025</span>
+</footer>
+
 </body>
 </html>
