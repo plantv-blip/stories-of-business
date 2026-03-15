@@ -3,277 +3,631 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 시대의 가치 창출 사이클</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
+<title>기업가치 순환 프레임워크</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Pretendard:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #0c0d0f;
+  --bg2:       #131417;
+  --bg3:       #1a1c20;
+  --border:    rgba(255,255,255,0.07);
+  --border2:   rgba(255,255,255,0.13);
+  --text:      #e8e6e0;
+  --muted:     #7a7870;
+  --accent:    #d4a853;
+
+  --teal:      #1D9E75;
+  --blue:      #378ADD;
+  --purple:    #7F77DD;
+  --amber:     #EF9F27;
+  --green:     #639922;
+  --coral:     #D85A30;
+
+  --teal-bg:   rgba(29,158,117,0.12);
+  --blue-bg:   rgba(55,138,221,0.12);
+  --purple-bg: rgba(127,119,221,0.12);
+  --amber-bg:  rgba(239,159,39,0.12);
+  --green-bg:  rgba(99,153,34,0.12);
+  --coral-bg:  rgba(216,90,48,0.12);
+}
+
+html { scroll-behavior: smooth; }
+
 body {
-  margin: 0;
-  padding: 0;
-  font-family: "Noto Serif KR", Georgia, serif;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
   min-height: 100vh;
 }
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-.header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 3rem 2rem;
-  text-align: center;
-  border-radius: 12px;
-  margin-bottom: 2rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-.header h1 {
-  font-family: "Playfair Display", serif;
-  font-size: 2.5em;
-  margin: 0 0 0.5rem 0;
-  font-weight: 600;
-}
-.header p {
-  font-size: 1.1em;
-  margin: 0;
-  opacity: 0.95;
-}
-.content {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  line-height: 1.8;
-}
-.cycle {
-  background: linear-gradient(135deg, #f5f7fa 0%, #e8ebf0 100%);
-  padding: 2rem;
-  border-radius: 8px;
-  margin: 2rem 0;
-  text-align: center;
-}
-.cycle-diagram {
-  display: inline-block;
-  border: 3px solid #667eea;
-  border-radius: 50%;
-  padding: 2rem;
-  position: relative;
-  width: 400px;
-  height: 400px;
+
+/* ── Header ── */
+header {
+  padding: 48px 40px 32px;
+  border-bottom: 1px solid var(--border);
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
 }
-.cycle-center {
-  position: absolute;
-  width: 150px;
-  height: 150px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 50%;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-family: "Playfair Display", serif;
-  font-size: 1.2em;
-  font-weight: 600;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+.header-left h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(26px, 4vw, 40px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  line-height: 1.15;
 }
-.section h2 {
-  color: #667eea;
-  font-family: "Playfair Display", serif;
-  font-size: 2em;
-  margin-top: 1.5em;
-  margin-bottom: 0.5em;
-  border-bottom: 2px solid #667eea;
-  padding-bottom: 0.5em;
+.header-left h1 em {
+  font-style: italic;
+  color: var(--accent);
 }
-.section h3 {
-  color: #764ba2;
-  font-size: 1.3em;
-  margin-top: 1.2em;
+.header-left p {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.03em;
 }
-.content p, .content li {
-  color: #333;
-  text-align: justify;
+.pill {
+  background: rgba(212,168,83,0.1);
+  border: 1px solid rgba(212,168,83,0.25);
+  color: var(--accent);
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  padding: 4px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  letter-spacing: 0.05em;
 }
-.highlight {
-  background: #fff3cd;
-  padding: 1.5rem;
-  border-left: 4px solid #ffc107;
-  margin: 1rem 0;
-  border-radius: 4px;
-}
-.box {
-  background: #f8f9fa;
-  padding: 1.5rem;
-  border-left: 4px solid #667eea;
-  margin: 1rem 0;
-  border-radius: 4px;
-}
-.comparison-grid {
+
+/* ── Main layout ── */
+main {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-  margin: 1.5rem 0;
+  grid-template-columns: 500px 1fr;
+  min-height: calc(100vh - 140px);
 }
-.comparison-item {
-  background: #f0f4ff;
-  padding: 1.5rem;
-  border-left: 4px solid #667eea;
-  border-radius: 4px;
+
+@media (max-width: 900px) {
+  main { grid-template-columns: 1fr; }
+  header { flex-direction: column; align-items: flex-start; }
 }
-.comparison-item strong {
-  color: #667eea;
-  display: block;
-  margin-bottom: 0.5rem;
-  font-size: 1.1em;
+
+/* ── Left: SVG panel ── */
+.svg-panel {
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 32px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
 }
-.footer {
-  margin-top: 2rem;
-  padding-top: 1rem;
-  border-top: 1px solid #ddd;
+
+.svg-panel svg { width: 100%; max-width: 420px; cursor: default; }
+
+.ring-hint {
+  margin-top: 20px;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   text-align: center;
-  color: #666;
-  font-size: 0.9em;
 }
+
+/* SVG node hover */
+.node-g { cursor: pointer; }
+.node-g:hover rect, .node-g:hover circle { filter: brightness(1.2); }
+.node-g rect, .node-g circle {
+  transition: filter 0.18s ease;
+}
+
+/* ── Right: Detail panel ── */
+.detail-panel {
+  padding: 40px 44px;
+  overflow-y: auto;
+}
+
+.detail-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 300px;
+  gap: 16px;
+  color: var(--muted);
+  text-align: center;
+}
+.detail-placeholder .arrow-hint {
+  font-size: 32px;
+  opacity: 0.3;
+  transform: rotate(180deg);
+  display: inline-block;
+}
+.detail-placeholder p { font-size: 13px; }
+
+/* Detail content */
+#detail-content { display: none; }
+#detail-content.visible { display: block; }
+
+.detail-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.detail-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+
+.detail-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Metric formula box */
+.formula-box {
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  padding: 14px 18px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: #c8c4b8;
+  line-height: 2;
+  margin-bottom: 28px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* Info rows */
+.info-grid {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 0;
+  margin-bottom: 32px;
+}
+.info-row {
+  display: contents;
+}
+.info-label {
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-transform: uppercase;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  padding-top: 14px;
+}
+.info-value {
+  font-size: 13px;
+  color: #d4d0c8;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  padding-top: 14px;
+  line-height: 1.65;
+}
+
+/* Insight block */
+.insight {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 22px 24px;
+  margin-bottom: 32px;
+}
+.insight-head {
+  font-size: 10px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.insight-body {
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text);
+  font-weight: 400;
+}
+.insight-body strong {
+  font-weight: 600;
+  color: #fff;
+}
+
+/* Node color accents */
+.color-teal   { color: var(--teal);   border-color: var(--teal);   background: var(--teal-bg);   }
+.color-blue   { color: var(--blue);   border-color: var(--blue);   background: var(--blue-bg);   }
+.color-purple { color: var(--purple); border-color: var(--purple); background: var(--purple-bg); }
+.color-amber  { color: var(--amber);  border-color: var(--amber);  background: var(--amber-bg);  }
+.color-green  { color: var(--green);  border-color: var(--green);  background: var(--green-bg);  }
+.color-coral  { color: var(--coral);  border-color: var(--coral);  background: var(--coral-bg);  }
+
+.color-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* Framework tags */
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.tag {
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  padding: 3px 9px;
+  border-radius: 4px;
+  border: 1px solid;
+  letter-spacing: 0.03em;
+}
+
+/* Bottom nav */
+.node-nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+}
+.nav-btn {
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  letter-spacing: 0.04em;
+}
+.nav-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(212,168,83,0.06);
+}
+.nav-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(212,168,83,0.1);
+}
+
+/* ── Footer ── */
+footer {
+  padding: 20px 40px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.05em;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="header">
-    <h1>AI 시대의 가치 창출 사이클</h1>
-    <p>Value Creation Cycle in the AI Era</p>
+
+<header>
+  <div class="header-left">
+    <h1>기업가치 <em>순환</em> 프레임워크</h1>
+    <p>재무제표 × 밸류체인 × 경쟁우위의 통합 구조 — Value Creation Cycle</p>
   </div>
-  
-  <div class="content">
-    <h2>AI는 어떻게 가치를 만드는가?</h2>
-    <p>AI 시대의 가치 창출은 선형이 아니다. 과거의 산업처럼 "원재료 → 생산 → 유통 → 판매" 같은 단순한 구조가 아니다. 대신, 몇 가지 핵심 요소들이 상호작용하면서 계속 증폭되는 사이클을 형성한다.</p>
-    
-    <div class="cycle">
-      <p style="font-size: 1.2em; font-weight: 600; color: #667eea;">AI 가치 창출 사이클</p>
-      <p style="font-size: 0.95em; margin-top: 1rem; color: #666;">
-        데이터 → 학습 → 모델 → 응용 → 더 많은 데이터<br>
-        (선순환이 가속화될수록 승자와 패자의 격차가 벌어진다)
-      </p>
+  <span class="pill">5 Frameworks · 6 Nodes</span>
+</header>
+
+<main>
+  <!-- Left: Diagram -->
+  <div class="svg-panel">
+    <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" id="main-svg">
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="context-stroke"/>
+        </marker>
+      </defs>
+
+      <!-- Ring guide (subtle) -->
+      <circle cx="200" cy="200" r="110" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="4 6"/>
+
+      <!-- Arrows (clockwise) -->
+      <!-- 1→2 (top → top-right) -->
+      <path d="M255 108 Q286 112 302 130" fill="none" stroke="rgba(29,158,117,0.55)" stroke-width="1.5" marker-end="url(#arr)"/>
+      <!-- 2→3 (top-right → bottom-right) -->
+      <path d="M324 185 Q334 213 320 252" fill="none" stroke="rgba(55,138,221,0.55)" stroke-width="1.5" marker-end="url(#arr)"/>
+      <!-- 3→4 (bottom-right → bottom) -->
+      <path d="M292 284 Q260 302 238 296" fill="none" stroke="rgba(127,119,221,0.55)" stroke-width="1.5" marker-end="url(#arr)"/>
+      <!-- 4→5 (bottom → bottom-left) -->
+      <path d="M162 296 Q140 300 122 280" fill="none" stroke="rgba(239,159,39,0.55)" stroke-width="1.5" marker-end="url(#arr)"/>
+      <!-- 5→6 (bottom-left → top-left) -->
+      <path d="M76 215 Q66 187 80 150" fill="none" stroke="rgba(99,153,34,0.55)" stroke-width="1.5" marker-end="url(#arr)"/>
+      <!-- 6→1 (top-left → top) -->
+      <path d="M108 118 Q136 100 168 98" fill="none" stroke="rgba(216,90,48,0.55)" stroke-width="1.5" marker-end="url(#arr)"/>
+
+      <!-- Arrow labels -->
+      <text x="286" y="108" font-size="9" fill="rgba(255,255,255,0.28)" font-family="DM Mono,monospace" text-anchor="middle">ROIC</text>
+      <text x="346" y="220" font-size="9" fill="rgba(255,255,255,0.28)" font-family="DM Mono,monospace" text-anchor="middle">회전율</text>
+      <text x="264" y="314" font-size="9" fill="rgba(255,255,255,0.28)" font-family="DM Mono,monospace" text-anchor="middle">마진율</text>
+      <text x="136" y="314" font-size="9" fill="rgba(255,255,255,0.28)" font-family="DM Mono,monospace" text-anchor="middle">EVA</text>
+      <text x="52" y="186" font-size="9" fill="rgba(255,255,255,0.28)" font-family="DM Mono,monospace" text-anchor="middle">CCC</text>
+      <text x="120" y="96" font-size="9" fill="rgba(255,255,255,0.28)" font-family="DM Mono,monospace" text-anchor="middle">재투자</text>
+
+      <!-- Center circle -->
+      <g class="node-g" onclick="show(0)" id="node-0">
+        <circle cx="200" cy="200" r="46" fill="rgba(26,28,32,0.9)" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
+        <text x="200" y="196" font-size="14" fill="#e8e6e0" font-family="DM Serif Display,serif" text-anchor="middle" dominant-baseline="central">경쟁력</text>
+        <text x="200" y="213" font-size="9.5" fill="rgba(255,255,255,0.35)" font-family="DM Mono,monospace" text-anchor="middle">순환 구조</text>
+      </g>
+
+      <!-- Node 1: 자본조달 — teal — top -->
+      <g class="node-g" onclick="show(1)" id="node-1">
+        <rect x="150" y="68" width="100" height="40" rx="7" fill="rgba(29,158,117,0.15)" stroke="rgba(29,158,117,0.5)" stroke-width="1"/>
+        <text x="200" y="83" font-size="13" fill="#1D9E75" font-family="DM Serif Display,serif" text-anchor="middle" dominant-baseline="central">자본조달</text>
+        <text x="200" y="98" font-size="9" fill="rgba(29,158,117,0.65)" font-family="DM Mono,monospace" text-anchor="middle">① Financing</text>
+      </g>
+
+      <!-- Node 2: 자산투자 — blue — top right -->
+      <g class="node-g" onclick="show(2)" id="node-2">
+        <rect x="296" y="138" width="100" height="40" rx="7" fill="rgba(55,138,221,0.15)" stroke="rgba(55,138,221,0.5)" stroke-width="1"/>
+        <text x="346" y="153" font-size="13" fill="#378ADD" font-family="DM Serif Display,serif" text-anchor="middle" dominant-baseline="central">자산·투자</text>
+        <text x="346" y="168" font-size="9" fill="rgba(55,138,221,0.65)" font-family="DM Mono,monospace" text-anchor="middle">② Investment</text>
+      </g>
+
+      <!-- Node 3: 밸류체인 — purple — bottom right -->
+      <g class="node-g" onclick="show(3)" id="node-3">
+        <rect x="296" y="252" width="100" height="40" rx="7" fill="rgba(127,119,221,0.15)" stroke="rgba(127,119,221,0.5)" stroke-width="1"/>
+        <text x="346" y="267" font-size="13" fill="#7F77DD" font-family="DM Serif Display,serif" text-anchor="middle" dominant-baseline="central">밸류체인</text>
+        <text x="346" y="282" font-size="9" fill="rgba(127,119,221,0.65)" font-family="DM Mono,monospace" text-anchor="middle">③ Value Chain</text>
+      </g>
+
+      <!-- Node 4: 매출수익 — amber — bottom -->
+      <g class="node-g" onclick="show(4)" id="node-4">
+        <rect x="150" y="292" width="100" height="40" rx="7" fill="rgba(239,159,39,0.15)" stroke="rgba(239,159,39,0.5)" stroke-width="1"/>
+        <text x="200" y="307" font-size="13" fill="#EF9F27" font-family="DM Serif Display,serif" text-anchor="middle" dominant-baseline="central">매출·수익</text>
+        <text x="200" y="322" font-size="9" fill="rgba(239,159,39,0.65)" font-family="DM Mono,monospace" text-anchor="middle">④ Revenue</text>
+      </g>
+
+      <!-- Node 5: 이익EVA — green — bottom left -->
+      <g class="node-g" onclick="show(5)" id="node-5">
+        <rect x="4" y="252" width="100" height="40" rx="7" fill="rgba(99,153,34,0.15)" stroke="rgba(99,153,34,0.5)" stroke-width="1"/>
+        <text x="54" y="267" font-size="13" fill="#639922" font-family="DM Serif Display,serif" text-anchor="middle" dominant-baseline="central">이익·EVA</text>
+        <text x="54" y="282" font-size="9" fill="rgba(99,153,34,0.65)" font-family="DM Mono,monospace" text-anchor="middle">⑤ Econ. Value</text>
+      </g>
+
+      <!-- Node 6: 현금재투자 — coral — top left -->
+      <g class="node-g" onclick="show(6)" id="node-6">
+        <rect x="4" y="138" width="100" height="40" rx="7" fill="rgba(216,90,48,0.15)" stroke="rgba(216,90,48,0.5)" stroke-width="1"/>
+        <text x="54" y="153" font-size="13" fill="#D85A30" font-family="DM Serif Display,serif" text-anchor="middle" dominant-baseline="central">현금·재투자</text>
+        <text x="54" y="168" font-size="9" fill="rgba(216,90,48,0.65)" font-family="DM Mono,monospace" text-anchor="middle">⑥ Cash Cycle</text>
+      </g>
+    </svg>
+
+    <p class="ring-hint">노드를 클릭하여 상세 분석 보기</p>
+  </div>
+
+  <!-- Right: Detail -->
+  <div class="detail-panel" id="detail-panel">
+    <div class="detail-placeholder" id="placeholder">
+      <span class="arrow-hint">↑</span>
+      <p>다이어그램의 노드를 클릭하면<br>재무제표 매핑, 프레임워크, 경쟁력 메커니즘을<br>상세하게 확인할 수 있습니다</p>
     </div>
-    
-    <div class="section">
-      <h2>사이클의 5가지 단계</h2>
-      
-      <h3>1단계: 데이터 수집</h3>
-      <div class="box">
-        <strong>주요 플레이어:</strong> Google, Meta, Amazon, 모든 소비자 앱
-        <p>모든 AI의 출발점은 데이터다. 사용자의 검색 기록, 소셜 미디어 활동, 구매 패턴, 위치 데이터... 이 모든 것이 AI 학습을 위한 원재료다.</p>
+
+    <div id="detail-content">
+      <div class="detail-eyebrow" id="d-eyebrow"></div>
+      <h2 class="detail-title" id="d-title"></h2>
+      <p class="detail-sub" id="d-sub"></p>
+
+      <div class="formula-box" id="d-formula"></div>
+
+      <div class="info-grid" id="d-grid"></div>
+
+      <div class="insight" id="d-insight">
+        <div class="insight-head">경쟁력 메커니즘</div>
+        <div class="insight-body" id="d-adv"></div>
       </div>
-      
-      <h3>2단계: 컴퓨팅과 학습</h3>
-      <div class="box">
-        <strong>주요 플레이어:</strong> Nvidia, TSMC, Google, Amazon, Microsoft
-        <p>거대한 데이터 세트를 처리하려면 거대한 컴퓨팅 파워가 필요하다. 이 단계에서 GPU와 AI 칩의 수요가 폭발한다. Nvidia는 이 단계에서 최대의 이득을 얻는다.</p>
-      </div>
-      
-      <h3>3단계: 모델 개발</h3>
-      <div class="box">
-        <strong>주요 플레이어:</strong> OpenAI, Google DeepMind, Meta, Anthropic
-        <p>데이터와 컴퓨팅 파워가 있으면, 다음은 이를 "사용 가능한 모델"로 만드는 것이다. 이 단계는 높은 기술력과 대규모 투자가 필요하지만, 일단 만들어지면 쉽게 복제될 수 있다.</p>
-      </div>
-      
-      <h3>4단계: 응용과 배포</h3>
-      <div class="box">
-        <strong>주요 플레이어:</strong> 수천 개의 스타트업과 기업들
-        <p>모델이 있어도, 실제 문제를 해결하는 응용이 없으면 무용지물이다. 의료 진단에서 금융 예측까지, AI를 실제 사용 사례에 적용하는 기업들이 가장 높은 최종 가치를 창출한다.</p>
-      </div>
-      
-      <h3>5단계: 피드백과 개선</h3>
-      <div class="box">
-        <strong>순환의 연결고리</strong>
-        <p>응용으로부터 나온 데이터와 피드백은 다시 모델을 개선한다. 더 좋은 모델은 더 많은 응용을 만들고, 더 많은 데이터를 생성한다. 이것이 바로 "선순환"이다.</p>
-      </div>
-    </div>
-    
-    <div class="section">
-      <h2>선순환의 거대한 위력</h2>
-      
-      <h3>"혼자 나약하지만, 함께 강하다"</h3>
-      <p>한 기업이 이 모든 단계를 다 할 필요는 없다. 하지만 몇 단계라도 차지하면, 그 기업은 사이클의 혜택을 받는다.</p>
-      
-      <div class="comparison-grid">
-        <div class="comparison-item">
-          <strong>Google의 전략</strong>
-          데이터(검색, YouTube) + 컴퓨팅(TPU) + 모델(Gemini) + 응용(Google Workspace, 광고). 모든 단계를 장악.
-        </div>
-        <div class="comparison-item">
-          <strong>Nvidia의 전략</strong>
-          컴퓨팅에만 집중. 하지만 모든 단계의 기업들이 Nvidia를 필요로 하므로, 가장 높은 마진 확보.
-        </div>
-        <div class="comparison-item">
-          <strong>OpenAI의 전략</strong>
-          모델 개발에 집중. ChatGPT API로 다른 기업들에 배포. 점차 응용도 확장 중 (GPT Store).
-        </div>
-      </div>
-      
-      <h3>승자와 패자의 격차가 벌어진다</h3>
-      <div class="highlight">
-        AI 시대의 가장 중요한 특징: <strong>"승자는 모든 것을 독점하는 경향이 있다"</strong>
-      </div>
-      
-      <p>왜일까? 선순환 때문이다.</p>
-      <ul>
-        <li>더 좋은 모델을 가진 회사 → 더 많은 사용자 → 더 많은 데이터 → 더 좋은 모델</li>
-        <li>이 순환이 가속화되면서, 선두 기업과 나머지 기업의 격차가 급속도로 벌어진다</li>
-        <li>2등이 1등을 따라잡기는 점점 어려워진다</li>
-      </ul>
-    </div>
-    
-    <div class="section">
-      <h2>현재의 경기장 상태</h2>
-      
-      <h3>인프라 계층의 경우</h3>
-      <p>Nvidia가 압도적 선점. GPU를 모두가 필요로 하고, 기술 진입장벽이 높으며, 한 번 선택한 플랫폼을 바꾸기 어렵다. Nvidia의 승리는 대부분 확정되었다고 봐도 좋다.</p>
-      
-      <h3>모델 계층의 경우</h3>
-      <p>OpenAI (ChatGPT)가 선점했지만, Google (Gemini), Meta (Llama), Anthropic (Claude) 등의 경쟁이 치열하다. 이 경쟁은 앞으로 몇 년간 지속될 것으로 보인다.</p>
-      
-      <h3>응용 계층의 경우</h3>
-      <p>가장 개방된 시장이다. 기초 모델이 계속 개선되고 대중화되면서, 이를 바탕으로 한 무수한 응용들이 등장하고 있다. 이 계층이 가장 큰 기회이지만, 동시에 가장 높은 경쟁률을 보인다.</p>
-    </div>
-    
-    <div class="section">
-      <h2>몇 가지 주요 인사이트</h2>
-      
-      <h3>"좋은 데이터"가 "거대한 데이터"보다 중요</h3>
-      <p>AI 시대 초기에는 "데이터가 많은 것"이 가장 중요했다. 하지만 이제 "정확하고 깔끔한 데이터"가 더 중요해지고 있다. 이것이 의료, 금융 같은 도메인 특화 기업들의 기회를 만든다.</p>
-      
-      <h3>모든 기업은 이 사이클에 포함된다</h3>
-      <p>당신의 회사가 어떤 분야든, AI 사이클의 어딘가에 위치하고 있다. 자신의 위치를 아는 것이 전략의 첫 번째 단계다.</p>
-      
-      <h3>"모든 단계를 장악할 필요는 없다"</h3>
-      <p>하지만 강력한 파트너십은 필수다. 한 단계에 집중하되, 다른 단계의 거인들과 협력해야 한다.</p>
-      
-      <h3>"먼저" 보다는 "더 잘"이 중요</h3>
-      <p>AI 시장에서는 먼저 나온 것이 아니라 더 잘 만든 것이 승리한다. 개선의 사이클을 얼마나 빠르게 도는지가 경쟁을 좌우한다.</p>
-    </div>
-    
-    <div class="section">
-      <h2>앞으로의 진화</h2>
-      
-      <p>AI 가치 창출 사이클은 계속 진화할 것이다:</p>
-      <ul>
-        <li><strong>데이터 단계:</strong> 개인 데이터 보호와 프라이버시가 더 중요해질 것. 이를 존중하면서도 AI를 개발하는 방법이 중요</li>
-        <li><strong>컴퓨팅 단계:</strong> GPU의 지배에서 벗어나기 위한 경쟁 심화. 한계 비용의 감소</li>
-        <li><strong>모델 단계:</strong> 기초 모델의 성능 격차가 줄어들 것. 차별화는 특화된 미세 조정(fine-tuning)에</li>
-        <li><strong>응용 단계:</strong> 가장 큰 기회. "AI + 도메인 전문성"의 결합이 핵심</li>
-      </ul>
-    </div>
-    
-    <div class="footer">
-      <p>AI 시대의 가치 창출은 단순한 경제가 아니라, 선순환의 역학이다.</p>
-      <p>이 사이클을 이해하는 것이 21세기 비즈니스 전략의 핵심이다.</p>
+
+      <div class="tag-row" id="d-tags"></div>
+
+      <div class="node-nav" id="d-nav"></div>
     </div>
   </div>
-</div>
+</main>
+
+<footer>
+  <span>Porter · DuPont · EVA (Stern Stewart) · ROIC Driver Tree · CCC</span>
+  <span>Value Creation Cycle Framework</span>
+</footer>
+
+<script>
+const NODES = [
+  {
+    color: 'accent',
+    colorHex: '#d4a853',
+    eyebrow: '통합 프레임워크 개요',
+    title: '기업 경쟁력 순환 구조',
+    sub: '6개 노드가 하나의 순환 고리를 형성 — 재무상태표 + 손익계산서 + 현금흐름표 통합 뷰',
+    formula: 'ROE  = 순이익률 × 자산회전율 × 레버리지 배수   (DuPont 3단)\nEVA  = NOPAT − WACC × 투하자본               (Stern Stewart)\nROIC = NOPAT / Invested Capital              (Value Driver)',
+    rows: [
+      ['핵심 원리', '자본비용(①)이 낮으면 EVA(⑤) 스프레드가 확대되고, 현금순환(⑥)이 빠르면 재투자(①)가 가속된다. 이 복리 순환의 속도와 질이 곧 경쟁우위의 본체다.'],
+      ['재무제표', 'Balance Sheet + Income Statement + Cash Flow Statement 통합'],
+      ['프레임워크', 'Porter Value Chain · DuPont Analysis · EVA · ROIC Tree · CCC']
+    ],
+    adv: '각 노드는 독립적이지 않다. 하나의 레버를 당기면 순환 전체가 영향을 받는다. <strong>좋은 사업은 이 순환이 가속되는 구조</strong>를 갖추고 있으며, 경쟁자가 동일한 순환을 만들기 어렵도록 각 노드마다 해자(Moat)를 구축한다.',
+    tags: ['DuPont', 'EVA', 'Porter', 'ROIC', 'CCC', 'WACC', 'FCF']
+  },
+  {
+    color: 'teal',
+    colorHex: '#1D9E75',
+    eyebrow: '① 자본조달',
+    title: 'Financing',
+    sub: '재무상태표(Balance Sheet) — 부채 & 자본 (오른쪽)',
+    formula: 'WACC  = Ke × (E/V) + Kd × (1−t) × (D/V)\nD/E Ratio  =  총부채 / 자기자본\nEquity Multiplier  =  총자산 / 자기자본  (DuPont 3단계)',
+    rows: [
+      ['재무제표', '단기/장기 차입금 · 회사채 · 자본금 · 자본잉여금 · 이익잉여금'],
+      ['프레임워크', 'WACC 최적화 · Modigliani-Miller 자본구조이론 · 레버리지 분석 · DuPont 레버리지 레버'],
+      ['핵심 지표', 'WACC, D/E Ratio, Equity Multiplier, Cost of Equity (CAPM), Credit Rating']
+    ],
+    adv: 'WACC가 낮을수록 EVA 스프레드(ROIC−WACC)가 확대된다. <strong>경쟁자보다 낮은 자본비용 = 더 많은 투자 프로젝트를 양(+)EVA로 집행 가능.</strong> 신용등급이 높고 안정적인 현금흐름을 가진 기업은 구조적 투자 여력 우위를 가진다. 이것이 "대기업이 더 좋은 사업을 할 수 있는" 재무적 근거다.',
+    tags: ['WACC', 'Modigliani-Miller', 'DuPont', 'CAPM', 'Capital Structure']
+  },
+  {
+    color: 'blue',
+    colorHex: '#378ADD',
+    eyebrow: '② 자산·투자',
+    title: 'Investment',
+    sub: '재무상태표(Balance Sheet) — 자산 (왼쪽)',
+    formula: '자산회전율  = 매출 / 총자산\nROIC       = NOPAT / Invested Capital\nNWC        = 유동자산 − 유동부채  (Net Working Capital)',
+    rows: [
+      ['재무제표', '유형자산(PP&E) · 무형자산 · 재고자산 · 매출채권 · 투하자본(Invested Capital)'],
+      ['프레임워크', 'DuPont — 자산회전율 레버 · ROIC Value Driver Tree · McKinsey 투하자본 분석'],
+      ['핵심 지표', 'Asset Turnover, ROIC, CapEx/Sales, NWC Days, Fixed Asset Intensity']
+    ],
+    adv: '동일한 자산으로 더 많은 매출을 창출하는 기업이 <strong>자산 효율성 우위</strong>를 가진다. DuPont에서 ROE 개선의 핵심 레버 중 하나 — 마진(③)보다 자산 회전으로 ROE를 높이는 구조인지 판별 가능하다. 경자산(Asset-Light) 비즈니스 모델은 이 노드에서 가장 강력한 경쟁 우위를 발휘한다.',
+    tags: ['DuPont', 'ROIC Driver Tree', 'Asset Turnover', 'Working Capital', 'CapEx']
+  },
+  {
+    color: 'purple',
+    colorHex: '#7F77DD',
+    eyebrow: '③ 밸류체인',
+    title: 'Value Chain',
+    sub: '손익계산서(P&L) — 비용 구조 전체 (COGS + SG&A + Overhead)',
+    formula: 'Gross Margin  = (매출 − COGS) / 매출\nSG&A Ratio    = 판관비 / 매출\nEBITDA Margin = EBITDA / 매출',
+    rows: [
+      ['재무제표', '매출원가(COGS) · 판관비(SG&A) · R&D비 · 감가상각 · 간접비(Overhead)'],
+      ['프레임워크', 'Porter 밸류체인 (Primary + Support) · ABC 원가계산 · Shank & Govindarajan 전략적 원가관리'],
+      ['핵심 지표', 'Gross Margin, COGS/Sales, SG&A/Sales, Overhead Rate, EBITDA Margin, R&D/Sales']
+    ],
+    adv: '원가 구조를 "활동 단위"로 분해하면 어느 활동이 가치를 만들고 어느 것이 낭비인지 보인다. <strong>원가우위(Cost Leadership) vs 차별화(Differentiation)</strong> 전략의 실행 레버가 바로 이 노드에서 결정된다. 동일한 매출이라도 밸류체인 구조가 다르면 완전히 다른 경쟁력이 만들어진다.',
+    tags: ['Porter Value Chain', 'ABC Costing', 'Gross Margin', 'Overhead', 'Cost Leadership']
+  },
+  {
+    color: 'amber',
+    colorHex: '#EF9F27',
+    eyebrow: '④ 매출·수익',
+    title: 'Revenue',
+    sub: '손익계산서(P&L) — 최상단 (Top Line)',
+    formula: 'Revenue Growth Rate  = (매출t − 매출t-1) / 매출t-1\nMarket Share         = 자사매출 / 시장전체\nNRR                  = 전년고객 기반 올해 매출 / 전년매출',
+    rows: [
+      ['재무제표', '매출액(Revenue) · 매출 분해(가격×물량) · 수익인식 정책 · 계약부채(선수금)'],
+      ['프레임워크', 'Porter 5 Forces (교섭력·진입장벽) · 가격결정력(Pricing Power) · 네트워크 효과 · 전환비용'],
+      ['핵심 지표', 'Revenue Growth, Pricing Power, Market Share, ARPU, NRR, Customer Lifetime Value']
+    ],
+    adv: '매출은 결과다. 진짜 경쟁력은 <strong>"어떤 가격에 팔 수 있는가"</strong>에 있다. 높은 가격 결정력 = 경쟁자가 복제하기 어려운 구조적 해자(Moat)의 증거. Porter 5 Forces가 이 해자의 원천 구조를 설명한다. 같은 시장에서 누군가는 프리미엄을 받고 누군가는 할인을 강요받는 차이가 여기서 드러난다.',
+    tags: ['Porter 5 Forces', 'Pricing Power', 'Network Effects', 'Market Share', 'NRR']
+  },
+  {
+    color: 'green',
+    colorHex: '#639922',
+    eyebrow: '⑤ 이익·EVA',
+    title: 'Economic Value Added',
+    sub: '손익계산서(P&L) — 하단 (Bottom Line) + WACC 반영',
+    formula: 'EVA   = NOPAT − (WACC × Invested Capital)\nNOPAT = EBIT × (1 − 세율)\nROIC − WACC Spread  = EVA 스프레드  (양수면 가치 창출)',
+    rows: [
+      ['재무제표', '영업이익(EBIT) → 세후영업이익(NOPAT) → 순이익(Net Income) → EVA 조정'],
+      ['프레임워크', 'EVA (Stern Stewart & Co.) · DuPont ROE 분해 · ROIC−WACC Spread · MVA (Market Value Added)'],
+      ['핵심 지표', 'EVA, NOPAT, ROIC−WACC Spread, Residual Income, MVA, Net Margin']
+    ],
+    adv: '회계이익(Net Income)이 있어도 EVA < 0이면 <strong>자본을 파괴</strong>하는 것이다. EVA > 0 = 자본비용을 초과한 진정한 가치 창출. 이것이 경쟁력의 가장 순수한 재무적 증거. Enron은 회계이익이 있었지만 EVA는 음수였다 — EVA가 이를 먼저 포착했다.',
+    tags: ['EVA', 'Stern Stewart', 'NOPAT', 'ROIC−WACC Spread', 'MVA', 'Residual Income']
+  },
+  {
+    color: 'coral',
+    colorHex: '#D85A30',
+    eyebrow: '⑥ 현금·재투자',
+    title: 'Cash Cycle',
+    sub: '현금흐름표(CFS) — 전체 3섹션',
+    formula: 'FCF  = OCF − CapEx  (Free Cash Flow)\nCCC  = DIO + DSO − DPO  (현금전환주기)\nCash Conv. Rate  = FCF / Net Income',
+    rows: [
+      ['재무제표', '영업활동(OCF) · 투자활동(CapEx, M&A) · 재무활동(배당·차입·자사주매입)'],
+      ['프레임워크', '현금전환주기(CCC) · 자유현금흐름(FCF) · Capital Allocation Theory (Mauboussin) · Reinvestment Rate'],
+      ['핵심 지표', 'FCF, CCC(DIO+DSO−DPO), OCF/Net Income, CapEx Intensity, Payout Ratio']
+    ],
+    adv: 'FCF가 높고 CCC가 짧을수록 재투자 순환이 가속된다 = <strong>복리적 경쟁우위 누적.</strong> 워런 버핏이 "좋은 사업"을 볼 때 가장 먼저 확인하는 것이 FCF 창출력. 영업이익이 같아도 FCF 전환율이 낮은 기업은 재투자 여력이 부족해 순환 가속이 어렵다. 이 순환 구조의 "연료탱크"가 바로 현금흐름표에 있다.',
+    tags: ['FCF', 'CCC', 'DIO', 'DSO', 'DPO', 'Capital Allocation', 'Mauboussin']
+  }
+];
+
+const NAV_LABELS = ['전체', '①자본', '②자산', '③밸류체인', '④매출', '⑤EVA', '⑥현금'];
+let current = -1;
+
+function show(id) {
+  current = id;
+  const d = NODES[id];
+
+  // highlight node
+  for (let i = 0; i <= 6; i++) {
+    const el = document.getElementById('node-' + i);
+    if (!el) continue;
+    const shapes = el.querySelectorAll('rect, circle');
+    shapes.forEach(s => {
+      s.style.strokeWidth = (i === id) ? '2' : '1';
+      s.style.opacity = (i === id) ? '1' : '0.65';
+    });
+  }
+
+  document.getElementById('placeholder').style.display = 'none';
+  const content = document.getElementById('detail-content');
+  content.classList.add('visible');
+
+  document.getElementById('d-eyebrow').textContent = d.eyebrow;
+  document.getElementById('d-title').textContent = d.title;
+  document.getElementById('d-title').style.color = d.colorHex;
+  document.getElementById('d-sub').textContent = d.sub;
+  document.getElementById('d-formula').textContent = d.formula;
+
+  const grid = document.getElementById('d-grid');
+  grid.innerHTML = d.rows.map(([label, val]) =>
+    `<div class="info-row">
+      <div class="info-label">${label}</div>
+      <div class="info-value">${val}</div>
+    </div>`
+  ).join('');
+
+  const insight = document.getElementById('d-insight');
+  insight.style.borderColor = d.colorHex + '33';
+  document.getElementById('d-adv').innerHTML = d.adv;
+
+  const tagRow = document.getElementById('d-tags');
+  tagRow.innerHTML = d.tags.map(t =>
+    `<span class="tag" style="color:${d.colorHex};border-color:${d.colorHex}44;background:${d.colorHex}0f;">${t}</span>`
+  ).join('');
+
+  const nav = document.getElementById('d-nav');
+  nav.innerHTML = NAV_LABELS.map((label, i) =>
+    `<button class="nav-btn${i === id ? ' active' : ''}" onclick="show(${i})">${label}</button>`
+  ).join('');
+
+  document.getElementById('detail-panel').scrollTop = 0;
+}
+
+// Initial: show overview
+window.addEventListener('load', () => show(0));
+</script>
 </body>
 </html>

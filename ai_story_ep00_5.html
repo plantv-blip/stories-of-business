@@ -3,202 +3,242 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>이야기로 읽는 회사 — EP.00.5 AI의 부상: 3가지 거대한 변화</title>
+<title>이야기로 읽는 회사 — EP.00.5 리더십 레이어</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:     #0e0c0a;
+  --bg2:    #161410;
+  --bg3:    #1e1b16;
+  --ink:    #f0ece3;
+  --ink2:   #c8c4ba;
+  --muted:  #6a6760;
+  --rule:   rgba(240,236,227,0.08);
+  --rule2:  rgba(240,236,227,0.04);
+  --gold:   #d4a853;
+  --gold2:  #a07828;
+  --openai: #10a37f;
+  --openai-d: #0a6b53;
+  --anthropic: #d97706;
+  --anthropic-d: #8a4d04;
+}
+
+html { scroll-behavior: smooth; }
+
 body {
-  margin: 0;
-  padding: 0;
-  font-family: "Noto Serif KR", Georgia, serif;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  min-height: 100vh;
-}
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-.header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 3rem 2rem;
-  text-align: center;
-  border-radius: 12px;
-  margin-bottom: 2rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-.header h1 {
-  font-family: "Playfair Display", serif;
-  font-size: 2.5em;
-  margin: 0 0 0.5rem 0;
-  font-weight: 600;
-}
-.header p {
-  font-size: 1.1em;
-  margin: 0;
-  opacity: 0.95;
-}
-.content {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 300;
   line-height: 1.8;
 }
-.content h2 {
-  color: #667eea;
-  font-family: "Playfair Display", serif;
-  font-size: 2em;
-  margin-top: 1.5em;
-  margin-bottom: 0.5em;
-  font-weight: 600;
+
+/* MASTHEAD */
+.masthead {
+  border-bottom: 1px solid var(--rule);
+  padding: 0 56px;
+  background: var(--bg2);
 }
-.content h3 {
-  color: #764ba2;
-  font-size: 1.5em;
-  margin-top: 1.2em;
-  margin-bottom: 0.5em;
+.masthead-top {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 0 12px; border-bottom: 1px solid var(--rule);
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase;
 }
-.content p {
-  color: #333;
-  margin: 1em 0;
-  text-align: justify;
+.series-name {
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.18em;
+  color: var(--muted); text-transform: uppercase; text-align: center;
+  padding: 16px 0 8px;
 }
-.timeline-item {
-  background: #f8f9fa;
-  padding: 1.5rem;
-  margin: 1rem 0;
-  border-left: 4px solid #667eea;
-  border-radius: 4px;
+.headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(30px, 5vw, 58px); font-weight: 400;
+  line-height: 1.1; text-align: center; padding: 0 0 8px;
+  letter-spacing: -0.02em; color: var(--ink);
 }
-.timeline-item h4 {
-  margin: 0 0 0.5rem 0;
-  color: #667eea;
+.headline em { font-style: italic; color: var(--gold); }
+.deck {
+  font-size: 14.5px; font-weight: 300; text-align: center; color: var(--ink2);
+  padding: 8px 0 20px; max-width: 700px; margin: 0 auto; line-height: 1.65;
 }
-.comparison-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1rem 0;
+.masthead-byline {
+  border-top: 1px solid var(--rule); display: flex; justify-content: center;
+  gap: 32px; padding: 10px 0; font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.1em; color: var(--muted);
 }
-.comparison-table th,
-.comparison-table td {
-  padding: 1rem;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+
+/* CONTENT */
+.content-wrap { max-width: 1060px; margin: 0 auto; padding: 0 56px; }
+
+/* CHAPTER */
+.chapter { padding: 52px 0 0; }
+.chapter-tag {
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
 }
-.comparison-table th {
-  background: #f8f9fa;
-  font-weight: 600;
-  color: #333;
+.chapter-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px, 3vw, 32px); font-weight: 400;
+  line-height: 1.2; margin-bottom: 10px; color: var(--ink);
 }
-.comparison-table tr:hover {
-  background: #f8f9fa;
+.chapter-title em { font-style: italic; color: var(--gold); }
+.chapter-rule { border: none; border-top: 1px solid var(--rule); margin: 0 0 28px; }
+
+/* PROSE */
+.prose {
+  font-size: 14.5px; line-height: 1.88; color: var(--ink2);
+  margin-bottom: 22px; max-width: 780px;
 }
-.highlight {
-  background: #fff3cd;
-  padding: 1rem;
-  border-left: 4px solid #ffc107;
-  margin: 1rem 0;
-  border-radius: 4px;
+.prose strong { font-weight: 600; color: var(--ink); }
+
+/* PULL QUOTE */
+.pull {
+  border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  padding: 32px 0; margin: 36px 0; text-align: center;
 }
-.footer {
-  margin-top: 2rem;
-  padding-top: 1rem;
-  border-top: 1px solid #ddd;
-  text-align: center;
-  color: #666;
-  font-size: 0.9em;
+.pull p {
+  font-family: 'Playfair Display', serif; font-size: clamp(16px, 2.5vw, 22px);
+  font-weight: 400; font-style: italic; line-height: 1.5;
+  max-width: 700px; margin: 0 auto; color: var(--ink);
+}
+.pull span { color: var(--gold); }
+.pull .attr {
+  font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted);
+  margin-top: 12px; letter-spacing: 0.08em; font-style: normal;
+}
+
+/* LEADER CARD */
+.leader-card {
+  border: 1px solid var(--rule); margin: 28px 0 36px; overflow: hidden;
+}
+.leader-header {
+  padding: 28px 32px; display: flex; align-items: center; gap: 24px;
+}
+.leader-header.openai { border-left: 4px solid var(--openai); background: rgba(16,163,127,0.06); }
+.leader-header.anthropic { border-left: 4px solid var(--anthropic); background: rgba(217,119,6,0.06); }
+.leader-avatar {
+  width: 72px; height: 72px; border-radius: 50%; display: flex;
+  align-items: center; justify-content: center; font-size: 32px;
+  flex-shrink: 0;
+}
+.leader-avatar.openai { background: rgba(16,163,127,0.15); }
+.leader-avatar.anthropic { background: rgba(217,119,6,0.15); }
+.leader-role {
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.16em;
+  text-transform: uppercase; margin-bottom: 4px;
+}
+.leader-role.openai { color: var(--openai); }
+.leader-role.anthropic { color: var(--anthropic); }
+.leader-name { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 400; }
+.leader-name-kr { font-size: 14px; color: var(--muted); margin-top: 2px; }
+.leader-tags {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;
+}
+.leader-tag {
+  font-family: 'DM Mono', monospace; font-size: 10px; padding: 3px 9px;
+  border: 1px solid var(--rule); color: var(--muted); letter-spacing: 0.04em;
+}
+.leader-body { padding: 0 32px 28px; }
+.leader-body .prose { margin-bottom: 18px; }
+
+/* TIMELINE */
+.timeline { padding: 0 0 0 40px; margin: 24px 0 36px; position: relative; }
+.timeline::before {
+  content: ''; position: absolute; left: 7px; top: 0; bottom: 0;
+  width: 1px; background: var(--rule);
+}
+.tl-item { position: relative; padding: 0 0 28px 24px; }
+.tl-item::before {
+  content: ''; position: absolute; left: -40px; top: 6px;
+  width: 13px; height: 13px; border-radius: 50%;
+  border: 2px solid var(--muted); background: var(--bg);
+}
+.tl-item.openai::before { border-color: var(--openai); }
+.tl-item.anthropic::before { border-color: var(--anthropic); }
+.tl-item.key::before { background: var(--gold); border-color: var(--gold); }
+.tl-year {
+  font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted);
+  letter-spacing: 0.08em; margin-bottom: 4px;
+}
+.tl-label {
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em;
+  text-transform: uppercase; padding: 2px 7px; display: inline-block;
+  margin-bottom: 6px;
+}
+.tl-label.openai { color: var(--openai); border: 1px solid rgba(16,163,127,0.3); }
+.tl-label.anthropic { color: var(--anthropic); border: 1px solid rgba(217,119,6,0.3); }
+.tl-title { font-weight: 600; font-size: 15px; margin-bottom: 6px; color: var(--ink); }
+.tl-desc { font-size: 13px; line-height: 1.72; color: var(--ink2); max-width: 680px; }
+
+/* COMPARE TABLE */
+.compare-grid {
+  display: grid; grid-template-columns: 160px 1fr 1fr;
+  border: 1px solid var(--rule); margin: 24px 0 36px;
+}
+.cg-header {
+  padding: 14px 18px; font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule);
+  display: flex; align-items: center;
+}
+.cg-header:last-child { border-right: none; }
+.cg-header.openai-h { color: var(--openai); background: rgba(16,163,127,0.04); }
+.cg-header.anthropic-h { color: var(--anthropic); background: rgba(217,119,6,0.04); }
+.cg-cell {
+  padding: 14px 18px; font-size: 13px; line-height: 1.65;
+  border-bottom: 1px solid var(--rule2); border-right: 1px solid var(--rule2);
+  color: var(--ink2);
+}
+.cg-cell:last-child { border-right: none; }
+.cg-cell.label {
+  font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted);
+  display: flex; align-items: center;
+}
+.cg-cell strong { color: var(--ink); font-weight: 600; }
+
+/* NODE MAPPING */
+.node-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+  margin: 24px 0 36px;
+}
+.node-card {
+  border: 1px solid var(--rule); padding: 20px; background: var(--bg2);
+}
+.node-num {
+  font-family: 'DM Mono', monospace; font-size: 10px; color: var(--gold);
+  letter-spacing: 0.12em; margin-bottom: 6px;
+}
+.node-title { font-weight: 600; font-size: 14px; margin-bottom: 8px; color: var(--ink); }
+.node-card p { font-size: 12.5px; line-height: 1.72; color: var(--ink2); }
+
+/* INSIGHT */
+.insight-box {
+  background: rgba(212,168,83,0.08); border: 1px solid rgba(212,168,83,0.2);
+  border-left: 3px solid var(--gold); padding: 18px 22px; margin: 24px 0 32px;
+}
+.insight-label {
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 8px;
+}
+.insight-box p { font-size: 14px; line-height: 1.78; color: var(--ink); }
+.insight-box strong { font-weight: 600; }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--rule); padding: 16px 56px; margin-top: 56px;
+  display: flex; justify-content: space-between;
+  font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 760px) {
+  .masthead, .content-wrap, footer { padding-left: 20px; padding-right: 20px; }
+  .compare-grid { grid-template-columns: 1fr; }
+  .node-grid { grid-template-columns: 1fr; }
+  .leader-header { flex-direction: column; text-align: center; }
 }
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="header">
-    <h1>이야기로 읽는 회사</h1>
-    <p>EP.00.5 — AI의 부상: 3가지 거대한 변화</p>
-  </div>
-  <div class="content">
-    <h2>AI 혁명을 촉발한 세 가지 변화</h2>
-    <p>AI가 갑자기 주목받기 시작한 것은 역사적 필연이다. 세 가지 조건이 동시에 충족되었을 때, AI는 비로소 '게임 체인저'가 되었다.</p>
-    
-    <h2>변화 #1: 컴퓨팅 파워의 기하급수적 증가</h2>
-    <div class="timeline-item">
-      <h4>무어의 법칙에서 가속도의 법칙으로</h4>
-      <p>반도체 산업은 50년 동안 무어의 법칙을 따라왔다: "트랜지스터의 개수는 약 2년마다 2배 증가한다."</p>
-      <p>하지만 최근 10년간은 이를 초월하는 변화가 일어났다. GPU(Graphics Processing Unit)의 등장이 그것이다.</p>
-      <ul>
-        <li><strong>CPU의 한계</strong>: 순차적 작업에 최적화된 CPU는 대규모 병렬 처리에 부족했다.</li>
-        <li><strong>GPU의 혁신</strong>: 본래 게임 그래픽을 위해 설계된 GPU는 수천 개의 코어로 동시에 연산을 수행할 수 있다.</li>
-        <li><strong>AI의 맞춤형 칩</strong>: Google의 TPU, Apple의 Neural Engine, Amazon의 Trainium 등 AI 전용 칩이 등장했다.</li>
-      </ul>
-    </div>
-    
-    <h2>변화 #2: 빅데이터 혁명</h2>
-    <div class="timeline-item">
-      <h4>데이터가 곧 자산이 되다</h4>
-      <p>AI 모델은 데이터를 먹고 자란다. 데이터가 많을수록, 다양할수록 더 똑똑해진다.</p>
-      <table class="comparison-table">
-        <tr>
-          <th>시대</th>
-          <th>데이터 규모</th>
-          <th>데이터 출처</th>
-        </tr>
-        <tr>
-          <td>1990년대</td>
-          <td>메가바이트 (MB)</td>
-          <td>기관, 조직의 정형 데이터</td>
-        </tr>
-        <tr>
-          <td>2000년대</td>
-          <td>기가바이트 (GB)</td>
-          <td>웹사이트, 검색 기록</td>
-        </tr>
-        <tr>
-          <td>2010년대</td>
-          <td>테라바이트 (TB)</td>
-          <td>소셜미디어, 모바일 데이터</td>
-        </tr>
-        <tr>
-          <td>2020년대</td>
-          <td>페타바이트 (PB)</td>
-          <td>전 지구적 디지털 흔적</td>
-        </tr>
-      </table>
-      <p>스마트폰의 보급, 소셜미디어, IoT 기기들은 인류 역사상 가장 방대한 데이터 자산을 만들었다.</p>
-    </div>
-    
-    <h2>변화 #3: 알고리즘 혁신 - 딥러닝의 등장</h2>
-    <div class="timeline-item">
-      <h4>신경망에서 신경망까지</h4>
-      <p>컴퓨팅 파워와 데이터가 있어도, 이를 활용할 알고리즘이 없다면 소용없다. 2012년 일어난 '딥러닝 혁명'이 바로 그 변곡점이었다.</p>
-      <ul>
-        <li><strong>AlexNet (2012)</strong>: Geoffrey Hinton의 팀이 이미지 인식 대회에서 압도적으로 우승했다. 이것이 딥러닝의 시작이었다.</li>
-        <li><strong>Transformer (2017)</strong>: "Attention is All You Need" 논문이 발표되면서, 자연언어 처리에 혁명이 일어났다.</li>
-        <li><strong>Large Language Models (2020~)</strong>: GPT-3, ChatGPT 등 수십억 개의 매개변수를 가진 거대 모델들이 등장했다.</li>
-      </ul>
-    </div>
-    
-    <h2>세 변화의 교점: 완벽한 폭풍</h2>
-    <div class="highlight">
-      <strong>언제부터인가, AI는 더 이상 미래의 기술이 아니라 현재의 현실이 되었다.</strong><br><br>
-      컴퓨팅 파워 × 빅데이터 × 알고리즘 혁신 = AI 시대의 도래
-    </div>
-    
-    <h2>이제 누가 주도하는가?</h2>
-    <p>이 세 변화로부터 누가 가장 큰 이득을 얻는가? 답은 단순하지 않다:</p>
-    <ul>
-      <li><strong>하드웨어 기업</strong> (Nvidia, Intel, AMD): GPU와 칩 수요 폭증으로 역사상 최고 수익</li>
-      <li><strong>클라우드 기업</strong> (Amazon, Google, Microsoft): AI 인프라를 제공하는 플랫폼으로 급부상</li>
-      <li><strong>AI 모델 기업</strong> (OpenAI, Google DeepMind): 원천 기술로 시장 주도권 행사</li>
-      <li><strong>응용 기업</strong> (다양한 스타트업과 기존 기업들): AI를 도구로 삼아 혁신 중</li>
-    </ul>
-    
-    <div class="footer">
-      <p>Stories of Business — AI & Semiconductor Series</p>
-      <p>다음 에피소드: Nvidia와 GPU 혁명</p>
-    </div>
-  </div>
-</div>
-</body>
-</html>
