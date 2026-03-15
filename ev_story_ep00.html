@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이야기로 읽는 회사 — EP.00 전기차 산업 입문</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:     #f5f2eb;
+  --bg2:    #edeae0;
+  --bg3:    #e4e0d4;
+  --ink:    #1a1814;
+  --ink2:   #3d3930;
+  --muted:  #8a8578;
+  --rule:   rgba(26,24,20,0.12);
+  --rule2:  rgba(26,24,20,0.06);
+  --gold:   #8a6914;
+  --gold-bg:#fef9ec;
+  --hyundai:  #002c5f;
+  --hyundai-bg: #dde8f5;
+  --tesla:    #cc0000;
+  --tesla-bg: #fde0e0;
+  --byd:      #1a6b3a;
+  --byd-bg:   #d5f0e2;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+.masthead {
+  background: linear-gradient(135deg, #1a1814 0%, #0d2137 100%);
+  color: #f0ece3;
+  padding: 0 56px;
+  border-bottom: 3px solid var(--gold);
+}
+.masthead-top {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 0 12px; border-bottom: 1px solid rgba(240,236,227,0.08);
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  letter-spacing: 0.12em; color: rgba(240,236,227,0.5); text-transform: uppercase;
+}
+.series-name {
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.18em;
+  color: rgba(240,236,227,0.5); text-transform: uppercase; text-align: center;
+  padding: 24px 0 8px;
+}
+.headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(30px, 5vw, 58px); font-weight: 400;
+  line-height: 1.1; text-align: center; padding: 0 0 8px;
+  letter-spacing: -0.02em; color: #f0ece3;
+}
+.headline em { font-style: italic; color: #d4a853; }
+.deck {
+  font-size: 14.5px; font-weight: 300; text-align: center; color: rgba(240,236,227,0.8);
+  padding: 12px 0 24px; max-width: 700px; margin: 0 auto; line-height: 1.65;
+}
+.masthead-byline {
+  border-top: 1px solid rgba(240,236,227,0.08); display: flex; justify-content: center;
+  gap: 32px; padding: 10px 0 16px; font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.1em; color: rgba(240,236,227,0.4);
+}
+
+.content-wrap { max-width: 1060px; margin: 0 auto; padding: 0 56px; }
+
+.chapter { padding: 52px 0 0; }
+.chapter-tag {
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
+}
+.chapter-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px, 3vw, 32px); font-weight: 400;
+  line-height: 1.2; margin-bottom: 10px; color: var(--ink);
+}
+.chapter-title em { font-style: italic; color: var(--gold); }
+.chapter-rule { border: none; border-top: 1px solid var(--rule); margin: 0 0 28px; }
+
+.prose {
+  font-size: 14.5px; line-height: 1.88; color: var(--ink2);
+  margin-bottom: 22px; max-width: 780px;
+}
+.prose strong { font-weight: 600; color: var(--ink); }
+
+.pull {
+  border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  padding: 32px 0; margin: 36px 0; text-align: center;
+}
+.pull p {
+  font-family: 'Playfair Display', serif; font-size: clamp(16px, 2.5vw, 22px);
+  font-weight: 400; font-style: italic; line-height: 1.5;
+  max-width: 700px; margin: 0 auto; color: var(--ink);
+}
+.pull span { color: var(--gold); }
+.pull .attr {
+  font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted);
+  margin-top: 12px; letter-spacing: 0.08em; font-style: normal;
+}
+
+.term-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+  margin: 24px 0 36px;
+}
+.term-card {
+  border: 1px solid var(--rule); padding: 20px; background: white;
+}
+.term-num {
+  font-family: 'DM Mono', monospace; font-size: 10px; color: var(--gold);
+  letter-spacing: 0.12em; margin-bottom: 6px;
+}
+.term-name { font-weight: 600; font-size: 15px; margin-bottom: 8px; color: var(--ink); }
+.term-card p { font-size: 12.5px; line-height: 1.72; color: var(--ink2); }
+
+.model-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  margin: 24px 0 36px;
+}
+.model-card {
+  border: 1px solid var(--rule); padding: 24px; background: white;
+}
+.model-card.hyundai { border-top: 3px solid var(--hyundai); }
+.model-card.tesla { border-top: 3px solid var(--tesla); }
+.model-card.byd { border-top: 3px solid var(--byd); }
+.model-tag {
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.14em;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.model-tag.hyundai { color: var(--hyundai); }
+.model-tag.tesla { color: var(--tesla); }
+.model-tag.byd { color: var(--byd); }
+.model-name { font-size: 17px; font-weight: 600; margin-bottom: 10px; color: var(--ink); }
+.model-card p { font-size: 12.5px; line-height: 1.72; color: var(--ink2); }
+
+.layer-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 0;
+  margin: 24px 0 36px; border: 1px solid var(--rule);
+}
+.layer {
+  padding: 20px 16px; border-right: 1px solid var(--rule);
+  text-align: center; background: white;
+}
+.layer:last-child { border-right: none; }
+.layer-num {
+  font-family: 'DM Mono', monospace; font-size: 28px; font-weight: 600;
+  color: var(--gold); margin-bottom: 6px;
+}
+.layer-name { font-size: 13px; font-weight: 600; margin-bottom: 8px; color: var(--ink); }
+.layer p { font-size: 11px; line-height: 1.6; color: var(--muted); }
+
+.insight-box {
+  background: var(--gold-bg); border: 1px solid rgba(138,105,20,0.2);
+  border-left: 3px solid var(--gold); padding: 18px 22px; margin: 24px 0 32px;
+}
+.insight-label {
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 8px;
+}
+.insight-box p { font-size: 14px; line-height: 1.78; color: var(--ink); }
+.insight-box strong { font-weight: 600; }
+
+.country-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+  margin: 24px 0 36px;
+}
+.country-card {
+  border: 1px solid var(--rule); padding: 20px; background: white;
+}
+.country-flag { font-size: 24px; margin-bottom: 8px; }
+.country-name { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+.country-card p { font-size: 12.5px; line-height: 1.72; color: var(--ink2); }
+
+footer {
+  border-top: 1px solid var(--rule); padding: 16px 56px; margin-top: 56px;
+  display: flex; justify-content: space-between;
+  font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 760px) {
+  .masthead, .content-wrap, footer { padding-left: 20px; padding-right: 20px; }
+  .term-grid, .model-grid { grid-template-columns: 1fr; }
+  .layer-grid { grid-template-columns: 1fr; }
+  .country-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="masthead-top">
+    <span>이야기로 읽는 회사 &middot; Stories of Business</span>
+    <span>산업 입문</span>
+    <span>Series 03 &middot; Electric Vehicle</span>
+  </div>
+  <div class="series-name">내연기관 100년, 전기 전환 10년</div>
+  <h1 class="headline">
+    <em>바퀴</em> 위의 컴퓨터를<br>만드는 산업
+  </h1>
+  <p class="deck">전기차는 단순히 연료를 바꾼 자동차가 아니다. 소프트웨어, 배터리, 자율주행, 에너지가 하나로 수렴하는 새로운 산업이다. 이 산업을 이해하기 위해 알아야 할 구조와 언어를 정리한다.</p>
+  <div class="masthead-byline">
+    <span>현대차그룹 vs 테슬라</span>
+    <span>&middot;</span>
+    <span>2025&ndash;26 기준</span>
+  </div>
+</div>
+
+<div class="content-wrap">
+
+  <!-- CHAPTER 1: 정의 -->
+  <div class="chapter">
+    <div class="chapter-tag">Chapter 1 &middot; 정의</div>
+    <h2 class="chapter-title">전기차란 무엇인가 &mdash; <em>범용 모빌리티</em>의 원재료</h2>
+    <hr class="chapter-rule">
+  </div>
+
+  <p class="prose">전기차(EV, Electric Vehicle)는 내연기관(ICE) 대신 전기모터와 배터리로 움직이는 자동차다. 하지만 이 정의는 핵심을 놓치고 있다. 전기차가 바꾼 것은 연료가 아니라 <strong>자동차의 아키텍처</strong> 자체다.</p>
+
+  <p class="prose">내연기관차는 엔진, 변속기, 배기 시스템 등 3만 개의 부품이 기계적으로 연결된 구조다. 전기차는 이것을 배터리팩 + 전기모터 + 소프트웨어로 대체한다. 부품 수가 절반으로 줄어들고, 자동차의 핵심 가치가 &ldquo;엔진 성능&rdquo;에서 &ldquo;소프트웨어 경험&rdquo;으로 이동한다. <strong>자동차가 하드웨어에서 소프트웨어 중심 디바이스로 전환하는 것</strong> &mdash; 이것이 전기차 산업의 본질이다.</p>
+
+  <div class="pull">
+    <p>전기차 산업은 <span>&ldquo;바퀴 달린 스마트폰&rdquo;</span>을 만드는 산업이다.<br>원재료는 리튬이고, 공장은 기가팩토리이며, 제품은 이동 경험이다.</p>
+    <p class="attr">반도체가 &ldquo;연산 능력&rdquo;을 상품화했다면, 전기차는 &ldquo;이동 경험&rdquo;을 상품화한다</p>
+  </div>
+
+  <p class="prose">2024년 기준 글로벌 전기차 시장은 약 1,700만 대 규모다. 전체 자동차 판매의 25%를 돌파하며, 전기차는 이제 니치 시장이 아니라 메인스트림에 진입했다. BYD가 226만 대로 테슬라(164만 대)를 제치고 BEV 1위에 올랐고, 현대차그룹은 96만 대의 전동화 차량을 판매하며 빠르게 추격하고 있다.</p>
+
+
+  <!-- CHAPTER 2: 용어 -->
+  <div class="chapter">
+    <div class="chapter-tag">Chapter 2 &middot; 용어</div>
+    <h2 class="chapter-title">뉴스를 읽기 위한 <em>10개의 열쇠</em></h2>
+    <hr class="chapter-rule">
+  </div>
+
+  <div class="term-grid">
+    <div class="term-card">
+      <div class="term-num">01</div>
+      <div class="term-name">BEV (Battery Electric Vehicle)</div>
+      <p>순수 전기차. 내연기관 없이 배터리와 전기모터만으로 구동. 테슬라 모델 Y, 현대 아이오닉 5가 대표적.</p>
+    </div>
+    <div class="term-card">
+      <div class="term-num">02</div>
+      <div class="term-name">PHEV &amp; HEV</div>
+      <p>PHEV(플러그인 하이브리드)는 외부 충전 가능한 하이브리드. HEV(하이브리드)는 엔진+모터 조합. BYD의 DM-i가 PHEV 시장을 재정의했다.</p>
+    </div>
+    <div class="term-card">
+      <div class="term-num">03</div>
+      <div class="term-name">kWh &amp; 에너지 밀도</div>
+      <p>배터리 용량 단위. 아이오닉 5는 84kWh, 모델 Y는 75kWh. 에너지 밀도가 높을수록 같은 무게에서 더 먼 거리를 간다.</p>
+    </div>
+    <div class="term-card">
+      <div class="term-num">04</div>
+      <div class="term-name">SDV (Software Defined Vehicle)</div>
+      <p>소프트웨어 중심 차량. OTA(무선 업데이트)로 기능이 진화하는 자동차. 테슬라가 선도했고, 현대차는 CODA 아키텍처로 추격 중.</p>
+    </div>
+    <div class="term-card">
+      <div class="term-num">05</div>
+      <div class="term-name">기가팩토리 &amp; 기가캐스팅</div>
+      <p>대규모 배터리/차량 공장. 기가캐스팅은 차체를 하나의 금형으로 주조하는 공법으로 테슬라가 도입, 생산 단가를 혁신적으로 낮췄다.</p>
+    </div>
+    <div class="term-card">
+      <div class="term-num">06</div>
+      <div class="term-name">전고체 배터리</div>
+      <p>차세대 배터리 기술. 액체 전해질을 고체로 대체해 안전성과 에너지 밀도를 동시에 향상. 상용화는 2027~2030년 전망.</p>
+    </div>
+    <div class="term-card">
+      <div class="term-num">07</div>
+      <div class="term-name">FSD (Full Self-Driving)</div>
+      <p>테슬라의 자율주행 소프트웨어. 현재 Level 2+ 수준. 구독형($99/월) 또는 일시불($8,000)로 판매. 테슬라 수익 모델의 미래.</p>
+    </div>
+    <div class="term-card">
+      <div class="term-num">08</div>
+      <div class="term-name">E-GMP &amp; IMA</div>
+      <p>현대차의 전기차 전용 플랫폼(E-GMP)과 차세대 통합 모듈러 아키텍처(IMA). 플랫폼이 전기차의 원가 구조를 결정한다.</p>
+    </div>
+    <div class="term-card">
+      <div class="term-num">09</div>
+      <div class="term-name">V2G (Vehicle-to-Grid)</div>
+      <p>전기차 배터리의 전력을 전력망에 되파는 양방향 충전. 전기차가 &ldquo;이동하는 에너지 저장소&rdquo;가 되는 개념. 테슬라의 에너지 사업과 직결.</p>
+    </div>
+    <div class="term-card">
+      <div class="term-num">10</div>
+      <div class="term-name">IRA (Inflation Reduction Act)</div>
+      <p>미국의 전기차 보조금 정책. 북미 생산 조건 충족 시 $7,500 세액공제. 현대차의 조지아 공장(HMGMA) 설립의 직접적 동기.</p>
+    </div>
+  </div>
+
+
+  <!-- CHAPTER 3: 비즈니스 모델 -->
+  <div class="chapter">
+    <div class="chapter-tag">Chapter 3 &middot; 비즈니스 모델</div>
+    <h2 class="chapter-title">전기차를 파는 <em>세 가지 방법</em></h2>
+    <hr class="chapter-rule">
+  </div>
+
+  <div class="model-grid">
+    <div class="model-card hyundai">
+      <div class="model-tag hyundai">전통 완성차 모델</div>
+      <div class="model-name">제조 + 딜러 네트워크</div>
+      <p>현대차, 도요타, VW의 모델. 대규모 공장에서 생산하고 딜러 네트워크를 통해 판매한다. 강점은 <strong>글로벌 생산 역량과 품질 관리</strong>. 약점은 딜러 마진과 플랫폼 전환 비용. 현대차는 연 414만 대를 생산하며, 하이브리드부터 BEV까지 전 라인업을 제공하는 &ldquo;멀티 파워트레인&rdquo; 전략을 구사한다.</p>
+    </div>
+    <div class="model-card tesla">
+      <div class="model-tag tesla">수직통합 + 소프트웨어 모델</div>
+      <div class="model-name">직판 + 구독 + 에너지</div>
+      <p>테슬라의 모델. 딜러 없이 직접 판매하고, FSD 구독으로 소프트웨어 수익을 창출한다. 강점은 <strong>소프트웨어 마진과 에너지 사업</strong>. 2025년 에너지 부문이 전체 매출의 21%를 차지하며, 테슬라는 &ldquo;자동차 + 에너지 + AI&rdquo; 복합 기업이 되고 있다.</p>
+    </div>
+    <div class="model-card byd">
+      <div class="model-tag byd">배터리 수직통합 모델</div>
+      <div class="model-name">배터리 내재화 + 가격 혁신</div>
+      <p>BYD의 모델. 배터리(블레이드 배터리)부터 완성차까지 수직 통합해 원가를 극한으로 낮춘다. 강점은 <strong>압도적 가격 경쟁력</strong>. 2025년 BEV 226만 대로 글로벌 1위. 중국 내수 + 글로벌 확장의 &ldquo;차이나 스피드&rdquo;를 보여주고 있다.</p>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-label">비즈니스 모델 통찰</div>
+    <p>세 모델의 공통점은 <strong>&ldquo;자동차만 팔아서는 돈을 벌 수 없다&rdquo;</strong>는 것이다. 현대차는 서비스·로봇으로, 테슬라는 에너지·AI로, BYD는 배터리 내재화로 각각 수익원을 확장하고 있다. 전기차 시대의 승자는 &ldquo;가장 좋은 차를 만드는 회사&rdquo;가 아니라 <strong>&ldquo;가장 넓은 생태계를 구축하는 회사&rdquo;</strong>일 가능성이 높다.</p>
+  </div>
+
+
+  <!-- CHAPTER 4: 밸류체인 -->
+  <div class="chapter">
+    <div class="chapter-tag">Chapter 4 &middot; 구조</div>
+    <h2 class="chapter-title">전기차 밸류체인의 <em>5개 레이어</em></h2>
+    <hr class="chapter-rule">
+  </div>
+
+  <p class="prose">전기차 산업을 이해하려면 밸류체인을 5개 레이어로 나누어 생각하면 된다. 각 레이어에서 누가 주도권을 쥐고 있는지가 산업의 구도를 결정한다.</p>
+
+  <div class="layer-grid">
+    <div class="layer">
+      <div class="layer-num">1</div>
+      <div class="layer-name">원재료</div>
+      <p>리튬, 니켈, 코발트, 망간. 배터리의 원가를 좌우하는 핵심 광물.</p>
+    </div>
+    <div class="layer">
+      <div class="layer-num">2</div>
+      <div class="layer-name">배터리</div>
+      <p>CATL, LG엔솔, 삼성SDI, BYD. 전기차 원가의 35~40%를 차지.</p>
+    </div>
+    <div class="layer">
+      <div class="layer-num">3</div>
+      <div class="layer-name">플랫폼·제조</div>
+      <p>E-GMP, 기가팩토리. 차체·모터·인버터를 통합하는 전용 플랫폼.</p>
+    </div>
+    <div class="layer">
+      <div class="layer-num">4</div>
+      <div class="layer-name">소프트웨어</div>
+      <p>FSD, CODA, AAOS. 자율주행, OTA, 인포테인먼트. 차량의 두뇌.</p>
+    </div>
+    <div class="layer">
+      <div class="layer-num">5</div>
+      <div class="layer-name">서비스·에너지</div>
+      <p>충전 인프라, V2G, 로보택시, 에너지 저장. 판매 이후의 수익원.</p>
+    </div>
+  </div>
+
+  <p class="prose">내연기관 시대에는 레이어 3(제조)이 가치의 핵심이었다. 전기차 시대에는 레이어 2(배터리)와 레이어 4(소프트웨어)로 가치가 이동하고 있다. <strong>테슬라는 레이어 4~5에서, 현대차는 레이어 3에서, BYD는 레이어 2~3에서 각각 강점을 보유한다.</strong> 이 밸류체인 위의 포지셔닝 차이가 곧 EP.01에서 분석할 6-Node 구조의 차이로 나타난다.</p>
+
+
+  <!-- CHAPTER 5: 글로벌 지형 -->
+  <div class="chapter">
+    <div class="chapter-tag">Chapter 5 &middot; 지정학</div>
+    <h2 class="chapter-title">전기차 전쟁의 <em>4개 전선</em></h2>
+    <hr class="chapter-rule">
+  </div>
+
+  <div class="country-grid">
+    <div class="country-card">
+      <div class="country-flag">🇨🇳</div>
+      <div class="country-name">중국 &mdash; 세계의 공장이자 세계의 시장</div>
+      <p>글로벌 EV 판매의 60%+가 중국. BYD, NIO, Xpeng, Li Auto 등이 내수를 장악하고 유럽·동남아로 확장 중. 배터리 공급망(리튬 정제~셀 생산)의 80%를 통제하는 압도적 생태계.</p>
+    </div>
+    <div class="country-card">
+      <div class="country-flag">🇺🇸</div>
+      <div class="country-name">미국 &mdash; IRA로 재편하는 공급망</div>
+      <p>IRA(인플레이션 감축법)로 북미 생산 조건을 강제화. 테슬라가 49%로 미국 시장 지배. 현대차는 조지아 HMGMA 공장으로 대응. 관세 정책과 보조금이 시장 구도를 결정.</p>
+    </div>
+    <div class="country-card">
+      <div class="country-flag">🇪🇺</div>
+      <div class="country-name">유럽 &mdash; 규제가 시장을 만든다</div>
+      <p>2035년 내연기관 판매 금지 예정. VW, BMW, Stellantis가 전환 중이나 중국산 EV에 밀리는 상황. EU는 중국산 EV에 최대 38.1% 관세를 부과하며 방어.</p>
+    </div>
+    <div class="country-card">
+      <div class="country-flag">🇰🇷</div>
+      <div class="country-name">한국 &mdash; 배터리 + 완성차 쌍두마차</div>
+      <p>현대차그룹(완성차) + LG엔솔·삼성SDI·SK온(배터리)의 양축 구조. 글로벌 배터리 시장 점유율 약 25%. 내수 시장은 작지만 수출 비중이 높아 환율과 무역 정책에 민감.</p>
+    </div>
+  </div>
+
+
+  <!-- CHAPTER 6: 왜 지금 -->
+  <div class="chapter">
+    <div class="chapter-tag">Chapter 6 &middot; 타이밍</div>
+    <h2 class="chapter-title">왜 <em>지금</em> 전기차인가</h2>
+    <hr class="chapter-rule">
+  </div>
+
+  <p class="prose">전기차는 1880년대에 이미 존재했다. 그렇다면 왜 140년이 지난 지금에야 시장을 장악하고 있는가?</p>
+
+  <div class="insight-box">
+    <div class="insight-label">세 가지 변곡점이 동시에 도달했다</div>
+    <p><strong>1. 배터리 가격 붕괴:</strong> 2010년 kWh당 $1,100이던 배터리 가격이 2024년 $115로 떨어졌다. 90% 하락. 이 가격에서 EV는 ICE와 가격 동등(price parity)에 도달한다.<br><br>
+    <strong>2. 소프트웨어 기술의 성숙:</strong> 자율주행, OTA 업데이트, AI 기반 운전 보조가 상용화 수준에 도달. 차량이 &ldquo;팔린 뒤에도 진화하는 제품&rdquo;이 되었다.<br><br>
+    <strong>3. 정책 전환:</strong> EU 2035년 ICE 금지, 미국 IRA, 중국 NEV 보조금. 전 세계 주요국이 전기차 전환을 법으로 강제하고 있다.</p>
+  </div>
+
+  <p class="prose">이 세 조건이 동시에 갖춰지면서, 전기차는 &ldquo;미래의 기술&rdquo;에서 &ldquo;현재의 산업&rdquo;으로 전환했다. 2025년 글로벌 자동차 판매의 25%가 전기차다. 이 비율이 50%를 넘는 것은 시간문제다.</p>
+
+
+  <!-- CHAPTER 7: 앞으로 -->
+  <div class="chapter">
+    <div class="chapter-tag">Chapter 7 &middot; 전망</div>
+    <h2 class="chapter-title">이 산업은 어디로 가고 있는가 &mdash; <em>5가지 변화</em></h2>
+    <hr class="chapter-rule">
+  </div>
+
+  <p class="prose"><strong>1. 하이브리드의 반격.</strong> BEV 성장이 둔화되면서 하이브리드(HEV·PHEV)가 다시 주목받고 있다. 현대차는 2025년 전동화 판매의 66%가 하이브리드였다. &ldquo;전기차로 가는 다리&rdquo;가 예상보다 길어지고 있다.</p>
+
+  <p class="prose"><strong>2. 중국의 글로벌 공세.</strong> BYD, 지리, 체리 등 중국 업체가 유럽·동남아·남미로 진출하며 가격 혁신을 수출하고 있다. 서방의 관세 장벽과 중국의 과잉 생산 능력 사이의 긴장이 2026년 최대 이슈가 될 전망.</p>
+
+  <p class="prose"><strong>3. 로보택시 시대의 개막.</strong> 테슬라가 오스틴에서 로보택시 서비스를 시작했고, Waymo는 이미 샌프란시스코에서 상용화 중이다. 자동차의 가치가 &ldquo;소유&rdquo;에서 &ldquo;서비스&rdquo;로 이동하는 전환점에 있다.</p>
+
+  <p class="prose"><strong>4. 에너지 회사로의 확장.</strong> 테슬라의 에너지 부문이 급성장 중(매출 +25% YoY). 전기차가 단순한 이동수단이 아니라 &ldquo;분산형 에너지 저장소&rdquo;로 기능하는 V2G 시대가 다가오고 있다.</p>
+
+  <p class="prose"><strong>5. 전고체 배터리 경쟁.</strong> 도요타, 삼성SDI, QuantumScape 등이 2027~2030년 상용화를 목표로 개발 중. 성공 시 충전 시간 10분, 주행거리 1,000km 시대가 열린다. 배터리 레이어의 권력 지도가 바뀔 수 있는 와일드카드.</p>
+
+  <div class="pull">
+    <p>그렇다면 전기차 시대의 승자는 <span>&ldquo;가장 좋은 차를 만드는 회사&rdquo;</span>인가,<br>아니면 <span>&ldquo;가장 넓은 생태계를 구축하는 회사&rdquo;</span>인가?</p>
+    <p class="attr">이 질문의 답을 현대차와 테슬라의 리더십(EP.00.5)과 6-Node 분석(EP.01)에서 찾는다</p>
+  </div>
+
+</div><!-- /content-wrap -->
+
+<footer>
+  <span>이야기로 읽는 회사 &mdash; EP.00 전기차 산업 입문</span>
+  <span>MCWS &middot; Stories of Business</span>
+  <span>다음: EP.00.5 리더십 레이어 &mdash; 정의선 vs 일론 머스크</span>
+</footer>
+
+</body>
+</html>
