@@ -5,7 +5,691 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>이야기로 읽는 회사 — EP.00 AI 산업 입문</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:     #f0f2f5;
+  --bg2:    #e6e9ee;
+  --bg3:    #dcdfe6;
+  --ink:    #12141a;
+  --ink2:   #2e3340;
+  --muted:  #6b7280;
+  --rule:   rgba(18,20,26,0.12);
+  --rule2:  rgba(18,20,26,0.06);
+  --gold:   #8a6914;
+  --gold-bg:#fef9ec;
+  --openai: #10a37f;
+  --openai-bg: #e6f7f2;
+  --anthropic: #d97706;
+  --anthropic-bg: #fef3e2;
+  --us:     #1a4a7a;
+  --us-bg:  #ddeaf7;
+  --cn:     #b91c1c;
+  --cn-bg:  #fde8e8;
+  --eu:     #1d4ed8;
+  --eu-bg:  #dbeafe;
+  --uk:     #7c3aed;
+  --uk-bg:  #ede9fe;
+  --uae:    #047857;
+  --uae-bg: #d1fae5;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+/* MASTHEAD */
+.masthead { border-bottom: 2px solid var(--ink); padding: 0 56px; }
+.masthead-top {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 0 12px; border-bottom: 1px solid var(--rule);
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase;
+}
+.series-name {
+  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.18em;
+  color: var(--muted); text-transform: uppercase; text-align: center; padding: 18px 0 10px;
+}
+.headline {
+  font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 60px);
+  font-weight: 400; line-height: 1.12; text-align: center; padding: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+.headline em { font-style: italic; color: var(--gold); }
+.deck {
+  font-family: 'Noto Serif KR', serif; font-size: 15px; font-weight: 300;
+  text-align: center; color: var(--ink2); padding: 10px 0 20px;
+  max-width: 700px; margin: 0 auto; line-height: 1.65;
+}
+.masthead-byline {
+  border-top: 1px solid var(--rule); display: flex; justify-content: center;
+  gap: 32px; padding: 10px 0; font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.1em; color: var(--muted);
+}
+
+/* CONTENT */
+.content-wrap { max-width: 1100px; margin: 0 auto; padding: 0 56px; }
+
+/* CHAPTER */
+.chapter {
+  border-top: 2px solid var(--ink); padding: 40px 0 0;
+  margin-top: 48px;
+}
+.chapter-tag {
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+}
+.chapter-title {
+  font-family: 'Playfair Display', serif; font-size: clamp(22px, 3.5vw, 36px);
+  font-weight: 400; line-height: 1.2; margin-bottom: 8px;
+}
+.chapter-title em { font-style: italic; color: var(--gold); }
+.chapter-lead {
+  font-size: 15px; color: var(--ink2); max-width: 760px;
+  margin-bottom: 32px; line-height: 1.75; border-left: 3px solid var(--rule);
+  padding-left: 18px;
+}
+
+/* PROSE */
+.prose { font-size: 14.5px; line-height: 1.85; color: var(--ink2); margin-bottom: 24px; max-width: 800px; }
+.prose strong { font-weight: 600; color: var(--ink); }
+
+/* PULL QUOTE */
+.pull {
+  border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink);
+  padding: 28px 0; margin: 40px 0; text-align: center;
+}
+.pull p {
+  font-family: 'Playfair Display', serif; font-size: clamp(16px, 2.5vw, 22px);
+  font-weight: 400; font-style: italic; line-height: 1.5;
+  max-width: 720px; margin: 0 auto; color: var(--ink);
+}
+.pull span { color: var(--gold); }
+
+/* TERM GRID */
+.term-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px; margin: 24px 0 32px;
+}
+.term-card {
+  background: white; border: 1px solid var(--rule);
+  border-top: 3px solid var(--gold); padding: 20px 22px;
+}
+.term-en {
+  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em;
+  color: var(--gold); margin-bottom: 4px; text-transform: uppercase;
+}
+.term-kr { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+.term-def { font-size: 13px; line-height: 1.7; color: var(--ink2); }
+
+/* BIZ MODEL */
+.biz-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+  border: 1px solid var(--rule); margin: 24px 0 32px;
+}
+.biz-card {
+  padding: 24px 22px; border-right: 1px solid var(--rule);
+}
+.biz-card:last-child { border-right: none; }
+.biz-type {
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+}
+.biz-name { font-size: 18px; font-weight: 600; margin-bottom: 12px; }
+.biz-analogy {
+  background: var(--bg2); padding: 8px 12px; border-radius: 2px;
+  font-size: 12px; font-style: italic; color: var(--muted);
+  margin-bottom: 12px; border-left: 2px solid var(--rule);
+}
+.biz-card p { font-size: 13px; line-height: 1.7; color: var(--ink2); margin-bottom: 8px; }
+.biz-examples {
+  font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gold);
+  margin-top: 10px; letter-spacing: 0.02em;
+}
+
+/* VALUE CHAIN */
+.chain {
+  display: flex; align-items: center; justify-content: center;
+  gap: 0; margin: 28px 0; flex-wrap: wrap;
+}
+.chain-node {
+  text-align: center; padding: 14px 20px;
+  background: white; border: 1px solid var(--rule);
+  min-width: 110px;
+}
+.chain-node-en { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.08em; }
+.chain-node-kr { font-size: 14px; font-weight: 600; margin: 3px 0; }
+.chain-node-ex { font-size: 11px; color: var(--muted); font-style: italic; }
+.chain-arrow {
+  font-size: 18px; color: var(--muted); padding: 0 4px; flex-shrink: 0;
+}
+
+/* ANATOMY DARK */
+.anatomy {
+  background: var(--ink); color: var(--bg); padding: 36px 40px;
+  margin: 24px 0 32px;
+}
+.anatomy-title {
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: rgba(245,242,235,0.4); margin-bottom: 20px;
+}
+.anatomy-row {
+  display: flex; gap: 0; border: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 12px; overflow: hidden;
+}
+.anatomy-block {
+  padding: 16px 20px; flex: 1; border-right: 1px solid rgba(255,255,255,0.08);
+}
+.anatomy-block:last-child { border-right: none; }
+.anatomy-block-label {
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.14em;
+  text-transform: uppercase; opacity: 0.45; margin-bottom: 4px;
+}
+.anatomy-block-name { font-size: 14px; font-weight: 600; color: #d4a853; margin-bottom: 4px; }
+.anatomy-block-desc { font-size: 12px; color: rgba(245,242,235,0.6); line-height: 1.6; }
+
+/* COUNTRY */
+.country-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0 32px;
+}
+.country-card {
+  border: 1px solid var(--rule); border-top: 4px solid; padding: 24px 24px 20px;
+  background: white;
+}
+.country-card.us  { border-top-color: var(--us); }
+.country-card.cn  { border-top-color: var(--cn); }
+.country-card.eu  { border-top-color: var(--eu); }
+.country-card.uk  { border-top-color: var(--uk); }
+.country-card.uae { border-top-color: var(--uae); }
+.country-flag { font-size: 28px; margin-bottom: 4px; }
+.country-label {
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.16em;
+  text-transform: uppercase; margin-bottom: 4px;
+}
+.country-label.us { color: var(--us); }
+.country-label.cn { color: var(--cn); }
+.country-label.eu { color: var(--eu); }
+.country-label.uk { color: var(--uk); }
+.country-label.uae { color: var(--uae); }
+.country-title { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+.country-strategy {
+  font-size: 12px; font-style: italic; color: var(--muted);
+  margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--rule2);
+}
+.country-card p { font-size: 13px; line-height: 1.72; color: var(--ink2); margin-bottom: 8px; }
+.country-card strong { font-weight: 600; color: var(--ink); }
+.company-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px; }
+.company-pill {
+  font-family: 'DM Mono', monospace; font-size: 10px; padding: 3px 9px;
+  border: 1px solid; border-radius: 2px; letter-spacing: 0.03em;
+}
+.company-pill.us { color: var(--us); border-color: #b0c8e4; background: var(--us-bg); }
+.company-pill.cn { color: var(--cn); border-color: #e8b0b0; background: var(--cn-bg); }
+.company-pill.eu { color: var(--eu); border-color: #b0c0e8; background: var(--eu-bg); }
+.company-pill.uk { color: var(--uk); border-color: #c4b0e8; background: var(--uk-bg); }
+.company-pill.uae { color: var(--uae); border-color: #a0d8c0; background: var(--uae-bg); }
+
+/* WHY NOW */
+.why-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0 32px;
+}
+.why-card {
+  background: var(--ink); color: var(--bg); padding: 24px 22px;
+}
+.why-icon { font-size: 28px; margin-bottom: 10px; }
+.why-title { font-size: 17px; font-weight: 600; margin-bottom: 10px; color: #e8e4dc; }
+.why-card p { font-size: 13px; line-height: 1.72; color: rgba(245,242,235,0.72); }
+.why-card strong { color: #d4a853; font-weight: 600; }
+
+/* FUTURE TABLE */
+.future-grid {
+  display: grid; grid-template-columns: 1fr; gap: 0; margin: 24px 0 32px;
+  border: 1px solid var(--rule);
+}
+.future-row {
+  display: grid; grid-template-columns: 160px 1fr 1fr;
+  border-bottom: 1px solid var(--rule2);
+}
+.future-row:last-child { border-bottom: none; }
+.future-row.header { background: var(--bg3); }
+.future-cell {
+  padding: 14px 18px; font-size: 13px; line-height: 1.65;
+  border-right: 1px solid var(--rule2);
+}
+.future-cell:last-child { border-right: none; }
+.future-cell.label {
+  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.06em;
+  color: var(--muted);
+  display: flex; align-items: center;
+}
+.future-cell.header-cell {
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ink2); font-weight: 500;
+  display: flex; align-items: center;
+}
+
+/* INSIGHT */
+.insight-box {
+  background: var(--gold-bg); border: 1px solid rgba(138,105,20,0.2);
+  border-left: 3px solid var(--gold); padding: 18px 22px; margin: 20px 0 28px;
+}
+.insight-label {
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 8px;
+}
+.insight-box p { font-size: 14px; line-height: 1.78; color: var(--ink); }
+.insight-box strong { font-weight: 600; }
+
+/* FOOTER */
+footer {
+  border-top: 2px solid var(--ink); padding: 16px 56px; margin-top: 56px;
+  display: flex; justify-content: space-between;
+  font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 760px) {
+  .masthead, .content-wrap, footer { padding-left: 20px; padding-right: 20px; }
+  .biz-grid, .country-grid, .why-grid { grid-template-columns: 1fr; }
+  .future-row { grid-template-columns: 1fr; }
+  .chain { flex-direction: column; }
+  .chain-arrow { transform: rotate(90deg); }
+  .anatomy-row { flex-direction: column; }
+}
+</style>
 </head>
 <body>
+
+<div class="masthead">
+  <div class="masthead-top">
+    <span>이야기로 읽는 회사 &middot; Stories of Business</span>
+    <span>산업 기초편</span>
+    <span>Episode 00 &middot; AI</span>
+  </div>
+  <div class="series-name">AI 산업 완전 입문 &mdash; 파운데이션 모델부터 지정학까지</div>
+  <h1 class="headline">
+    지능을 <em>만들어 파는</em><br>산업의 탄생
+  </h1>
+  <p class="deck">파운데이션 모델을 모르면 OpenAI와 Anthropic 이야기를 읽어도 모른다. 이 문서는 그 이야기를 읽기 전에 반드시 알아야 할 산업의 언어를 정리한 입문서다.</p>
+  <div class="masthead-byline">
+    <span>대상: AI 산업 입문자</span>
+    <span>범위: 산업구조 &middot; 주요 용어 &middot; 국가 전략 &middot; 에이전트 시대의 AI</span>
+  </div>
+</div>
+
+<div class="content-wrap">
+
+  <!-- CHAPTER 1 -->
+  <div class="chapter">
+    <div class="chapter-tag">Chapter 1 &middot; 정의</div>
+    <h2 class="chapter-title">파운데이션 모델이란 무엇인가 &mdash; <em>범용 지능의 원재료</em></h2>
+    <p class="chapter-lead">파운데이션 모델(Foundation Model)은 대규모 텍스트 데이터에서 패턴을 학습한 후, 질문에 답하고 코드를 쓰고 번역을 하는 범용 AI 시스템이다. 반도체가 하드웨어의 기반이라면, 파운데이션 모델은 소프트웨어 지능의 기반이다.</p>
+  </div>
+
+  <p class="prose">인터넷에 존재하는 수조 개의 문장을 읽고, 다음에 올 단어를 예측하는 훈련을 반복한다. 이 단순한 원리가 <strong>수십만 장의 GPU</strong>와 수개월의 훈련 시간, 수억 달러의 비용과 결합하면 &mdash; 언어를 이해하고, 추론하고, 창작하는 시스템이 만들어진다.</p>
+
+  <p class="prose">이것이 2020년대의 가장 중요한 산업적 발견이다. <strong>지능이 제조 가능한 상품이 되었다.</strong> 반도체 산업이 &ldquo;연산 능력&rdquo;을 상품화했듯, AI 산업은 &ldquo;추론 능력&rdquo;을 상품화하고 있다. 차이가 있다면 &mdash; 반도체는 물리적 팹(Fab)에서 만들지만, 파운데이션 모델은 데이터센터에서 만든다. 공장 대신 GPU 클러스터, 실리콘 대신 데이터와 알고리즘이 원재료다.</p>
+
+  <div class="pull">
+    <p>AI 산업은 <span>&ldquo;추론 능력을 제조하고 판매하는&rdquo;</span><br>인류 최초의 산업이다.<br>원재료는 데이터, 공장은 GPU 클러스터, 제품은 지능.</p>
+  </div>
+
+  <p class="prose">2024년 기준 글로벌 생성형 AI 시장은 약 <strong>3,650억 달러</strong> 규모이며, 2025년에는 6,440억 달러로 76% 성장이 전망된다. 파운데이션 모델을 만드는 회사는 전 세계에 10개 남짓이지만, 이 모델을 사용하는 기업은 수백만 개다. 반도체 산업의 팹리스-파운드리 구조와 놀랍도록 유사한 생태계가 형성되고 있다.</p>
+
+
+  <!-- CHAPTER 2: 용어 사전 -->
+  <div class="chapter">
+    <div class="chapter-tag">Chapter 2 &middot; 용어</div>
+    <h2 class="chapter-title">뉴스를 읽기 위한 <em>10개의 열쇠</em></h2>
+    <p class="chapter-lead">AI 뉴스에 매일 등장하지만 정확히 뜻을 아는 사람은 드문 용어들. 이 10개를 알면 기사가 달리 보인다.</p>
+  </div>
+
+  <div class="term-grid">
+    <div class="term-card">
+      <div class="term-en">LLM</div>
+      <div class="term-kr">대규모 언어 모델</div>
+      <div class="term-def"><strong>Large Language Model.</strong> 수천억 개의 매개변수로 언어를 이해하고 생성하는 AI. 도서관 사서가 모든 책을 읽고 어떤 질문에든 대답하는 것 &mdash; 단, 이 사서는 확률적으로 가장 그럴듯한 답을 고른다.</div>
+    </div>
+    <div class="term-card">
+      <div class="term-en">Foundation Model</div>
+      <div class="term-kr">파운데이션 모델</div>
+      <div class="term-def">LLM의 상위 개념. 텍스트뿐 아니라 이미지, 코드, 음성을 모두 다루는 범용 AI 기반 모델. 밀가루 반죽 &mdash; 빵도 되고 피자도 되고 국수도 된다. GPT, Claude, Gemini가 대표적.</div>
+    </div>
+    <div class="term-card">
+      <div class="term-en">Token</div>
+      <div class="term-kr">토큰</div>
+      <div class="term-def">AI가 텍스트를 처리하는 최소 단위. 대략 영어 단어 0.75개, 한국어 음절 1~2개에 해당. API 과금의 기본 단위이기도 하다. <strong>AI 산업의 &ldquo;전력 사용량&rdquo;</strong>과 같은 개념 &mdash; 얼마나 많은 토큰을 처리하는가가 곧 매출이다.</div>
+    </div>
+    <div class="term-card">
+      <div class="term-en">API</div>
+      <div class="term-kr">응용 프로그래밍 인터페이스</div>
+      <div class="term-def">다른 소프트웨어가 AI 모델을 호출할 수 있게 해주는 통로. 전기 콘센트 &mdash; 어떤 가전제품이든 꽂기만 하면 전기를 쓸 수 있듯, 어떤 앱이든 API를 통해 AI를 쓸 수 있다. AI 산업의 B2B 매출 핵심.</div>
+    </div>
+    <div class="term-card">
+      <div class="term-en">RLHF</div>
+      <div class="term-kr">인간 피드백 강화학습</div>
+      <div class="term-def"><strong>Reinforcement Learning from Human Feedback.</strong> AI의 답변을 사람이 평가해서 더 좋은 답변을 하도록 훈련하는 방법. 견습생이 도제(Master)에게 피드백을 받으며 기술을 다듬는 과정. Anthropic의 창업 계기가 된 핵심 기술.</div>
+    </div>
+    <div class="term-card">
+      <div class="term-en">Scaling Law</div>
+      <div class="term-kr">스케일링 법칙</div>
+      <div class="term-def">모델 크기, 데이터량, 연산량을 늘리면 성능이 예측 가능하게 향상된다는 경험적 법칙. 이 법칙이 존재하기 때문에 &ldquo;더 큰 모델 = 더 나은 성능&rdquo;이라는 투자 논리가 성립한다. <strong>AI 산업의 무어의 법칙.</strong></div>
+    </div>
+    <div class="term-card">
+      <div class="term-en">Inference</div>
+      <div class="term-kr">추론</div>
+      <div class="term-def">훈련된 모델이 실제로 질문에 답하는 과정. 훈련(Training)이 &ldquo;공부&rdquo;라면 추론은 &ldquo;시험&rdquo;이다. 매출이 발생하는 지점이 바로 여기다 &mdash; 사용자가 질문할 때마다 추론 비용이 발생하고 과금된다.</div>
+    </div>
+    <div class="term-card">
+      <div class="term-en">AGI</div>
+      <div class="term-kr">범용 인공지능</div>
+      <div class="term-def"><strong>Artificial General Intelligence.</strong> 특정 분야가 아닌 인간 수준의 범용 지능을 가진 AI. 아직 달성되지 않았지만, OpenAI는 이를 명시적 목표로 선언했고 Anthropic은 &ldquo;안전하게 도달하는 것&rdquo;을 미션으로 삼았다.</div>
+    </div>
+    <div class="term-card">
+      <div class="term-en">MCP</div>
+      <div class="term-kr">모델 컨텍스트 프로토콜</div>
+      <div class="term-def"><strong>Model Context Protocol.</strong> AI 모델이 외부 도구(이메일, 캘린더, 코드 에디터 등)와 연결되는 표준 프로토콜. USB 포트 &mdash; 어떤 주변기기든 꽂으면 작동하듯, AI가 어떤 소프트웨어든 조작할 수 있게 한다. Anthropic이 2024년 공개해 업계 표준으로 확산 중.</div>
+    </div>
+    <div class="term-card">
+      <div class="term-en">AI Agent</div>
+      <div class="term-kr">AI 에이전트</div>
+      <div class="term-def">단순히 답변만 하는 것이 아니라 스스로 계획하고, 도구를 사용하고, 실행까지 하는 AI 시스템. 비서가 &ldquo;알겠습니다&rdquo;만 말하는 것과 실제로 예약을 잡고 이메일을 보내는 것의 차이. <strong>2025년 AI 산업의 핵심 전환점.</strong></div>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-label">핵심 통찰</div>
+    <p>이 10개 용어를 관통하는 하나의 흐름이 있다: <strong>모델(LLM) &rarr; 인터페이스(API) &rarr; 도구 연결(MCP) &rarr; 자율 행동(Agent).</strong> AI가 &ldquo;아는 것&rdquo;에서 &ldquo;하는 것&rdquo;으로 이동하고 있다. 이 흐름을 이해하면, OpenAI와 Anthropic이 왜 각각 다른 전략을 택했는지가 보인다.</p>
+  </div>
+
+
+  <!-- CHAPTER 3: 사업 모델 -->
+  <div class="chapter">
+    <div class="chapter-tag">Chapter 3 &middot; 사업 모델</div>
+    <h2 class="chapter-title">AI에서 돈을 버는 <em>세 가지 방식</em></h2>
+    <p class="chapter-lead">같은 파운데이션 모델을 만들지만, 누구에게 어떻게 파는가에 따라 사업의 구조가 완전히 달라진다. 이 차이가 OpenAI와 Anthropic의 매출 구조를 가른다.</p>
+  </div>
+
+  <div class="biz-grid">
+    <div class="biz-card">
+      <div class="biz-type">Model A</div>
+      <div class="biz-name">소비자 구독형</div>
+      <div class="biz-analogy">&ldquo;넷플릭스형&rdquo; &mdash; 월 $20, 무제한 지능 사용</div>
+      <p>일반 사용자에게 월 구독료를 받고 AI를 제공한다. ChatGPT Plus($20/월), Claude Pro($20/월)가 대표적. 사용자 수가 곧 매출이고, 브랜드 인지도가 핵심 자산이다.</p>
+      <p><strong>핵심 지표:</strong> MAU(월간 활성 사용자), 구독 전환율, ARPU(사용자당 매출)</p>
+      <div class="biz-examples">OpenAI &middot; ChatGPT &mdash; 800M 주간 사용자 &middot; 매출의 70%</div>
+    </div>
+    <div class="biz-card">
+      <div class="biz-type">Model B</div>
+      <div class="biz-name">API 종량제형</div>
+      <div class="biz-analogy">&ldquo;전력회사형&rdquo; &mdash; 쓴 만큼 과금, 토큰이 전기 미터기</div>
+      <p>기업과 개발자가 API를 통해 AI를 호출하고, 사용한 토큰량에 따라 과금된다. AWS가 컴퓨팅 파워를 종량제로 판 것과 같은 구조. 고객사의 제품에 AI가 내장되는 B2B2C 모델.</p>
+      <p><strong>핵심 지표:</strong> API 호출량, 토큰 소비량, 고객사 수, Net Revenue Retention</p>
+      <div class="biz-examples">Anthropic &middot; Claude API &mdash; 매출의 85% &middot; 엔터프라이즈 32% 점유율</div>
+    </div>
+    <div class="biz-card">
+      <div class="biz-type">Model C</div>
+      <div class="biz-name">오픈소스 + 생태계형</div>
+      <div class="biz-analogy">&ldquo;안드로이드형&rdquo; &mdash; 모델은 무료, 생태계에서 수익</div>
+      <p>모델 자체는 무료로 공개하고, 클라우드 호스팅, 엔터프라이즈 지원, 하드웨어 판매에서 수익을 낸다. Meta의 Llama가 대표적. 모델 무료 배포로 생태계를 장악한 뒤 인접 시장에서 수익화.</p>
+      <p><strong>핵심 지표:</strong> 다운로드 수, 생태계 개발자 수, 인접 사업 매출</p>
+      <div class="biz-examples">Meta &middot; Llama &middot; Google &middot; Gemma</div>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-label">구조적 통찰</div>
+    <p><strong>OpenAI는 Model A(소비자 구독) 중심, Anthropic은 Model B(API 종량제) 중심이다.</strong> OpenAI 매출의 70%가 일반 소비자에게서 나오고, Anthropic 매출의 85%가 기업 API에서 나온다. 같은 파운데이션 모델을 만들지만 고객이 다르고, 따라서 성장 전략, 비용 구조, 마진 구조가 전부 다르다. 반도체에서 메모리(표준품 대량생산)와 시스템(맞춤형 고마진)의 차이와 구조적으로 유사하다.</p>
+  </div>
+
+
+  <!-- CHAPTER 4: 밸류체인 -->
+  <div class="chapter">
+    <div class="chapter-tag">Chapter 4 &middot; 밸류체인</div>
+    <h2 class="chapter-title">AI 산업의 <em>전체 지도</em> &mdash; 누가 어디에 있는가</h2>
+    <p class="chapter-lead">AI 산업은 크게 5개 층(Layer)으로 구성된다. 아래에서 위로 &mdash; 반도체 → 클라우드 인프라 → 모델 → 도구·플랫폼 → 최종 애플리케이션. 각 층마다 지배하는 회사가 다르다.</p>
+  </div>
+
+  <div class="chain">
+    <div class="chain-node">
+      <div class="chain-node-en">LAYER 1</div>
+      <div class="chain-node-kr">반도체</div>
+      <div class="chain-node-ex">NVIDIA, AMD, Broadcom</div>
+    </div>
+    <div class="chain-arrow">&rarr;</div>
+    <div class="chain-node">
+      <div class="chain-node-en">LAYER 2</div>
+      <div class="chain-node-kr">클라우드 인프라</div>
+      <div class="chain-node-ex">AWS, Azure, GCP</div>
+    </div>
+    <div class="chain-arrow">&rarr;</div>
+    <div class="chain-node">
+      <div class="chain-node-en">LAYER 3</div>
+      <div class="chain-node-kr">파운데이션 모델</div>
+      <div class="chain-node-ex">OpenAI, Anthropic, Google</div>
+    </div>
+    <div class="chain-arrow">&rarr;</div>
+    <div class="chain-node">
+      <div class="chain-node-en">LAYER 4</div>
+      <div class="chain-node-kr">도구 · 플랫폼</div>
+      <div class="chain-node-ex">LangChain, MCP, Cursor</div>
+    </div>
+    <div class="chain-arrow">&rarr;</div>
+    <div class="chain-node">
+      <div class="chain-node-en">LAYER 5</div>
+      <div class="chain-node-kr">애플리케이션</div>
+      <div class="chain-node-ex">ChatGPT, Claude, Copilot</div>
+    </div>
+  </div>
+
+  <div class="anatomy">
+    <div class="anatomy-title">각 레이어의 역할과 경쟁 구조</div>
+    <div class="anatomy-row">
+      <div class="anatomy-block">
+        <div class="anatomy-block-label">Layer 1 &middot; 반도체</div>
+        <div class="anatomy-block-name">GPU &amp; AI 칩</div>
+        <div class="anatomy-block-desc">AI 훈련과 추론에 필요한 연산 하드웨어. NVIDIA가 GPU 시장의 80%+ 점유. CUDA 생태계가 해자(Moat). 데이터센터 GPU 매출만 연 $100B+.</div>
+      </div>
+      <div class="anatomy-block">
+        <div class="anatomy-block-label">Layer 2 &middot; 클라우드</div>
+        <div class="anatomy-block-name">컴퓨트 인프라</div>
+        <div class="anatomy-block-desc">GPU 클러스터를 호스팅하는 데이터센터. AWS·Azure·GCP 3사가 지배. 2025년 빅테크 AI CapEx만 $700B 전망. OpenAI의 원가 구조 핵심.</div>
+      </div>
+      <div class="anatomy-block">
+        <div class="anatomy-block-label">Layer 3 &middot; 모델</div>
+        <div class="anatomy-block-name">파운데이션 모델</div>
+        <div class="anatomy-block-desc">핵심 경쟁 레이어. 전 세계에 모델을 만들 수 있는 회사가 10개 남짓. OpenAI(GPT), Anthropic(Claude), Google(Gemini), Meta(Llama). 훈련 1회 비용 $100M+.</div>
+      </div>
+    </div>
+    <div class="anatomy-row">
+      <div class="anatomy-block">
+        <div class="anatomy-block-label">Layer 4 &middot; 도구</div>
+        <div class="anatomy-block-name">개발 플랫폼 &amp; 미들웨어</div>
+        <div class="anatomy-block-desc">모델을 제품에 통합하기 위한 도구. LangChain(오케스트레이션), MCP(도구 연결 프로토콜), Cursor(AI 코딩), Vercel(AI 앱 배포). 이 레이어가 급성장 중.</div>
+      </div>
+      <div class="anatomy-block">
+        <div class="anatomy-block-label">Layer 5 &middot; 앱</div>
+        <div class="anatomy-block-name">최종 사용자 제품</div>
+        <div class="anatomy-block-desc">소비자와 기업이 직접 쓰는 AI 제품. ChatGPT(대화), Claude(코딩·분석), Copilot(오피스 자동화), Midjourney(이미지). 모델 제조사가 직접 앱도 운영하는 수직통합 구조.</div>
+      </div>
+      <div class="anatomy-block">
+        <div class="anatomy-block-label">특이점</div>
+        <div class="anatomy-block-name">수직 통합 경향</div>
+        <div class="anatomy-block-desc">반도체 산업은 설계(팹리스)와 제조(파운드리)가 분리됐지만, AI 산업은 모델·플랫폼·앱을 한 회사가 모두 하는 수직 통합이 일반적. OpenAI = GPT + API + ChatGPT.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-label">밸류체인 통찰</div>
+    <p><strong>OpenAI와 Anthropic은 모두 Layer 3(모델) + Layer 5(앱) 수직 통합 구조다.</strong> 하지만 결정적 차이가 있다. OpenAI는 Layer 5(ChatGPT)에서 매출의 70%를 만들고, Anthropic은 Layer 3(Claude API)에서 매출의 85%를 만든다. 같은 밸류체인 위치에 있지만 수익 창출 지점이 다르다 &mdash; 이것이 두 회사의 전략적 차이의 출발점이다.</p>
+  </div>
+
+
+  <!-- CHAPTER 5: 국가 전략 -->
+  <div class="chapter">
+    <div class="chapter-tag">Chapter 5 &middot; 지정학</div>
+    <h2 class="chapter-title">국가별 AI 전략 &mdash; <em>지능의 지정학</em></h2>
+    <p class="chapter-lead">AI는 21세기의 석유이자 핵무기다. 누가 최고 성능의 AI를 보유하는가가 경제적 패권과 군사적 우위를 동시에 결정한다. 각국의 전략이 이 산업의 지형을 만든다.</p>
+  </div>
+
+  <div class="country-grid">
+    <div class="country-card us">
+      <div class="country-flag">&#127482;&#127480;</div>
+      <div class="country-label us">United States</div>
+      <div class="country-title">절대 우위 &mdash; 모델·자본·인재의 삼중 독점</div>
+      <div class="country-strategy">&ldquo;AI를 만드는 회사, AI를 사는 회사, AI를 가능하게 하는 GPU &mdash; 전부 미국에 있다&rdquo;</div>
+      <p>글로벌 파운데이션 모델 상위 10개 중 <strong>8개가 미국 기업</strong>이 만든다. NVIDIA는 AI 칩의 80%를 공급하고, AWS·Azure·GCP가 AI 인프라의 90%를 호스팅한다. 세계 AI 연구 인력의 60%가 미국에서 일한다.</p>
+      <p>미국 정부는 중국에 대한 <strong>반도체 수출 통제</strong>(2022~)로 AI 하드웨어 공급을 차단하면서도, 국내에서는 규제를 최소화해 혁신 속도를 보전하는 양면 전략을 쓴다.</p>
+      <div class="company-pills">
+        <span class="company-pill us">OpenAI</span>
+        <span class="company-pill us">Anthropic</span>
+        <span class="company-pill us">Google</span>
+        <span class="company-pill us">Meta</span>
+        <span class="company-pill us">NVIDIA</span>
+        <span class="company-pill us">Microsoft</span>
+      </div>
+    </div>
+    <div class="country-card cn">
+      <div class="country-flag">&#127464;&#127475;</div>
+      <div class="country-label cn">China</div>
+      <div class="country-title">추격자 &mdash; 규제 속의 자립 전략</div>
+      <div class="country-strategy">&ldquo;미국의 GPU를 못 사니, 자체 칩과 자체 모델로 독립 생태계를 만든다&rdquo;</div>
+      <p>미국의 수출 통제로 최신 NVIDIA GPU 수입이 차단됐지만, <strong>Huawei Ascend 칩</strong>과 자체 모델(Qwen, DeepSeek, Ernie)로 독자 생태계를 구축 중이다. DeepSeek의 등장은 제한된 자원으로도 경쟁력 있는 모델을 만들 수 있음을 증명했다.</p>
+      <p>중국 정부는 AI 산업에 국가 자원을 집중 투입하면서도, 콘텐츠 규제와 데이터 통제를 병행한다. &ldquo;기술은 키우되 통제는 유지&rdquo;가 기본 방침이다.</p>
+      <div class="company-pills">
+        <span class="company-pill cn">Alibaba (Qwen)</span>
+        <span class="company-pill cn">DeepSeek</span>
+        <span class="company-pill cn">Baidu (Ernie)</span>
+        <span class="company-pill cn">ByteDance</span>
+        <span class="company-pill cn">Huawei</span>
+      </div>
+    </div>
+    <div class="country-card eu">
+      <div class="country-flag">&#127466;&#127482;</div>
+      <div class="country-label eu">European Union</div>
+      <div class="country-title">규제 선도자 &mdash; 규칙을 먼저 만드는 전략</div>
+      <div class="country-strategy">&ldquo;모델을 만들지 못하면, 모델이 지켜야 할 규칙이라도 먼저 만든다&rdquo;</div>
+      <p>EU AI Act(2024년 발효)는 세계 최초의 포괄적 AI 규제법이다. 고위험 AI 시스템에 대한 투명성·책임·감사 의무를 부과한다. EU는 모델 제조에서는 경쟁력이 약하지만, <strong>규제 표준</strong>을 통해 글로벌 AI 산업의 규칙을 설정하는 전략을 택했다.</p>
+      <p>Mistral AI(프랑스)가 유럽 유일의 경쟁력 있는 모델 제조사이며, Aleph Alpha(독일) 등이 뒤따르고 있다.</p>
+      <div class="company-pills">
+        <span class="company-pill eu">Mistral AI</span>
+        <span class="company-pill eu">Aleph Alpha</span>
+        <span class="company-pill eu">EU AI Act</span>
+      </div>
+    </div>
+    <div class="country-card uk">
+      <div class="country-flag">&#127468;&#127463;</div>
+      <div class="country-label uk">United Kingdom</div>
+      <div class="country-title">안전 연구 허브 &mdash; AI Safety의 수도</div>
+      <div class="country-strategy">&ldquo;모델을 만들기보다, 모델이 안전한지 평가하는 세계의 기준점이 된다&rdquo;</div>
+      <p>영국은 세계 최초로 <strong>AI Safety Institute</strong>(2023)를 설립했고, Bletchley Park AI 정상회의를 주도했다. DeepMind(Google 산하)가 런던에 본사를 둔 세계 최고 수준의 AI 연구소다. 정부 주도의 안전 평가 프레임워크로 글로벌 영향력을 행사한다.</p>
+      <div class="company-pills">
+        <span class="company-pill uk">DeepMind</span>
+        <span class="company-pill uk">AI Safety Institute</span>
+        <span class="company-pill uk">Stability AI</span>
+      </div>
+    </div>
+    <div class="country-card uae" style="grid-column: 1 / -1;">
+      <div class="country-flag">&#127462;&#127466;</div>
+      <div class="country-label uae">UAE &amp; Saudi Arabia</div>
+      <div class="country-title">자본 공급자 &mdash; 석유에서 지능으로의 전환</div>
+      <div class="country-strategy">&ldquo;석유로 번 자본을 AI 인프라에 투자해, 포스트 오일 시대를 준비한다&rdquo;</div>
+      <p>UAE의 G42, 사우디의 PIF(공공투자기금)가 수십억 달러를 AI 인프라와 모델 기업에 투자하고 있다. <strong>Falcon 모델</strong>(UAE)은 아랍권 최초의 자체 파운데이션 모델이다. 데이터센터 투자와 에너지 공급이라는 두 가지 카드를 동시에 보유하고 있어, AI 시대의 핵심 파트너로 부상 중이다.</p>
+      <div class="company-pills">
+        <span class="company-pill uae">G42</span>
+        <span class="company-pill uae">Technology Innovation Institute</span>
+        <span class="company-pill uae">Falcon</span>
+        <span class="company-pill uae">NEOM</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- CHAPTER 6: 왜 지금인가 -->
+  <div class="chapter">
+    <div class="chapter-tag">Chapter 6 &middot; 타이밍</div>
+    <h2 class="chapter-title">왜 <em>지금</em>인가 &mdash; 세 가지 구조적 이유</h2>
+    <p class="chapter-lead">AI 연구는 60년 전부터 있었다. 하지만 &ldquo;산업&rdquo;이 된 것은 불과 3년 전이다. 왜 하필 지금인가 &mdash; 세 가지 구조적 변곡점이 동시에 발생했기 때문이다.</p>
+  </div>
+
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon">&#9889;</div>
+      <div class="why-title">스케일링 법칙의 작동이 증명됐다</div>
+      <p>2020년 OpenAI가 발표한 스케일링 법칙(Kaplan et al.)은 <strong>&ldquo;돈을 더 쓰면 AI가 더 똑똑해진다&rdquo;</strong>를 수학적으로 증명했다. 이 발견이 수천억 달러의 투자를 정당화하는 근거가 되었다. GPT-2(2019) &rarr; GPT-3(2020) &rarr; GPT-4(2023) &rarr; GPT-4o(2024)의 성능 도약이 이를 실증했다.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">&#127981;</div>
+      <div class="why-title">엔터프라이즈 채택이 폭발했다</div>
+      <p>2023년까지 AI는 &ldquo;신기한 챗봇&rdquo;이었다. 2024~2025년, <strong>Fortune 500의 92%가 AI를 도입</strong>하면서 실질적 매출이 발생하기 시작했다. Anthropic의 엔터프라이즈 시장 점유율이 2023년 12% &rarr; 2025년 32%로 3배 성장한 것이 이를 보여준다. 기술이 장난감에서 인프라로 전환된 것이다.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">&#129302;</div>
+      <div class="why-title">에이전트 시대가 열렸다</div>
+      <p>2025년은 <strong>&ldquo;에이전트의 해&rdquo;</strong>로 불린다. AI가 단순히 질문에 답하는 것을 넘어, 코드를 작성하고, 이메일을 보내고, 예약을 잡는다. MCP(Anthropic, 2024) 같은 도구 연결 프로토콜이 이를 가능하게 했다. &ldquo;AI = 대화&rdquo;에서 &ldquo;AI = 행동&rdquo;으로의 전환이 새로운 시장을 만들고 있다.</p>
+    </div>
+  </div>
+
+
+  <!-- CHAPTER 7: 앞으로의 변화 -->
+  <div class="chapter">
+    <div class="chapter-tag">Chapter 7 &middot; 전망</div>
+    <h2 class="chapter-title">앞으로의 <em>다섯 가지 변화</em></h2>
+    <p class="chapter-lead">AI 산업은 아직 초기다. 2024년이 &ldquo;모델의 해&rdquo;였다면, 2025~2027년은 산업의 구조 자체가 재편되는 시기다. 다섯 가지 구조적 변화가 진행 중이다.</p>
+  </div>
+
+  <div class="future-grid">
+    <div class="future-row header">
+      <div class="future-cell header-cell">변화 방향</div>
+      <div class="future-cell header-cell">수혜 구조</div>
+      <div class="future-cell header-cell">리스크</div>
+    </div>
+    <div class="future-row">
+      <div class="future-cell label">모델 성능 수렴</div>
+      <div class="future-cell">GPT, Claude, Gemini의 성능 차이가 줄어들고 있다. 모델 자체보다 <strong>제품 경험과 생태계</strong>가 차별화 요인으로 부상. API 가격 경쟁 본격화 &rarr; 사용자 비용 하락.</div>
+      <div class="future-cell">모델 제조사의 마진 압박. &ldquo;지능의 원자재화(Commoditization)&rdquo;가 현실화되면 순수 모델 회사의 수익성이 하락할 수 있다.</div>
+    </div>
+    <div class="future-row">
+      <div class="future-cell label">에이전트 경제 형성</div>
+      <div class="future-cell">AI가 도구를 사용하고 자율적으로 작업을 수행하는 에이전트 시장이 형성. <strong>MCP 생태계</strong>, 코딩 에이전트(Cursor, Claude Code), 업무 자동화 에이전트가 새로운 수익원.</div>
+      <div class="future-cell">안전성·책임 소재 문제. AI가 자율적으로 행동할 때 오류나 피해의 책임이 모델 회사에 있는지, 사용자에게 있는지 법적 프레임워크가 아직 없다.</div>
+    </div>
+    <div class="future-row">
+      <div class="future-cell label">추론 비용의 급락</div>
+      <div class="future-cell">GPT-4 수준 추론 비용이 2년 만에 <strong>97% 하락.</strong> 추론 전용 칩(Groq, AWS Inferentia)과 모델 경량화 기술이 가속화. &ldquo;AI를 쓰는 비용&rdquo;이 거의 제로에 수렴하는 시대가 온다.</div>
+      <div class="future-cell">수익 모델의 근본적 전환 필요. 토큰 과금 모델이 지속 가능한가? 구독제 또는 가치 기반 과금으로 전환 압력.</div>
+    </div>
+    <div class="future-row">
+      <div class="future-cell label">규제 프레임워크 구체화</div>
+      <div class="future-cell">EU AI Act 발효, 미국의 행정명령, 각국의 AI 안전 기관 설립이 진행 중. <strong>안전과 책임을 먼저 내재화한 기업</strong>(Anthropic의 Constitutional AI, RSP)이 규제 환경에서 유리.</div>
+      <div class="future-cell">규제 과잉으로 혁신 속도가 둔화될 가능성. 특히 미국 내 규제 모라토리엄 논쟁이 업계를 양분하고 있다.</div>
+    </div>
+    <div class="future-row">
+      <div class="future-cell label">IPO의 시대</div>
+      <div class="future-cell">OpenAI($300B+ 밸류에이션), Anthropic($380B)이 IPO를 준비 중. AI 기업의 상장이 시작되면 <strong>공개 재무제표</strong>가 나오고, 실질적 수익성이 시장에서 검증된다.</div>
+      <div class="future-cell">현재의 밸류에이션이 실제 수익과 괴리가 크다는 지적. OpenAI는 $20B 매출에 $9B 적자 &mdash; 수익성 증명 전까지 버블 논란은 계속된다.</div>
+    </div>
+  </div>
+
+  <div class="pull">
+    <p>같은 &ldquo;지능&rdquo;을 만들지만,<br><span>한 회사는 8억 명의 소비자에게 팔고</span><br><span>다른 회사는 30만 개 기업에게 판다.</span><br>이 선택이 만든 구조적 차이를 EP.01에서 본다.</p>
+  </div>
+
+</div><!-- /content-wrap -->
+
+<footer>
+  <span>이야기로 읽는 회사 &mdash; EP.00 AI 산업 입문</span>
+  <span>MCWS &middot; Stories of Business</span>
+  <span>다음: EP.00.5 리더십 레이어 &mdash; Sam Altman vs Dario Amodei</span>
+</footer>
+
 </body>
 </html>
